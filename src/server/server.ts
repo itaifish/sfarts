@@ -43,6 +43,13 @@ class Server {
                     : LoginMessageResponseType.PASSWORD_INCORRECT;
                 socket.emit(MessageEnum.LOGIN, status);
             });
+            socket.on(MessageEnum.DISCONNECT, (reason: string) => {
+                console.log(`Client disconnected with reason ${reason}`);
+                this.userManager.userDisconnected(socket.id);
+            });
+            socket.on(MessageEnum.ERROR, (error: unknown) => {
+                console.log(`Error: ${JSON.stringify(error)}`);
+            });
         });
 
         this.httpServer.listen(this.port, () => {
