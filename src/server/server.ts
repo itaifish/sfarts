@@ -1,8 +1,7 @@
 import express from "express";
 import socketio from "socket.io";
-import socketioClient from "socket.io-client";
 import http from "http";
-import Constants from "./config/constants";
+import Constants from "../shared/config/constants";
 import MessageEnum from "../shared/communication/messageEnum";
 import {
     LoginMessageRequest,
@@ -31,7 +30,7 @@ class Server {
         this.userManager = new UserManager();
     }
 
-    listen() {
+    listen(): void {
         this.io.on("connection", (socket: socketio.EngineSocket) => {
             console.log("Client connected");
             socket.on(MessageEnum.LOGIN, (msg: LoginMessageRequest) => {
@@ -41,7 +40,10 @@ class Server {
                     : userResult === null
                     ? LoginMessageResponseType.USER_NOT_EXIST
                     : LoginMessageResponseType.PASSWORD_INCORRECT;
-                socket.emit(MessageEnum.LOGIN, status);
+                const responseMessage: LoginMessageResponse = {
+                    status: status,
+                };
+                socket.emit(MessageEnum.LOGIN, responseMessage);
             });
             socket.on(MessageEnum.DISCONNECT, (reason: string) => {
                 console.log(`Client disconnected with reason ${reason}`);
@@ -64,9 +66,3 @@ const runServer = () => {
 };
 
 runServer();
-
-// Connect as client - to be removed later
-setTimeout(() => {
-    const skt = socketioClient("http://localhost:9911");
-    skt.emit("msg", "test");
-}, 2000);
