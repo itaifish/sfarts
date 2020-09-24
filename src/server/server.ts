@@ -12,7 +12,7 @@ import UserManager from "./manager/userManager";
 
 class Server {
     // Server Variables
-    app;
+    app: express.Express;
     port: string | number;
     httpServer: http.Server;
     io: socketio.Server;
