@@ -1,3 +1,4 @@
+import DatabaseReader from "../database/databaseReader";
 import socketio from "socket.io";
 
 export interface User {
@@ -36,7 +37,20 @@ export default class UserManager {
         this.userIdMap = {};
         this.userTokenMap = {};
         this.usernamesMap = {};
+        this.loadUsers();
     }
+
+    /**
+     * This function loads the users from the database
+     */
+    loadUsers(): void {
+        const reader: DatabaseReader = new DatabaseReader();
+        reader.loadUsers().forEach((user) => {
+            this.userIdMap[user.id] = user;
+            this.usernamesMap[user.username] = user;
+        });
+    }
+
     /**
      * This function creates a user and returns true if successful, false if user is not unique
      * @param user The user to create

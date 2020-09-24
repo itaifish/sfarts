@@ -12,8 +12,6 @@ class Client {
 
     socket: SocketIOClient.Socket;
 
-    lastLoginAttempt: Promise<LoginMessageResponse>;
-
     constructor() {
         this.loginStatus = null;
         this.socket = socketio(Constants.URL);
@@ -21,7 +19,7 @@ class Client {
 
     listen(): void {
         this.socket.on(MessageEnum.CONNECT, () => {
-            console.log(`Socket has connected (${this.socket.connected}`);
+            console.log(`Socket has connected (${this.socket.connected})`);
         });
         this.socket.on(MessageEnum.DISCONNECT, () => {
             this.loginStatus = null;
@@ -45,7 +43,8 @@ class Client {
 const startClient = () => {
     const client: Client = new Client();
     client.listen();
-    client.sendLoginAttempt("Username", "Password");
+    client.sendLoginAttempt("Fisherswamp", "1234");
+    client.sendLoginAttempt("Redstreak4", "4567");
 };
 
 startClient();
