@@ -8,6 +8,7 @@
 		"sourceMap": true,
 		"outDir": "dist",
 		"baseUrl": ".",
+		"types": ["jest", "node"],
 		"paths": {
 			"*": [
 				"node_modules/",
@@ -16,6 +17,7 @@
 		},
 	},
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"tests/**/*"
 	]
   }
