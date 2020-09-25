@@ -44,9 +44,9 @@ export default class Lobby {
             if (Object.keys(team).length < this.settings.maxPlayersPerTeam) {
                 team[player.id] = player;
                 player.status = UserStatus.IN_LOBBY;
+                this.players.push(player.id);
             }
         }
-        this.players.push(player.id);
     }
     /**
      * This function removes a player from the lobby
