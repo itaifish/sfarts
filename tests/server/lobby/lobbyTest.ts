@@ -11,7 +11,6 @@ describe("lobby", () => {
             lobbyName: "testLobby",
             mapId: "111111111111111",
         };
-        const lobby: Lobby = new Lobby(settings);
         const user1: User = {
             username: "test",
             password: "test",
@@ -30,7 +29,7 @@ describe("lobby", () => {
             status: UserStatus.ONLINE,
             id: 2,
         };
-        lobby.playerJoinTeam(user1, 0);
+        const lobby: Lobby = new Lobby(user1, settings);
         expect(JSON.stringify(lobby.playerTeamMap)).toBe(
             JSON.stringify({
                 "0": {
@@ -39,6 +38,8 @@ describe("lobby", () => {
                 "1": {},
             }),
         );
+        expect(lobby.lobbyLeader).toBe(0);
+        expect(lobby.players.length).toBe(1);
         expect(user1.status).toBe(UserStatus.IN_LOBBY);
         lobby.playerJoinTeam(user2, 1);
         expect(JSON.stringify(lobby.playerTeamMap)).toBe(
@@ -51,6 +52,8 @@ describe("lobby", () => {
                 },
             }),
         );
+        expect(lobby.lobbyLeader).toBe(0);
+        expect(lobby.players.length).toBe(2);
         lobby.playerLeaveLobby(user1);
         expect(JSON.stringify(lobby.playerTeamMap)).toBe(
             JSON.stringify({
@@ -61,6 +64,8 @@ describe("lobby", () => {
             }),
         );
         expect(user1.status).toBe(UserStatus.ONLINE);
+        expect(lobby.lobbyLeader).toBe(1);
+        expect(lobby.players.length).toBe(1);
         lobby.playerJoinTeam(user1, 1);
         expect(JSON.stringify(lobby.playerTeamMap)).toBe(
             JSON.stringify({
@@ -72,6 +77,8 @@ describe("lobby", () => {
             }),
         );
         expect(user1.status).toBe(UserStatus.IN_LOBBY);
+        expect(lobby.lobbyLeader).toBe(1);
+        expect(lobby.players.length).toBe(2);
         lobby.playerJoinTeam(user3, 1);
         // this should fail as team is full
         expect(JSON.stringify(lobby.playerTeamMap)).toBe(
@@ -84,5 +91,7 @@ describe("lobby", () => {
             }),
         );
         expect(user3.status).toBe(UserStatus.ONLINE);
+        expect(lobby.lobbyLeader).toBe(1);
+        expect(lobby.players.length).toBe(2);
     });
 });

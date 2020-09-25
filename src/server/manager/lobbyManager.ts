@@ -11,5 +11,5 @@ export default class LobbyManger {
         this.lobbyMap = {};
     }
 
-    createLobby(settings: LobbySettings): void {}
+    userCreateLobby(user: User, settings: LobbySettings): void {}
 }
