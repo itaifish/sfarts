@@ -14,7 +14,8 @@
     "express": "^4.17.1",
     "prettier": "^2.1.2",
     "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0"
+    "socket.io-client": "^2.3.0",
+    "uuid4": "^2.0.2"
   },
   "main": "index.js",
   "devDependencies": {

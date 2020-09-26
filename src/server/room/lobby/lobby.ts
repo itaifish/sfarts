@@ -1,7 +1,8 @@
-import { User, UserStatus } from "../manager/userManager";
+import { User, UserStatus } from "../../manager/userManager";
+import Room from "../room";
 import LobbySettings from "./lobbySettings";
 
-export default class Lobby {
+export default class Lobby implements Room {
     settings: LobbySettings;
     id: string;
     lobbyLeader: number;
@@ -12,23 +13,28 @@ export default class Lobby {
         };
     };
 
-    constructor(initialPlayer: User, settings: LobbySettings) {
+    constructor(id: string, initialPlayer: User, settings: LobbySettings) {
         this.settings = settings;
         this.players = [];
         this.playerTeamMap = {};
+        this.id = id;
         for (let i = 0; i < settings.numTeams; i++) {
             this.playerTeamMap[i] = {};
         }
         this.playerJoinTeam(initialPlayer, 0);
         this.lobbyLeader = initialPlayer.id;
     }
+    getRoomName(): string {
+        return this.settings.lobbyName;
+    }
 
     /**
      * This function has a player join a lobby by joining one of the teams in the lobby
      * @param player User object for the player joining
      * @param teamId ID of the team to join
+     * @returns whether or not the player was able to join
      */
-    playerJoinTeam(player: User, teamId: number): void {
+    playerJoinTeam(player: User, teamId: number): boolean {
         // Have player leave before rejoining to prevent the same player in more than one slot
         // Save the lobby leader since having a player leave a lobby for real resets the lobby leader
         let lobbyLeaderSave = null;
@@ -45,8 +51,10 @@ export default class Lobby {
                 team[player.id] = player;
                 player.status = UserStatus.IN_LOBBY;
                 this.players.push(player.id);
+                return true;
             }
         }
+        return false;
     }
     /**
      * This function removes a player from the lobby
