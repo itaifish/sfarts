@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="button.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4324">
+      <stop
+         style="stop-color:#1ebad0;stop-opacity:1;"
+         offset="0"
+         id="stop4326" />
+      <stop
+         style="stop-color:#1ebad0;stop-opacity:0;"
+         offset="1"
+         id="stop4328" />
+    </linearGradient>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter4299-0"
+       x="-0.020655556"
+       width="1.0413111"
+       y="-0.063737139"
+       height="1.1274743">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.7160889"
+         id="feGaussianBlur4301-8" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter4299"
+       x="-0.020655556"
+       width="1.0413111"
+       y="-0.063737139"
+       height="1.1274743">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.7160889"
+         id="feGaussianBlur4301" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4324"
+       id="radialGradient4370"
+       cx="655.87842"
+       cy="514.55194"
+       fx="655.87842"
+       fy="514.55194"
+       r="103.81608"
+       gradientTransform="matrix(0.01190803,0.93245568,-1.3629625,0.02426773,1318.4232,-12.266039)"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#010012"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.5319853"
+     inkscape:cx="334.05092"
+     inkscape:cy="607.28044"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="opacity:0.36100003;fill:url(#radialGradient4370);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter4299-0)"
+       d="m 522.4886,577.87608 199.39493,0 0,64.61874 -197.88031,-0.11658 z"
+       id="path4261-4"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       transform="matrix(0.95562032,0,0,0.80931761,-205.01501,-87.658945)" />
+    <path
+       style="opacity:0.86100003;fill:none;fill-rule:evenodd;stroke:#7eefff;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter4299)"
+       d="m 521.56548,555.72109 199.39494,0 0,64.61874 -198.56337,0.68996 z"
+       id="path4261"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccc"
+       transform="matrix(0.95562032,0,0,0.80931761,-203.94401,-69.840515)" />
+  </g>
+</svg>

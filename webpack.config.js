@@ -1,4 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+/* eslint-disable @typescript-eslint/no-var-requires */
+const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -10,6 +12,14 @@ module.exports = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                loader: "file-loader",
+                query: {
+                    name: "[name].[ext]",
+                    outputPath: "./assets",
+                },
+            },
         ],
     },
     resolve: {
@@ -19,4 +29,16 @@ module.exports = {
         filename: "bundle.js",
         path: path.resolve(__dirname, "dist/bundle/"),
     },
+    plugins: [
+        new HtmlWebpackPlugin(),
+        new BrowserSyncPlugin({
+            // browse to http://localhost:3000/ during development,
+            // ./public directory is being served
+            host: "localhost",
+            port: 3000,
+            server: {
+                baseDir: ["dist/bundle/"],
+            },
+        }),
+    ],
 };
