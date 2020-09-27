@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import Button from "../../../client/resources/images/button.svg";
-import Background from "../../../client/resources/images/login_background.svg";
+import Background from "../../../client/resources/images/background.png";
 
 enum ImageKeys {
     BUTTON = "button",
@@ -17,12 +17,12 @@ export default class LoginScreen extends Phaser.Scene {
 
     preload(): void {
         this.load.svg(ImageKeys.BUTTON, Button);
-        this.load.svg(ImageKeys.BACKGROUND, Background);
+        this.load.image(ImageKeys.BACKGROUND, Background);
     }
 
     create(): void {
-        this.add.image(0, 0, ImageKeys.BACKGROUND);
-        this.add.image(300, 300, ImageKeys.BUTTON);
+        this.add.image(800, 450, ImageKeys.BACKGROUND);
+        this.add.image(800, 540, ImageKeys.BUTTON);
     }
 
     static getSceneName(): string {
