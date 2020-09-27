@@ -7,7 +7,7 @@ import {
     LoginMessageResponseType,
 } from "../shared/communication/messageInterfaces/loginMessage";
 
-class Client {
+export default class Client {
     loginStatus: LoginMessageResponseType | null;
 
     socket: SocketIOClient.Socket;
@@ -39,12 +39,3 @@ class Client {
         this.socket.emit(MessageEnum.LOGIN, loginData);
     }
 }
-
-const startClient = () => {
-    const client: Client = new Client();
-    client.listen();
-    client.sendLoginAttempt("Fisherswamp", "1234");
-    client.sendLoginAttempt("Redstreak4", "4567");
-};
-
-startClient();
