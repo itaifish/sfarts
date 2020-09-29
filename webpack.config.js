@@ -22,11 +22,12 @@ module.exports = {
             },
         ],
     },
+    devtool: "eval-source-map",
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
     output: {
-        filename: "bundle.js",
+        filename: "[name].[hash].bundle.js",
         path: path.resolve(__dirname, "dist/bundle/"),
     },
     plugins: [

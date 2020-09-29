@@ -1,10 +1,9 @@
 import Phaser from "phaser";
-import BBCodeText from "phaser3-rex-plugins/plugins/bbcodetext";
 import Button from "../../../client/resources/images/button.svg";
 import Background from "../../../client/resources/images/background.png";
-import EditableText from "../gui/editableText";
+import InputButton from "../gui/inputButton";
 
-enum ImageKeys {
+export enum ImageKeys {
     BUTTON = "button",
     BACKGROUND = "background",
 }
@@ -23,12 +22,9 @@ export default class LoginScreen extends Phaser.Scene {
     }
 
     create(): void {
-        // this.add.image(800, 450, ImageKeys.BACKGROUND);
-        this.add.image(800, 540, ImageKeys.BUTTON);
-        //const text = new BBCodeText(this, 800, 540, "Username");
-        //console.log(`BBCode Text Object: ${JSON.stringify(text)}`);
-        const text: any = new EditableText(this, 800, 540, "Username");
-        this.add.existing(text);
+        this.add.image(800, 450, ImageKeys.BACKGROUND);
+        new InputButton(this, 800, 540, "Username", "text");
+        new InputButton(this, 800, 740, "Password", "password");
     }
 
     static getSceneName(): string {
