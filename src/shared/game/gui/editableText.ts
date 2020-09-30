@@ -14,11 +14,11 @@ export default class EditableText extends BBCodeText {
         this.inputType = inputType;
         const meInScene = scene.add.existing(this);
         this.on("pointerdown", () => {
-            //debugger;
             if (this.innerText == "") {
-                this.text = "";
+                this.text = "\n";
             }
-            new TextEdit(scene.plugins).edit(meInScene, this.getDefaultConfig(), () => {});
+            debugger;
+            new TextEdit(scene.plugins).edit(meInScene, this.getDefaultConfig(), (textObject: EditableText) => {});
         });
     }
 
@@ -28,11 +28,12 @@ export default class EditableText extends BBCodeText {
             text: this.text,
             onTextChanged: (textObject: EditableText, text: string) => {
                 this.innerText = text;
+                debugger;
                 if (text == "") {
-                    textObject.text = " ";
+                    textObject.text = "\n";
                 } else if (this.inputType == "password") {
                     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                    textObject.text = [...text].reduce((acc, currentVal) => acc + "*", "");
+                    textObject.text = [...text].reduce((acc, _currentVal) => acc + "*", "");
                 } else {
                     textObject.text = text;
                 }
