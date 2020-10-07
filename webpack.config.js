@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const path = require("path");
 
 module.exports = {
@@ -41,5 +42,6 @@ module.exports = {
                 baseDir: ["dist/bundle/"],
             },
         }),
+        new BundleAnalyzerPlugin(),
     ],
 };
