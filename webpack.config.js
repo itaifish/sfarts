@@ -44,4 +44,10 @@ module.exports = {
         }),
         new BundleAnalyzerPlugin(),
     ],
+    optimization: {
+        splitChunks: {
+            name: "vendor",
+            chunks: "all",
+        },
+    },
 };
