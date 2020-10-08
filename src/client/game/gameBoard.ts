@@ -2,13 +2,16 @@ import GameScene from "./scene/gameScene";
 import { Board } from "phaser3-rex-plugins/plugins/board-components";
 
 export default class GameBoard extends Board {
+    scene: GameScene;
+
     constructor(scene: GameScene, config: any) {
         // create board
         super(scene, config);
+        this.scene = scene;
         // draw grid
         const gridGraphics = scene.add.graphics({
             lineStyle: {
-                width: 1,
+                width: 2,
                 color: 0x007ac1,
                 alpha: 1,
             },
@@ -17,7 +20,7 @@ export default class GameBoard extends Board {
             const points = board.getGridPoints(tileXY.x, tileXY.y, true);
             gridGraphics.strokePoints(points, true);
         });
-        const size: { x: number; y: number } = this.tileXYToWorldXY(scene.width, scene.height);
+        const size: { x: number; y: number } = this.getWorldSize();
         scene.add.renderTexture(0, 0, size.x, size.y).draw(gridGraphics).setDepth(-1);
         gridGraphics.destroy();
 
@@ -28,12 +31,20 @@ export default class GameBoard extends Board {
                 alpha: 1,
             },
         });
-        this.pathTexture = scene.add.renderTexture(0, 0, 800, 600).setDepth(2);
+
+        this.pathTexture = scene.add.renderTexture(0, 0, size.x, size.y).setDepth(2);
 
         this.pathFinder = scene["rexBoard"].add.pathFinder({
             occupiedTest: true,
             pathMode: "A*",
         });
+    }
+
+    getWorldCameraOrigin(): { x: number; y: number } {
+        return this.tileXYToWorldXY(-1, -1);
+    }
+    getWorldSize(): { x: number; y: number } {
+        return this.tileXYToWorldXY(this.scene.width, this.scene.height);
     }
 
     clearPath() {
