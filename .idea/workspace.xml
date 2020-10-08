@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/utility/math.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/runnable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/runnable.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/gui/editableText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gui/editableText.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/gui/inputButton.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gui/inputButton.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/scene/gameScene.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/scene/loginScreen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/loginScreen.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +61,11 @@
     <property name="ts.external.directory.path" value="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -44,12 +75,24 @@
       <option name="presentableId" value="Default" />
       <updated>1602029718336</updated>
       <workItem from="1602029719528" duration="3201000" />
-      <workItem from="1602083177629" duration="4131000" />
+      <workItem from="1602083177629" duration="5776000" />
+      <workItem from="1602190703211" duration="3332000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="461" y="164" key="SettingsEditor" timestamp="1602030176546">

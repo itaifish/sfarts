@@ -17,7 +17,8 @@ export default class GameBoard extends Board {
             const points = board.getGridPoints(tileXY.x, tileXY.y, true);
             gridGraphics.strokePoints(points, true);
         });
-        scene.add.renderTexture(0, 0, 800, 600).draw(gridGraphics).setDepth(-1);
+        const size: { x: number; y: number } = this.tileXYToWorldXY(scene.width, scene.height);
+        scene.add.renderTexture(0, 0, size.x, size.y).draw(gridGraphics).setDepth(-1);
         gridGraphics.destroy();
 
         this.pathGraphics = scene.add.graphics({

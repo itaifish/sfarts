@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import BoardPlugin from "phaser3-rex-plugins/plugins/board-components";
 import GameScene from "./scene/gameScene";
 
 import LoginScreen from "./scene/loginScreen";
@@ -26,7 +25,7 @@ export default class TbsfartsGame extends Phaser.Game {
             },
         };
         super(config);
-        this.scene.add(GameScene.getSceneName(), new GameScene(), true);
+        this.scene.add(GameScene.getSceneName(), new GameScene(30, 30), true);
         // this.scene.add(LoginScreen.getSceneName(), new LoginScreen(), true);
     }
 }

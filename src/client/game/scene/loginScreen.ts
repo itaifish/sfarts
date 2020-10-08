@@ -1,6 +1,6 @@
 import Phaser from "phaser";
-import Button from "../../../client/resources/images/button.svg";
-import Background from "../../../client/resources/images/background.png";
+import Button from "../../resources/images/button.svg";
+import Background from "../../resources/images/background.png";
 import InputButton from "../gui/inputButton";
 
 export enum ImageKeys {
