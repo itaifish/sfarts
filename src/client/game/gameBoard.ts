@@ -24,6 +24,10 @@ export default class GameBoard extends Board {
         scene.add.renderTexture(0, 0, size.x, size.y).draw(gridGraphics).setDepth(-1);
         gridGraphics.destroy();
 
+        this.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
+            console.log(`${tileXY.x},${tileXY.y}`);
+        });
+
         this.pathGraphics = scene.add.graphics({
             lineStyle: {
                 width: 1,

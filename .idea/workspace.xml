@@ -20,9 +20,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/shared/game/gameManager.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/gameUnit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/location.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/move/moveAction.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/move/specialMove.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +60,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client" />
     </key>
   </component>
@@ -69,7 +75,9 @@
       <updated>1602029718336</updated>
       <workItem from="1602029719528" duration="3201000" />
       <workItem from="1602083177629" duration="5776000" />
-      <workItem from="1602190703211" duration="6096000" />
+      <workItem from="1602190703211" duration="7435000" />
+      <workItem from="1602300597263" duration="870000" />
+      <workItem from="1602341817505" duration="2243000" />
     </task>
     <servers />
   </component>
@@ -86,6 +94,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="461" y="164" key="SettingsEditor" timestamp="1602030176546">
