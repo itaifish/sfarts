@@ -1,7 +1,8 @@
 import Phaser from "phaser";
 import GameBoard from "../gameBoard";
 import MathUtility from "../../../shared/utility/math";
-import { Board, HexagonGrid, QuadGrid, add } from "phaser3-rex-plugins/plugins/board-components";
+import Fighter from "../../resources/images/fighter.png";
+import PhaserFighterUnit from "../units/phaserFighterUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -26,6 +27,7 @@ export default class GameScene extends Phaser.Scene {
             url: "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexboardplugin.min.js",
             sceneKey: "rexBoard",
         });
+        this.load.image("fighter", Fighter);
     }
 
     create() {
@@ -37,9 +39,13 @@ export default class GameScene extends Phaser.Scene {
         };
         this.board = new GameBoard(this, config);
         this.board.forEachTileXY((tileXY: any, board: any) => {
-            // const chess = this.rexBoard.add.shape(board, tileXY.x, tileXY.y, 0, Phaser.Math.Between(0, 0xffffff), 0.7);
-            const chess = this.board.tileXYToWorldXY(tileXY.x, tileXY.y, true);
-            this.add.text(chess.x, chess.y, `${tileXY.x},${tileXY.y}`).setOrigin(0.5).setDepth(0.3);
+            const location = { x: tileXY.x, y: tileXY.y };
+            if (Math.random() < 0.15) {
+                const unit: PhaserFighterUnit = new PhaserFighterUnit(this, location);
+                this.add.existing(unit);
+                const chess = this.board.addChess(unit, location.x, location.y, 1);
+                this.add.text(chess.x, chess.y, `${tileXY.x},${tileXY.y}`).setOrigin(0.5).setDepth(0.3);
+            }
         }, this);
 
         const cursors = this.input.keyboard.createCursorKeys();

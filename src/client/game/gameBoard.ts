@@ -1,5 +1,6 @@
 import GameScene from "./scene/gameScene";
 import { Board } from "phaser3-rex-plugins/plugins/board-components";
+import PhaserGameUnit from "./units/phaserGameUnit";
 
 export default class GameBoard extends Board {
     scene: GameScene;
@@ -26,6 +27,10 @@ export default class GameBoard extends Board {
 
         this.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
             console.log(`${tileXY.x},${tileXY.y}`);
+            const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
+            if (unit) {
+                console.log(unit);
+            }
         });
 
         this.pathGraphics = scene.add.graphics({
