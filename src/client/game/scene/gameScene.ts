@@ -43,8 +43,7 @@ export default class GameScene extends Phaser.Scene {
             if (Math.random() < 0.15) {
                 const unit: PhaserFighterUnit = new PhaserFighterUnit(this, location);
                 this.add.existing(unit);
-                const chess = this.board.addChess(unit, location.x, location.y, 1);
-                this.add.text(chess.x, chess.y, `${tileXY.x},${tileXY.y}`).setOrigin(0.5).setDepth(0.3);
+                this.board.addChess(unit, location.x, location.y, 1);
             }
         }, this);
 

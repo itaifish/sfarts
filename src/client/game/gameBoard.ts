@@ -1,15 +1,27 @@
 import GameScene from "./scene/gameScene";
 import { Board } from "phaser3-rex-plugins/plugins/board-components";
+import Location from "../../shared/game/location";
 import PhaserGameUnit from "./units/phaserGameUnit";
+import RenderTexture = Phaser.GameObjects.RenderTexture;
 
 export default class GameBoard extends Board {
     scene: GameScene;
+    selected: Location;
+    selectedRenderTexture: RenderTexture;
+    selectedFillGraphics: Phaser.GameObjects.Graphics;
 
     constructor(scene: GameScene, config: any) {
         // create board
         super(scene, config);
         this.scene = scene;
+        this.selected = null;
         // draw grid
+        this.selectedFillGraphics = scene.add.graphics({
+            fillStyle: {
+                color: 0x0071ff,
+                alpha: 0.85,
+            },
+        });
         const gridGraphics = scene.add.graphics({
             lineStyle: {
                 width: 2,
@@ -23,13 +35,14 @@ export default class GameBoard extends Board {
         });
         const size: { x: number; y: number } = this.getWorldSize();
         scene.add.renderTexture(0, 0, size.x, size.y).draw(gridGraphics).setDepth(-1);
+        this.selectedRenderTexture = scene.add.renderTexture(0, 0, size.x, size.y);
         gridGraphics.destroy();
 
         this.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
             console.log(`${tileXY.x},${tileXY.y}`);
             const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
             if (unit) {
-                console.log(unit);
+                this.setSelected(tileXY);
             }
         });
 
@@ -42,7 +55,7 @@ export default class GameBoard extends Board {
         });
 
         this.pathTexture = scene.add.renderTexture(0, 0, size.x, size.y).setDepth(2);
-
+        debugger;
         this.pathFinder = scene["rexBoard"].add.pathFinder({
             occupiedTest: true,
             pathMode: "A*",
@@ -54,6 +67,14 @@ export default class GameBoard extends Board {
     }
     getWorldSize(): { x: number; y: number } {
         return this.tileXYToWorldXY(this.scene.width, this.scene.height);
+    }
+
+    setSelected(location: Location): void {
+        this.selectedRenderTexture.clear();
+        this.selectedFillGraphics.clear();
+        this.selectedFillGraphics.fillPoints(this.getGridPoints(location.x, location.y, true), true);
+        this.selectedRenderTexture.draw(this.selectedFillGraphics);
+        this.selected = location;
     }
 
     clearPath() {
