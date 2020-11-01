@@ -8,6 +8,7 @@ export default class EditableText extends BBCodeText {
     inputType: string;
     placeholder: string;
     isPlaceHolder: boolean;
+    value: string;
 
     constructor(scene: any, x: number, y: number, placeholder: string, inputType?: any) {
         super(scene, x, y, placeholder, EditableText.getDefaultStyle(true));
@@ -28,6 +29,7 @@ export default class EditableText extends BBCodeText {
                 textObject.handleTextSubmit(textObject);
             });
         });
+        this.value = "";
     }
 
     getDefaultConfig() {
@@ -47,14 +49,18 @@ export default class EditableText extends BBCodeText {
         if (existingText == "") {
             textObject.isPlaceHolder = true;
             textObject.text = textObject.placeholder;
+            textObject.value = textObject.text;
         } else if (textObject.inputType == "password") {
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             textObject.text = [...existingText].reduce((acc, _currentVal) => acc + "•", "");
             textObject.isPlaceHolder = false;
+            textObject.value = existingText;
         } else {
             textObject.text = existingText;
             textObject.isPlaceHolder = false;
+            textObject.value = textObject.text;
         }
+
         textObject.setColor(EditableText.getDefaultStyle(textObject.isPlaceHolder).color);
     }
 

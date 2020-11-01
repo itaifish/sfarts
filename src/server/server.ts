@@ -8,7 +8,15 @@ import {
     LoginMessageResponse,
     LoginMessageResponseType,
 } from "../shared/communication/messageInterfaces/loginMessage";
+import {
+    CreateLobbyRequest,
+    GetLobbiesResponse,
+    JoinLobbyRequest,
+    LobbyResponse,
+} from "../shared/communication/messageInterfaces/lobbyMessage";
 import UserManager from "./manager/userManager";
+import LobbyManger from "./manager/lobbyManager";
+import log, { LOG_LEVEL } from "../shared/utility/logger";
 
 class Server {
     // Server Variables
@@ -18,6 +26,7 @@ class Server {
     io: socketio.Server;
     //Managers
     userManager: UserManager;
+    lobbyManager: LobbyManger;
 
     constructor() {
         this.app = express();
@@ -28,11 +37,12 @@ class Server {
         this.io = new socketio(this.httpServer);
 
         this.userManager = new UserManager();
+        this.lobbyManager = new LobbyManger();
     }
 
     listen(): void {
         this.io.on("connection", (socket: socketio.EngineSocket) => {
-            console.log("Client connected");
+            log("Client connected", this.constructor.name, LOG_LEVEL.INFO);
             socket.on(MessageEnum.LOGIN, (msg: LoginMessageRequest) => {
                 const userResult = this.userManager.loginUser(msg.username, msg.password, socket);
                 const status: LoginMessageResponseType = userResult
@@ -45,17 +55,41 @@ class Server {
                 };
                 socket.emit(MessageEnum.LOGIN, responseMessage);
             });
+            // Lobbies
+            socket.on(MessageEnum.GET_LOBBIES, () => {
+                const response: GetLobbiesResponse = { lobbies: this.lobbyManager.getLobbyList() };
+                socket.emit(MessageEnum.GET_LOBBIES, response);
+            });
+            socket.on(MessageEnum.CREATE_LOBBY, (lobbyRequest: CreateLobbyRequest) => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                const createdLobby = this.lobbyManager.userCreateLobby(user, lobbyRequest.lobbySettings);
+                // After creating a lobby respond with a list of all lobbies (Should have new lobby)
+                const response: LobbyResponse = { lobby: createdLobby };
+                socket.emit(MessageEnum.GET_LOBBIES, response);
+            });
+            socket.on(MessageEnum.JOIN_LOBBY, (joinLobbyRequest: JoinLobbyRequest) => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                const joinedLobby = this.lobbyManager.userJoinTeamInLobby(
+                    user,
+                    joinLobbyRequest.lobbyId,
+                    joinLobbyRequest.teamId,
+                );
+                // After joining a lobby respond with a list of all lobbies (Should have new lobby)
+                const response: LobbyResponse = { lobby: joinedLobby };
+                socket.emit(MessageEnum.GET_LOBBIES, response);
+            });
+            // Default behaviors
             socket.on(MessageEnum.DISCONNECT, (reason: string) => {
-                console.log(`Client disconnected with reason ${reason}`);
+                log(`Client disconnected with reason ${reason}`, this.constructor.name, LOG_LEVEL.INFO);
                 this.userManager.userDisconnected(socket.id);
             });
             socket.on(MessageEnum.ERROR, (error: unknown) => {
-                console.log(`Error: ${JSON.stringify(error)}`);
+                log(`Error: ${JSON.stringify(error)}`, this.constructor.name, LOG_LEVEL.INFO);
             });
         });
 
         this.httpServer.listen(this.port, () => {
-            console.log(`listening on *:${Constants.DEFAULT_PORT}`);
+            log(`listening on *:${Constants.DEFAULT_PORT}`, this.constructor.name, LOG_LEVEL.INFO);
         });
     }
 }

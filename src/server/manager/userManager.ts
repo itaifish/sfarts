@@ -109,6 +109,10 @@ export default class UserManager {
         return false;
     }
 
+    getUserFromSocketId(socketId: string): User {
+        return this.userTokenMap[socketId];
+    }
+
     /**
      * If a user disconnects without triggering logout functionality,
      * this function will try to look up the user by user token and then
@@ -116,7 +120,7 @@ export default class UserManager {
      * @param token socket id to log user out
      */
     userDisconnected(token: string): boolean {
-        const user = this.userTokenMap[token];
+        const user = this.getUserFromSocketId(token);
         if (user) {
             return this.logoutUser(user.username);
         } else {

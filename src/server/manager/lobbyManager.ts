@@ -13,7 +13,13 @@ export default class LobbyManger {
         this.usersToLobbyMap = {};
     }
 
+    getLobbyList(): Lobby[] {
+        return Object.keys(this.lobbyMap).map((key: string) => this.lobbyMap[key]);
+    }
+
     userCreateLobby(user: User, settings: LobbySettings): Lobby {
+        // disconnect user from any previous lobby they are in
+        this.playerDisconnects(user);
         let id;
         do {
             id = uuid4();
@@ -24,13 +30,15 @@ export default class LobbyManger {
         return newLobby;
     }
 
-    userJoinTeamInLobby(user: User, lobbyId: string, teamId: number): void {
+    userJoinTeamInLobby(user: User, lobbyId: string, teamId: number): Lobby {
         const lobby = this.lobbyMap[lobbyId];
         if (lobby) {
             if (lobby.playerJoinTeam(user, teamId)) {
                 this.usersToLobbyMap[user.id] = lobby;
+                return lobby;
             }
         }
+        return null;
     }
 
     playerDisconnects(user: User): void {

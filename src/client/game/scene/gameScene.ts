@@ -3,6 +3,7 @@ import GameBoard from "../gameBoard";
 import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
+import Client from "../../client";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -10,14 +11,16 @@ export default class GameScene extends Phaser.Scene {
     cameraController: Phaser.Cameras.Controls.SmoothedKeyControl;
     width: number;
     height: number;
+    client: Client;
 
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, client: Client) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
-            active: true,
+            active: false,
         };
         super(config);
         this.width = width;
         this.height = height;
+        this.client = client;
         this.rexBoard = null;
     }
 

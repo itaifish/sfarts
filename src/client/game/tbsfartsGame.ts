@@ -2,12 +2,15 @@ import Phaser from "phaser";
 import GameScene from "./scene/gameScene";
 
 import LoginScreen from "./scene/loginScreen";
+import Client from "../client";
 
 /**
  * Class that represents the Turn-Based Science Fiction Action Real-Time Strategy Game (tbsfarts)
  */
 export default class TbsfartsGame extends Phaser.Game {
-    constructor() {
+    client: Client;
+
+    constructor(client: Client) {
         const config: Phaser.Types.Core.GameConfig = {
             type: Phaser.AUTO,
             width: 1600,
@@ -25,7 +28,8 @@ export default class TbsfartsGame extends Phaser.Game {
             },
         };
         super(config);
-        this.scene.add(GameScene.getSceneName(), new GameScene(30, 30), true);
-        // this.scene.add(LoginScreen.getSceneName(), new LoginScreen(), true);
+        this.client = client;
+        this.scene.add(LoginScreen.getSceneName(), new LoginScreen(client), true);
+        this.scene.add(GameScene.getSceneName(), new GameScene(30, 30, client), false);
     }
 }

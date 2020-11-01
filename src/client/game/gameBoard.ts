@@ -2,6 +2,7 @@ import GameScene from "./scene/gameScene";
 import { Board } from "phaser3-rex-plugins/plugins/board-components";
 import Location from "../../shared/game/location";
 import PhaserGameUnit from "./units/phaserGameUnit";
+import log, { LOG_LEVEL } from "../../shared/utility/logger";
 import RenderTexture = Phaser.GameObjects.RenderTexture;
 
 export default class GameBoard extends Board {
@@ -39,7 +40,7 @@ export default class GameBoard extends Board {
         gridGraphics.destroy();
 
         this.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
-            console.log(`${tileXY.x},${tileXY.y}`);
+            log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
             const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
             if (unit) {
                 this.setSelected(tileXY);
@@ -55,7 +56,6 @@ export default class GameBoard extends Board {
         });
 
         this.pathTexture = scene.add.renderTexture(0, 0, size.x, size.y).setDepth(2);
-        debugger;
         this.pathFinder = scene["rexBoard"].add.pathFinder({
             occupiedTest: true,
             pathMode: "A*",

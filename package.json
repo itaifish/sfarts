@@ -40,7 +40,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "lint": "eslint . --ext .ts --fix",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "server": "tsc && node ./dist/src/server/server.js"
   },
   "author": "",
   "license": "ISC"

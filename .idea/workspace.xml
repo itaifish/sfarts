@@ -20,9 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/client/game/scene/lobbyScene.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/lobbyMessage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/utility/logger.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/gui/editableText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gui/editableText.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/gui/inputButton.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gui/inputButton.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/scene/loginScreen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/loginScreen.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/runnable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/runnable.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/manager/userManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/userManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +55,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/client/game/scene" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -55,6 +69,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
@@ -76,6 +93,13 @@
       <workItem from="1602300597263" duration="870000" />
       <workItem from="1602341817505" duration="9563000" />
       <workItem from="1602517203192" duration="5530000" />
+      <workItem from="1602607854174" duration="1853000" />
+      <workItem from="1602697667627" duration="181000" />
+      <workItem from="1602957219984" duration="1609000" />
+      <workItem from="1603294368594" duration="1861000" />
+      <workItem from="1604084432542" duration="6712000" />
+      <workItem from="1604114590058" duration="828000" />
+      <workItem from="1604158148160" duration="9272000" />
     </task>
     <servers />
   </component>
@@ -95,13 +119,21 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="2340" y="311" key="FileChooserDialogImpl" timestamp="1603294388936">
+      <screen x="1920" y="65" width="1280" height="984" />
+    </state>
+    <state x="2340" y="311" key="FileChooserDialogImpl/1920.65.1280.984/0.0.1920.1040@1920.65.1280.984" timestamp="1603294388936" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1602030176546">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1602030176546" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1602377747621">
+    <state x="667" y="119" width="585" height="801" key="find.popup" timestamp="1604216159520">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1602377747621" />
+    <state x="667" y="119" width="585" height="801" key="find.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1604216159520" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1604159454414">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1604159454414" />
   </component>
 </project>
