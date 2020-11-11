@@ -20,14 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/frontend/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/login/LoginForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +89,8 @@
       <workItem from="1604158148160" duration="9272000" />
       <workItem from="1604246553422" duration="3208000" />
       <workItem from="1604768640094" duration="1558000" />
-      <workItem from="1605024151773" duration="3600000" />
+      <workItem from="1605024151773" duration="5089000" />
+      <workItem from="1605120881924" duration="1488000" />
     </task>
     <servers />
   </component>
