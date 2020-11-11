@@ -5,12 +5,12 @@ const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPl
 const path = require("path");
 
 module.exports = {
-    entry: "./src/client/runnable.ts",
+    entry: "./src/frontend/index.tsx",
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: "ts-loader",
+                use: ["babel-loader"],
                 exclude: /node_modules/,
             },
             {
@@ -21,6 +21,10 @@ module.exports = {
                     outputPath: "./assets",
                 },
             },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
+            },
         ],
     },
     devtool: "eval-source-map",
@@ -28,19 +32,12 @@ module.exports = {
         extensions: [".tsx", ".ts", ".js"],
     },
     output: {
-        filename: "[name].[hash].bundle.js",
+        filename: "bundle.js",
         path: path.resolve(__dirname, "dist/bundle/"),
     },
     plugins: [
-        new HtmlWebpackPlugin(),
-        new BrowserSyncPlugin({
-            // browse to http://localhost:3000/ during development,
-            // ./public directory is being served
-            host: "localhost",
-            port: 3000,
-            server: {
-                baseDir: ["dist/bundle/"],
-            },
+        new HtmlWebpackPlugin({
+            template: "./src/frontend/index.html",
         }),
         new BundleAnalyzerPlugin(),
     ],

@@ -16,7 +16,8 @@
 				"src/types/*"
 			]
 		},
-	},
+      "jsx": "react"
+    },
 	"include": [
 		"src/**/*",
 		"tests/**/*"

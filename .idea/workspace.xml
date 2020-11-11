@@ -20,23 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/client/game/scene/lobbyScene.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/lobbyMessage.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/utility/logger.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/gui/editableText.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gui/editableText.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/gui/inputButton.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gui/inputButton.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/scene/loginScreen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/loginScreen.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/runnable.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/runnable.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/userManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/userManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +46,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/client/game/scene" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../comp426-cli/a09" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -69,14 +60,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\frontend" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -100,6 +92,9 @@
       <workItem from="1604084432542" duration="6712000" />
       <workItem from="1604114590058" duration="828000" />
       <workItem from="1604158148160" duration="9272000" />
+      <workItem from="1604246553422" duration="3208000" />
+      <workItem from="1604768640094" duration="1558000" />
+      <workItem from="1605024151773" duration="3600000" />
     </task>
     <servers />
   </component>
@@ -119,9 +114,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2340" y="311" key="FileChooserDialogImpl" timestamp="1603294388936">
-      <screen x="1920" y="65" width="1280" height="984" />
+    <state x="630" y="260" key="FileChooserDialogImpl" timestamp="1604768999757">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="630" y="260" key="FileChooserDialogImpl/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1604768999757" />
     <state x="2340" y="311" key="FileChooserDialogImpl/1920.65.1280.984/0.0.1920.1040@1920.65.1280.984" timestamp="1603294388936" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1602030176546">
       <screen x="0" y="0" width="1920" height="1040" />
