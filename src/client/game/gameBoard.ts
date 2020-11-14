@@ -3,12 +3,11 @@ import { Board } from "phaser3-rex-plugins/plugins/board-components";
 import Location from "../../shared/game/location";
 import PhaserGameUnit from "./units/phaserGameUnit";
 import log, { LOG_LEVEL } from "../../shared/utility/logger";
-import RenderTexture = Phaser.GameObjects.RenderTexture;
 
 export default class GameBoard extends Board {
     scene: GameScene;
     selected: Location;
-    selectedRenderTexture: RenderTexture;
+    selectedRenderTexture: Phaser.GameObjects.RenderTexture;
     selectedFillGraphics: Phaser.GameObjects.Graphics;
 
     constructor(scene: GameScene, config: any) {

@@ -4,6 +4,7 @@ import "../../node_modules/bootstrap/dist/css/bootstrap.css";
 import LoginForm from "./login/LoginForm";
 import MessageEnum from "../shared/communication/messageEnum";
 import { LoginMessageResponseType } from "../shared/communication/messageInterfaces/loginMessage";
+import TbsfartsGame from "../client/game/tbsfartsGame";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FrontendAppComponentProps {}
@@ -33,6 +34,7 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
             if (client.loginStatus == LoginMessageResponseType.SUCCESS) {
                 this.setState({ username: username, errorMessage: null });
                 console.log("login successful");
+                const game = new TbsfartsGame(client);
             } else {
                 this.setState({ errorMessage: "Username or password is incorrect" });
             }
@@ -42,14 +44,14 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
 
     render() {
         const loginJSX = (
-            <div className="col text-center">
+            <div className="col-6 text-center">
                 <LoginForm sendLoginRequestFunc={this.handleLoginButton} />
                 {this.state.errorMessage ? <div style={{ color: "red" }}>{this.state.errorMessage}</div> : <></>}
             </div>
         );
         return (
             <div className="container-fluid">
-                <div className="row">{loginJSX}</div>
+                <div className="row justify-content-center">{loginJSX}</div>
             </div>
         );
     }

@@ -29,7 +29,7 @@ export default class TbsfartsGame extends Phaser.Game {
         };
         super(config);
         this.client = client;
-        this.scene.add(LoginScreen.getSceneName(), new LoginScreen(client), true);
-        this.scene.add(GameScene.getSceneName(), new GameScene(30, 30, client), false);
+        this.scene.add(GameScene.getSceneName(), new GameScene(30, 30, client), true);
+        // this.scene.add(LoginScreen.getSceneName(), new LoginScreen(client), false);
     }
 }

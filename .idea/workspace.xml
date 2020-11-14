@@ -20,8 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/frontend/login/LoginForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -90,7 +92,10 @@
       <workItem from="1604246553422" duration="3208000" />
       <workItem from="1604768640094" duration="1558000" />
       <workItem from="1605024151773" duration="5089000" />
-      <workItem from="1605120881924" duration="1488000" />
+      <workItem from="1605120881924" duration="2193000" />
+      <workItem from="1605194514203" duration="65000" />
+      <workItem from="1605206890899" duration="640000" />
+      <workItem from="1605287569004" duration="825000" />
     </task>
     <servers />
   </component>
