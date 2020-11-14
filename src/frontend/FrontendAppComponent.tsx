@@ -13,6 +13,7 @@ export interface FrontendAppComponentState {
     client: Client;
     username: string;
     errorMessage: string;
+    game: TbsfartsGame;
 }
 
 class FrontendAppComponent extends React.Component<FrontendAppComponentProps, FrontendAppComponentState> {
@@ -22,27 +23,32 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
             client: new Client(),
             username: null,
             errorMessage: null,
+            game: null,
         };
         this.state.client.listen();
 
         this.handleLoginButton = this.handleLoginButton.bind(this);
     }
 
-    handleLoginButton(username: string, password: string) {
-        const client = this.state.client;
-        client.addOnServerMessageCallback(MessageEnum.LOGIN, () => {
-            if (client.loginStatus == LoginMessageResponseType.SUCCESS) {
-                this.setState({ username: username, errorMessage: null });
-                console.log("login successful");
-                const game = new TbsfartsGame(client);
-            } else {
-                this.setState({ errorMessage: "Username or password is incorrect" });
-            }
-        });
-        client.sendLoginAttempt(username, password);
+    handleLoginButton(username: string, password: string): void {
+        if (!this.state.game) {
+            const client = this.state.client;
+            client.addOnServerMessageCallback(MessageEnum.LOGIN, () => {
+                if (client.loginStatus == LoginMessageResponseType.SUCCESS) {
+                    this.setState({ username: username, errorMessage: null });
+                    console.log("login successful");
+                    this.setState({
+                        game: new TbsfartsGame(client),
+                    });
+                } else {
+                    this.setState({ errorMessage: "Username or password is incorrect" });
+                }
+            });
+            client.sendLoginAttempt(username, password);
+        }
     }
 
-    render() {
+    render(): JSX.Element {
         const loginJSX = (
             <div className="col-6 text-center">
                 <LoginForm sendLoginRequestFunc={this.handleLoginButton} />
