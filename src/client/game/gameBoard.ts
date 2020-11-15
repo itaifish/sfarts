@@ -6,15 +6,18 @@ import log, { LOG_LEVEL } from "../../shared/utility/logger";
 
 export default class GameBoard extends Board {
     scene: GameScene;
-    selected: Location;
+    selected: [Location, PhaserGameUnit];
     selectedRenderTexture: Phaser.GameObjects.RenderTexture;
     selectedFillGraphics: Phaser.GameObjects.Graphics;
+    state: ActionState;
+    selectedPath: any[];
 
     constructor(scene: GameScene, config: any) {
         // create board
         super(scene, config);
         this.scene = scene;
         this.selected = null;
+        this.state = ActionState.IDLE;
         // draw grid
         this.selectedFillGraphics = scene.add.graphics({
             fillStyle: {
@@ -38,14 +41,32 @@ export default class GameBoard extends Board {
         this.selectedRenderTexture = scene.add.renderTexture(0, 0, size.x, size.y);
         gridGraphics.destroy();
 
-        this.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
-            log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
-            const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
-            if (unit) {
-                this.setSelected(tileXY);
+        this.setInteractive()
+            .on("tiledown", (pointer: any, tileXY: any) => {
+                log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
+                const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
+                if (unit) {
+                    if (this.state === ActionState.IDLE) {
+                        this.setSelected(tileXY, unit);
+                    }
+                }
+            })
+            .on("tilemove", (pointer: any, tileXY: any) => {
+                if (this.state == ActionState.SELECTED) {
+                    this.selectedPath.length = 1;
+                    this.drawPath(this.getPath(this.selected[1], tileXY, this.selectedPath));
+                }
+            });
+        this.scene.input.on("pointerup", (pointer: any, tileXY: any) => {
+            if (this.state == ActionState.SELECTED) {
+                this.selected[1]
+                    .once("move.complete", () => {
+                        this.clearPath();
+                        this.state = ActionState.IDLE;
+                    })
+                    .moveAlongPath(this.selectedPath);
             }
         });
-
         this.pathGraphics = scene.add.graphics({
             lineStyle: {
                 width: 1,
@@ -68,12 +89,14 @@ export default class GameBoard extends Board {
         return this.tileXYToWorldXY(this.scene.width, this.scene.height);
     }
 
-    setSelected(location: Location): void {
+    setSelected(location: Location, unit: PhaserGameUnit): void {
         this.selectedRenderTexture.clear();
         this.selectedFillGraphics.clear();
         this.selectedFillGraphics.fillPoints(this.getGridPoints(location.x, location.y, true), true);
         this.selectedRenderTexture.draw(this.selectedFillGraphics);
-        this.selected = location;
+        this.selected = [location, unit];
+        this.state = ActionState.SELECTED;
+        this.selectedPath = [this.chessToTileXYZ(unit)];
     }
 
     clearPath() {
@@ -91,4 +114,9 @@ export default class GameBoard extends Board {
     getPath(chess: any, endTileXY: any, out: any) {
         return this.pathFinder.setChess(chess).findPath(endTileXY, undefined, false, out);
     }
+}
+
+enum ActionState {
+    IDLE = "idle",
+    SELECTED = "selected",
 }
