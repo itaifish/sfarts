@@ -32,6 +32,7 @@ export default class GameBoard extends Board {
                 alpha: 1,
             },
         });
+
         this.forEachTileXY(function (tileXY: any, board: any) {
             const points = board.getGridPoints(tileXY.x, tileXY.y, true);
             gridGraphics.strokePoints(points, true);
@@ -54,7 +55,10 @@ export default class GameBoard extends Board {
             .on("tilemove", (pointer: any, tileXY: any) => {
                 if (this.state == ActionState.SELECTED) {
                     this.selectedPath.length = 1;
-                    this.drawPath(this.getPath(this.selected[1], tileXY, this.selectedPath));
+                    const distanceBetween = this.getDistance(this.selected[0], tileXY);
+                    if (distanceBetween <= this.selected[1].gameUnit.unitStats.moveSpeed) {
+                        this.drawPath(this.getPath(this.selected[1], tileXY, this.selectedPath));
+                    }
                 }
             });
         this.scene.input.on("pointerup", (pointer: any, tileXY: any) => {
@@ -99,7 +103,7 @@ export default class GameBoard extends Board {
         if (unit) {
             this.selectedFillGraphics.fillPoints(this.getGridPoints(location.x, location.y, true), true);
             this.selectedRenderTexture.draw(this.selectedFillGraphics);
-            this.selected = [location, unit];
+            this.selected = [{ x: location.x, y: location.y }, unit];
             this.state = ActionState.SELECTED;
             this.selectedPath = [this.chessToTileXYZ(unit)];
         }
