@@ -20,11 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/units/phaserFighterUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/units/phaserFighterUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/units/phaserGameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/units/phaserGameUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/resources/images/fighter.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/resources/images/fighter.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/rex-plugins.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/rex-plugins.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,15 +63,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\frontend" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -96,6 +102,9 @@
       <workItem from="1605194514203" duration="65000" />
       <workItem from="1605206890899" duration="640000" />
       <workItem from="1605287569004" duration="825000" />
+      <workItem from="1605392919737" duration="2081000" />
+      <workItem from="1605458740233" duration="1282000" />
+      <workItem from="1605541118765" duration="5346000" />
     </task>
     <servers />
   </component>
@@ -124,6 +133,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1602030176546" />
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1605544985533">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605544985533" />
     <state x="667" y="119" width="585" height="801" key="find.popup" timestamp="1604216159520">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

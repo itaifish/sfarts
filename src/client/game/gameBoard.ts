@@ -63,10 +63,14 @@ export default class GameBoard extends Board {
                     .once("move.complete", () => {
                         this.clearPath();
                         this.state = ActionState.IDLE;
+                        //Unset selection
+                        this.setSelected({ x: 0, y: 0 }, null);
                     })
                     .moveAlongPath(this.selectedPath);
+                this.state = ActionState.MOVING;
             }
         });
+
         this.pathGraphics = scene.add.graphics({
             lineStyle: {
                 width: 1,
@@ -92,11 +96,13 @@ export default class GameBoard extends Board {
     setSelected(location: Location, unit: PhaserGameUnit): void {
         this.selectedRenderTexture.clear();
         this.selectedFillGraphics.clear();
-        this.selectedFillGraphics.fillPoints(this.getGridPoints(location.x, location.y, true), true);
-        this.selectedRenderTexture.draw(this.selectedFillGraphics);
-        this.selected = [location, unit];
-        this.state = ActionState.SELECTED;
-        this.selectedPath = [this.chessToTileXYZ(unit)];
+        if (unit) {
+            this.selectedFillGraphics.fillPoints(this.getGridPoints(location.x, location.y, true), true);
+            this.selectedRenderTexture.draw(this.selectedFillGraphics);
+            this.selected = [location, unit];
+            this.state = ActionState.SELECTED;
+            this.selectedPath = [this.chessToTileXYZ(unit)];
+        }
     }
 
     clearPath() {
@@ -119,4 +125,5 @@ export default class GameBoard extends Board {
 enum ActionState {
     IDLE = "idle",
     SELECTED = "selected",
+    MOVING = "moving",
 }

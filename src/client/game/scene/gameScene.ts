@@ -45,6 +45,8 @@ export default class GameScene extends Phaser.Scene {
             const location = { x: tileXY.x, y: tileXY.y };
             if (Math.random() < 0.15) {
                 const unit: PhaserFighterUnit = new PhaserFighterUnit(this, location);
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 this.add.existing(unit);
                 this.board.addChess(unit, location.x, location.y, 1);
             }

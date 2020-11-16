@@ -1,16 +1,17 @@
 import Phaser from "phaser";
 import GameScene from "../scene/gameScene";
+import CreateChessData from "phaser3-rex-plugins/plugins/board/chess/GetChessData.js";
 
-export default class PhaserGameUnit extends Phaser.GameObjects.Sprite {
+export default class PhaserGameUnit extends Phaser.GameObjects.Image {
     moveTo: any;
-    pathFinder: any;
 
     constructor(scene: GameScene, x: number, y: number, texture: string | Phaser.Textures.Texture) {
+        //super(scene.board, x, y, 0, 0x007ac1);
         super(scene, x, y, texture);
-        this.moveTo = scene["rexBoard"].add.moveTo(this);
-        this.pathFinder = scene["rexBoard"].add.pathFinder(this, {
-            occupiedTest: true,
-            pathMode: "A*",
+        CreateChessData(this);
+        this.moveTo = scene["rexBoard"].add.moveTo(this, {
+            rotateToTarget: true,
+            speed: 700,
         });
     }
 
