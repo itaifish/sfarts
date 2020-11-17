@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import GameScene from "../scene/gameScene";
-import CreateChessData from "phaser3-rex-plugins/plugins/board/chess/GetChessData.js";
 import GameUnit from "../../../shared/game/units/gameUnit";
 
 export default class PhaserGameUnit extends Phaser.GameObjects.Image {
@@ -10,7 +9,8 @@ export default class PhaserGameUnit extends Phaser.GameObjects.Image {
     constructor(scene: GameScene, x: number, y: number, texture: string | Phaser.Textures.Texture, gameUnit: GameUnit) {
         super(scene, x, y, texture);
         this.gameUnit = gameUnit;
-        CreateChessData(this);
+        scene.add.existing(this);
+        scene.board.addChess(this, x, y, 1);
         this.moveTo = scene["rexBoard"].add.moveTo(this, {
             rotateToTarget: true,
             speed: gameUnit.unitStats.moveSpeed * 100,

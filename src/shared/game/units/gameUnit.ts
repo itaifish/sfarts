@@ -8,10 +8,18 @@ export default class GameUnit {
     controller: string;
     specialMoves: SpecialActionName[];
     location: location;
+    team: string;
 
-    constructor(controller: string, unitStats: UnitStats, specialMoves: SpecialActionName[], location: Location) {
+    constructor(
+        controller: string,
+        team: string,
+        unitStats: UnitStats,
+        specialMoves: SpecialActionName[],
+        location: Location,
+    ) {
         this.unitStats = unitStats;
         this.controller = controller;
+        this.team = team;
         this.specialMoves = specialMoves;
         this.location = location;
     }

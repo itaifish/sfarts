@@ -20,13 +20,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/shared/game/move/moveAction.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/move/moveHistory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/units/phaserFighterUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/units/phaserFighterUnit.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/units/phaserGameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/units/phaserGameUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/figherUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/fighterUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/gameManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/move/specialAction.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/move/specialAction.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +101,8 @@
       <workItem from="1605287569004" duration="825000" />
       <workItem from="1605392919737" duration="2081000" />
       <workItem from="1605458740233" duration="1282000" />
-      <workItem from="1605541118765" duration="10487000" />
+      <workItem from="1605541118765" duration="12178000" />
+      <workItem from="1605624942423" duration="4880000" />
     </task>
     <servers />
   </component>
@@ -120,6 +122,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="677" y="257" key="#ESLint" timestamp="1605631169594">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="677" y="257" key="#ESLint/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605631169594" />
     <state x="630" y="260" key="FileChooserDialogImpl" timestamp="1604768999757">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
