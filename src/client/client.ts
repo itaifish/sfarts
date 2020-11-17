@@ -9,6 +9,7 @@ import {
 import Lobby from "../server/room/lobby/lobby";
 import { GetLobbiesResponse } from "../shared/communication/messageInterfaces/lobbyMessage";
 import log, { LOG_LEVEL } from "../shared/utility/logger";
+import GameManager from "../shared/game/gameManager";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -23,7 +24,10 @@ export default class Client {
         [key in MessageEnum]: callbackFunction[];
     };
 
+    gameManager: GameManager;
+
     constructor() {
+        this.gameManager = null;
         this.loginStatus = null;
         this.lobbyList = [];
         this.socket = socketio(Constants.URL);

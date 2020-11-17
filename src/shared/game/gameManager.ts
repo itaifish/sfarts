@@ -9,7 +9,7 @@ import SpecialAction from "./move/specialAction";
 export default class GameManager {
     gameId: string;
     controllerId: string;
-    board: GameBoard;
+    private board: GameBoard;
     boardState: GameUnit[][];
     moveHistory: MoveHistory;
 
@@ -62,8 +62,11 @@ export default class GameManager {
         });
     }
 
-    private getUnitAt(location: Location): GameUnit | null {
-        return this.boardState[location.x][location.y];
+    getUnitAt(location: Location): GameUnit | null {
+        if (this.boardState[location.x]) {
+            return this.boardState[location.x][location.y];
+        }
+        return null;
     }
 
     private setUnitAt(location: Location, unit: GameUnit | null) {

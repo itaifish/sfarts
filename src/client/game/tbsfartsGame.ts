@@ -1,7 +1,5 @@
 import Phaser from "phaser";
 import GameScene from "./scene/gameScene";
-
-import LoginScreen from "./scene/loginScreen";
 import Client from "../client";
 
 /**
@@ -30,6 +28,5 @@ export default class TbsfartsGame extends Phaser.Game {
         super(config);
         this.client = client;
         this.scene.add(GameScene.getSceneName(), new GameScene(30, 30, client), true);
-        // this.scene.add(LoginScreen.getSceneName(), new LoginScreen(client), false);
     }
 }

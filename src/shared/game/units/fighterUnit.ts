@@ -4,7 +4,7 @@ import { SpecialActionName } from "../move/specialAction";
 import Location from "../location";
 
 export default class FighterUnit extends GameUnit {
-    constructor(controller: string, location: Location) {
-        super(controller, unitStats.fighter, [SpecialActionName.ATTACK], location);
+    constructor(controller: string, team: string, location: Location) {
+        super(controller, team, unitStats.fighter, [SpecialActionName.ATTACK], location);
     }
 }

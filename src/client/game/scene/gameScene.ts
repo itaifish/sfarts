@@ -4,6 +4,9 @@ import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
+import GameManager from "../../../shared/game/gameManager";
+import GameUnit from "../../../shared/game/units/gameUnit";
+import FighterUnit from "../../../shared/game/units/fighterUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -12,6 +15,7 @@ export default class GameScene extends Phaser.Scene {
     width: number;
     height: number;
     client: Client;
+    gameManager: GameManager;
 
     constructor(width: number, height: number, client: Client) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
@@ -21,6 +25,7 @@ export default class GameScene extends Phaser.Scene {
         this.width = width;
         this.height = height;
         this.client = client;
+        this.gameManager = null;
         this.rexBoard = null;
     }
 
@@ -41,12 +46,10 @@ export default class GameScene extends Phaser.Scene {
             wrap: true,
         };
         this.board = new GameBoard(this, config);
-        this.board.forEachTileXY((tileXY: any, board: any) => {
-            const location = { x: tileXY.x, y: tileXY.y };
-            if (Math.random() < 0.05) {
-                const unit: PhaserFighterUnit = new PhaserFighterUnit(this, location, "TODO: controllerIdGoesHere");
-            }
-        }, this);
+        this.gameManager = new GameManager("game id", "1", ["1", "2", "3"], this.board, [
+            [new FighterUnit("1", "1", { x: 0, y: 0 })],
+        ]);
+        this.loadBoardState(this.gameManager.boardState);
 
         const cursors = this.input.keyboard.createCursorKeys();
         this.cameraController = new Phaser.Cameras.Controls.SmoothedKeyControl({
@@ -72,6 +75,17 @@ export default class GameScene extends Phaser.Scene {
         super.update(time, delta);
         this.cameraController.update(delta);
         this.cameraController.camera.setZoom(MathUtility.clamp(this.cameraController.camera.zoom, 3, 1));
+    }
+
+    loadBoardState(boardState: GameUnit[][]) {
+        this.board.removeAllChess(true);
+        this.board.forEachTileXY((tileXY: any, board: any) => {
+            const location = { x: tileXY.x, y: tileXY.y };
+            const unit = this.gameManager.getUnitAt(location);
+            if (unit) {
+                const phaserUnit: PhaserFighterUnit = new PhaserFighterUnit(this, location, unit);
+            }
+        }, this);
     }
 
     getHexagonGrid(scene: GameScene) {
