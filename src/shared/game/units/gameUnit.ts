@@ -23,4 +23,13 @@ export default class GameUnit {
         this.specialMoves = specialMoves;
         this.location = location;
     }
+
+    useMovesTo(moveAmount: number, location: Location) {
+        this.unitStats.movesRemaining -= moveAmount;
+        this.location = { x: location.x, y: location.y };
+    }
+
+    processNewTurn() {
+        this.unitStats.movesRemaining = this.unitStats.moveSpeed;
+    }
 }

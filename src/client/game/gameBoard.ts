@@ -11,6 +11,7 @@ export default class GameBoard extends Board {
     selectedFillGraphics: Phaser.GameObjects.Graphics;
     state: ActionState;
     selectedPath: any[];
+    moveTo: Location;
 
     constructor(scene: GameScene, config: any) {
         // create board
@@ -18,6 +19,7 @@ export default class GameBoard extends Board {
         this.scene = scene;
         this.selected = null;
         this.state = ActionState.IDLE;
+        this.moveTo = { x: 0, y: 0 };
         // draw grid
         this.selectedFillGraphics = scene.add.graphics({
             fillStyle: {
@@ -43,35 +45,50 @@ export default class GameBoard extends Board {
         gridGraphics.destroy();
 
         this.setInteractive()
-            .on("tiledown", (pointer: any, tileXY: any) => {
-                log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
-                const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
-                if (unit) {
-                    if (this.state === ActionState.IDLE) {
-                        this.setSelected(tileXY, unit);
+            .on("tiledown", (pointer: Phaser.Input.Pointer, tileXY: any) => {
+                if (pointer.leftButtonDown()) {
+                    log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
+                    const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
+                    if (unit) {
+                        if (this.state === ActionState.IDLE) {
+                            this.setSelected(tileXY, unit);
+                        }
                     }
                 }
             })
-            .on("tilemove", (pointer: any, tileXY: any) => {
+            .on("tilemove", (pointer: Phaser.Input.Pointer, tileXY: any) => {
                 if (this.state == ActionState.SELECTED) {
                     this.selectedPath.length = 1;
                     const distanceBetween = this.getDistance(this.selected[0], tileXY);
-                    if (distanceBetween <= this.selected[1].gameUnit.unitStats.moveSpeed) {
+                    if (distanceBetween <= this.selected[1].gameUnit.unitStats.movesRemaining) {
                         this.drawPath(this.getPath(this.selected[1], tileXY, this.selectedPath));
+                        this.moveTo = { x: tileXY.x, y: tileXY.y };
                     }
                 }
             });
-        this.scene.input.on("pointerup", (pointer: any, tileXY: any) => {
-            if (this.state == ActionState.SELECTED) {
+        this.scene.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
+            if (pointer.leftButtonReleased() && this.state == ActionState.SELECTED) {
                 this.selected[1]
                     .once("move.complete", () => {
                         this.clearPath();
                         this.state = ActionState.IDLE;
-                        //Unset selection
-                        this.setSelected({ x: 0, y: 0 }, null);
+                        if (this.moveTo) {
+                            const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
+                            this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
+                            //Re-set selection (because move)
+                            this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
+                        }
                     })
                     .moveAlongPath(this.selectedPath);
                 this.state = ActionState.MOVING;
+            }
+        });
+        this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
+            if (pointer.rightButtonDown()) {
+                this.setSelected(null, null);
+                this.moveTo = null;
+                this.state = ActionState.IDLE;
+                this.clearPath();
             }
         });
 

@@ -92,9 +92,9 @@ export default class GameScene extends Phaser.Scene {
         const staggeraxis = "x";
         const staggerindex = "odd";
         const grid = scene.rexBoard.add.hexagonGrid({
-            x: 40,
-            y: 40,
-            size: 40,
+            x: 60,
+            y: 60,
+            size: 60,
             staggeraxis: staggeraxis,
             staggerindex: staggerindex,
         });

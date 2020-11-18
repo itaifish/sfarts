@@ -27,6 +27,9 @@ export default class TbsfartsGame extends Phaser.Game {
         };
         super(config);
         this.client = client;
-        this.scene.add(GameScene.getSceneName(), new GameScene(30, 30, client), true);
+        this.canvas.oncontextmenu = (e) => {
+            e.preventDefault();
+        };
+        this.scene.add(GameScene.getSceneName(), new GameScene(20, 20, client), true);
     }
 }
