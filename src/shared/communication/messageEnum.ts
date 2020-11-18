@@ -6,6 +6,7 @@ enum MessageEnum {
     GET_LOBBIES = "get lobbies",
     JOIN_LOBBY = "join lobby",
     CREATE_LOBBY = "create lobby",
+    START_GAME = "start game",
 }
 
 export default MessageEnum;

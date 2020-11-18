@@ -25,7 +25,7 @@ export default class Lobby implements Room {
         this.lobbyLeader = initialPlayer.id;
     }
     getRoomName(): string {
-        return this.settings.lobbyName;
+        return `${this.settings.lobbyName}: ${this.id}`;
     }
 
     /**

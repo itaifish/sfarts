@@ -6,7 +6,7 @@ export interface User {
     password: string;
     status: UserStatus;
     id: number;
-    socket?: socketio.EngineSocket;
+    socket?: socketio.Socket;
 }
 
 export enum UserStatus {
@@ -21,6 +21,10 @@ interface UserTokenMap {
 }
 
 interface UserIdMap {
+    [key: number]: User;
+}
+
+interface UserNameMap {
     [key: string]: User;
 }
 
@@ -29,7 +33,7 @@ export default class UserManager {
 
     userIdMap: UserIdMap;
 
-    usernamesMap: UserIdMap;
+    usernamesMap: UserNameMap;
 
     runningId: number;
 
@@ -77,7 +81,7 @@ export default class UserManager {
      * @param username User's username
      * @param password User's password
      */
-    loginUser(username: string, password: string, socket: socketio.EngineSocket): boolean | null {
+    loginUser(username: string, password: string, socket: socketio.Socket): boolean | null {
         const user: User = this.usernamesMap[username];
         if (user) {
             if (user.password === password) {
@@ -111,6 +115,10 @@ export default class UserManager {
 
     getUserFromSocketId(socketId: string): User {
         return this.userTokenMap[socketId];
+    }
+
+    getUserFromUserId(userId: number): User {
+        return this.userIdMap[userId];
     }
 
     /**

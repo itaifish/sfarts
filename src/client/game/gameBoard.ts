@@ -75,8 +75,8 @@ export default class GameBoard extends Board {
                         if (this.moveTo) {
                             const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
                             this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
-                            //Re-set selection (because move)
-                            this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
+                            this.scene.client.this //Re-set selection (because move)
+                                .setSelected(this.selected[1].gameUnit.location, this.selected[1]);
                         }
                     })
                     .moveAlongPath(this.selectedPath);

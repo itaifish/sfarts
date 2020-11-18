@@ -3,8 +3,10 @@ import SpecialAction from "./specialAction";
 
 interface singleTurnMoveHistory {
     [playerId: string]: {
-        moveActions: MoveAction[];
-        specialActions: SpecialAction[];
+        [locationKey: string]: {
+            moveAction: MoveAction;
+            specialAction: SpecialAction;
+        };
     };
 }
 
@@ -16,15 +18,20 @@ export default class MoveHistory {
     }
 
     playerMove(playerId: string, move: MoveAction) {
-        this.verifyPlayer(playerId);
+        this.verifyPlayerAndAction(playerId, move);
         const currentTurn = this.history[this.history.length - 1];
-        currentTurn[playerId].moveActions.push(move);
+        const locationKey = `${move.unitDoingAction.turnStartLocation}`;
+        const currentMoveAction = currentTurn[playerId][locationKey].moveAction;
+        if (currentMoveAction) {
+            currentMoveAction.targetedCoordinates = move.targetedCoordinates;
+        }
     }
 
     playerSpecial(playerId: string, special: SpecialAction) {
-        this.verifyPlayer(playerId);
+        this.verifyPlayerAndAction(playerId, special);
         const currentTurn = this.history[this.history.length - 1];
-        currentTurn[playerId].specialActions.push(special);
+        const locationKey = `${special.unitDoingAction.turnStartLocation}`;
+        currentTurn[playerId][locationKey].specialAction = special;
     }
 
     saveAndGetTurnHistory() {
@@ -33,12 +40,21 @@ export default class MoveHistory {
         return currentTurn;
     }
 
-    private verifyPlayer(playerId: string) {
+    private verifyPlayerAndAction(playerId: string, move: MoveAction | SpecialAction) {
         const currentTurn = this.history[this.history.length - 1];
-        if (!currentTurn[playerId]) {
+        const playerActions = currentTurn[playerId];
+        const locationKey = `${move.unitDoingAction.turnStartLocation}`;
+        if (!playerActions) {
             currentTurn[playerId] = {
-                moveActions: [],
-                specialActions: [],
+                [locationKey]: {
+                    moveAction: null,
+                    specialAction: null,
+                },
+            };
+        } else if (!playerActions[locationKey]) {
+            currentTurn[playerId][locationKey] = {
+                moveAction: null,
+                specialAction: null,
             };
         }
     }

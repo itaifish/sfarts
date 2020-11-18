@@ -47,12 +47,13 @@ export default class GameManager {
         // Do Specials **FIRST** and then moves
         const turnHistory = this.moveHistory.saveAndGetTurnHistory();
         Object.keys(turnHistory).forEach((playerId) => {
-            turnHistory[playerId].specialActions.forEach((specialAction) => {
-                this.doSpecial(specialAction);
+            Object.keys(turnHistory[playerId]).forEach((locationKey) => {
+                this.doSpecial(turnHistory[playerId][locationKey].specialAction);
             });
         });
         Object.keys(turnHistory).forEach((playerId) => {
-            turnHistory[playerId].moveActions.forEach((moveAction) => {
+            Object.keys(turnHistory[playerId]).forEach((locationKey) => {
+                const moveAction = turnHistory[playerId][locationKey].moveAction;
                 this.moveUnit(
                     moveAction.unitDoingAction,
                     moveAction.unitDoingAction.location,

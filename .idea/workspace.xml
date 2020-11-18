@@ -20,13 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/server/manager/gameManager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/manager/userManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/userManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/room/lobby/lobby.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/room/lobby/lobby.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/gameManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/move/moveHistory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/move/moveHistory.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/unitStats.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/unitStats.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +105,8 @@
       <workItem from="1605458740233" duration="1282000" />
       <workItem from="1605541118765" duration="12178000" />
       <workItem from="1605624942423" duration="5507000" />
-      <workItem from="1605642239129" duration="7455000" />
+      <workItem from="1605642239129" duration="8018000" />
+      <workItem from="1605708274694" duration="5472000" />
     </task>
     <servers />
   </component>

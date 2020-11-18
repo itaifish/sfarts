@@ -17,6 +17,7 @@ import {
 import UserManager from "./manager/userManager";
 import LobbyManger from "./manager/lobbyManager";
 import log, { LOG_LEVEL } from "../shared/utility/logger";
+import GameManager from "./manager/gameManager";
 
 class Server {
     // Server Variables
@@ -27,6 +28,7 @@ class Server {
     //Managers
     userManager: UserManager;
     lobbyManager: LobbyManger;
+    gameManager: GameManager;
 
     constructor() {
         this.app = express();
@@ -38,10 +40,11 @@ class Server {
 
         this.userManager = new UserManager();
         this.lobbyManager = new LobbyManger();
+        this.gameManager = new GameManager(this.userManager);
     }
 
     listen(): void {
-        this.io.on("connection", (socket: socketio.EngineSocket) => {
+        this.io.on("connection", (socket: socketio.Socket) => {
             log("Client connected", this.constructor.name, LOG_LEVEL.INFO);
             socket.on(MessageEnum.LOGIN, (msg: LoginMessageRequest) => {
                 const userResult = this.userManager.loginUser(msg.username, msg.password, socket);
@@ -65,6 +68,7 @@ class Server {
                 const createdLobby = this.lobbyManager.userCreateLobby(user, lobbyRequest.lobbySettings);
                 // After creating a lobby respond with a list of all lobbies (Should have new lobby)
                 const response: LobbyResponse = { lobby: createdLobby };
+                socket.join(createdLobby.getRoomName());
                 socket.emit(MessageEnum.GET_LOBBIES, response);
             });
             socket.on(MessageEnum.JOIN_LOBBY, (joinLobbyRequest: JoinLobbyRequest) => {
@@ -76,7 +80,14 @@ class Server {
                 );
                 // After joining a lobby respond with a list of all lobbies (Should have new lobby)
                 const response: LobbyResponse = { lobby: joinedLobby };
-                socket.emit(MessageEnum.GET_LOBBIES, response);
+                socket.join(joinedLobby.getRoomName());
+                this.io.to(joinedLobby.getRoomName()).emit(MessageEnum.GET_LOBBIES, response);
+            });
+            socket.on(MessageEnum.START_GAME, () => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                const lobby = this.lobbyManager.usersToLobbyMap[user.id];
+                this.gameManager.lobbyToGame(lobby);
+                this.lobbyManager.deleteLobby(lobby.id);
             });
             // Default behaviors
             socket.on(MessageEnum.DISCONNECT, (reason: string) => {
