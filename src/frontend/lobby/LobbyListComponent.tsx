@@ -30,6 +30,10 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
         });
     }
 
+    componentDidMount() {
+        this.reloadLobbyList();
+    }
+
     componentWillUnmount() {
         clearInterval(this.interval);
     }

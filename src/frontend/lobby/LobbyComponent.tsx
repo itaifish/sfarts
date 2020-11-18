@@ -20,7 +20,7 @@ class LobbyComponent extends React.Component<LobbyComponentProps, LobbyComponent
                     <th scope="row">1</th>
                     <td>{this.props.lobby.settings.lobbyName}</td>
                     <td>{this.props.lobby.players.length}</td>
-                    <td>hmm</td>
+                    <td>{this.props.lobby.id}</td>
                 </tr>
             </>
         );
