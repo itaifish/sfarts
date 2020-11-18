@@ -5,6 +5,7 @@ import LoginForm from "./login/LoginForm";
 import MessageEnum from "../shared/communication/messageEnum";
 import { LoginMessageResponseType } from "../shared/communication/messageInterfaces/loginMessage";
 import TbsfartsGame from "../client/game/tbsfartsGame";
+import LobbyListComponent from "./lobby/LobbyListComponent";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FrontendAppComponentProps {}
@@ -57,7 +58,9 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
         );
         return (
             <div className="container-fluid">
-                <div className="row justify-content-center">{loginJSX}</div>
+                <div className="row justify-content-center">
+                    {this.state.username ? <LobbyListComponent client={this.state.client} /> : loginJSX}
+                </div>
             </div>
         );
     }

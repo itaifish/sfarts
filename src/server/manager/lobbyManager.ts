@@ -2,6 +2,8 @@ import uuid4 from "uuid4";
 import Lobby from "../room/lobby/lobby";
 import LobbySettings from "../room/lobby/lobbySettings";
 import { User } from "./userManager";
+import log, { LOG_LEVEL } from "../../shared/utility/logger";
+import { ClientLobby } from "../../shared/communication/messageInterfaces/lobbyMessage";
 
 export default class LobbyManger {
     lobbyMap: { [lobbyId: string]: Lobby };
@@ -13,8 +15,8 @@ export default class LobbyManger {
         this.usersToLobbyMap = {};
     }
 
-    getLobbyList(): Lobby[] {
-        return Object.keys(this.lobbyMap).map((key: string) => this.lobbyMap[key]);
+    getLobbyList(): ClientLobby[] {
+        return Object.keys(this.lobbyMap).map((key: string) => this.lobbyMap[key].asClientLobby());
     }
 
     userCreateLobby(user: User, settings: LobbySettings): Lobby {
@@ -23,7 +25,7 @@ export default class LobbyManger {
         let id;
         do {
             id = uuid4();
-        } while (this.lobbyMap[id]); // this should basically never happen, but just in case
+        } while (this.lobbyMap[id] != null); // this should basically never happen, but just in case
         const newLobby: Lobby = new Lobby(id, user, settings);
         this.usersToLobbyMap[user.id] = newLobby;
         this.lobbyMap[id] = newLobby;

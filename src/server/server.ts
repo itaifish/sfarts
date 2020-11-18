@@ -67,7 +67,7 @@ class Server {
                 const user = this.userManager.getUserFromSocketId(socket.id);
                 const createdLobby = this.lobbyManager.userCreateLobby(user, lobbyRequest.lobbySettings);
                 // After creating a lobby respond with a list of all lobbies (Should have new lobby)
-                const response: LobbyResponse = { lobby: createdLobby };
+                const response: GetLobbiesResponse = { lobbies: this.lobbyManager.getLobbyList() };
                 socket.join(createdLobby.getRoomName());
                 socket.emit(MessageEnum.GET_LOBBIES, response);
             });
@@ -79,7 +79,7 @@ class Server {
                     joinLobbyRequest.teamId,
                 );
                 // After joining a lobby respond with a list of all lobbies (Should have new lobby)
-                const response: LobbyResponse = { lobby: joinedLobby };
+                const response: GetLobbiesResponse = { lobbies: this.lobbyManager.getLobbyList() };
                 socket.join(joinedLobby.getRoomName());
                 this.io.to(joinedLobby.getRoomName()).emit(MessageEnum.GET_LOBBIES, response);
             });

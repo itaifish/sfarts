@@ -6,8 +6,12 @@ import {
     LoginMessageResponse,
     LoginMessageResponseType,
 } from "../shared/communication/messageInterfaces/loginMessage";
-import Lobby from "../server/room/lobby/lobby";
-import { GetLobbiesResponse } from "../shared/communication/messageInterfaces/lobbyMessage";
+import LobbySettings from "../server/room/lobby/lobbySettings";
+import {
+    ClientLobby,
+    CreateLobbyRequest,
+    GetLobbiesResponse,
+} from "../shared/communication/messageInterfaces/lobbyMessage";
 import log, { LOG_LEVEL } from "../shared/utility/logger";
 import GameManager from "../shared/game/gameManager";
 
@@ -16,7 +20,7 @@ type callbackFunction = (...args: any[]) => void;
 export default class Client {
     loginStatus: LoginMessageResponseType | null;
 
-    lobbyList: Lobby[];
+    lobbyList: ClientLobby[];
 
     socket: SocketIOClient.Socket;
 
@@ -61,6 +65,7 @@ export default class Client {
             this.runAndRemoveCallbacks(MessageEnum.LOGIN);
         });
         this.socket.on(MessageEnum.GET_LOBBIES, (response: GetLobbiesResponse) => {
+            log(`Got this response: ${JSON.stringify(response)}`, this.constructor.name, LOG_LEVEL.DEBUG);
             this.lobbyList = response.lobbies;
             log(`Got ${this.lobbyList.length} lobbies`, this.constructor.name, LOG_LEVEL.INFO);
             this.runAndRemoveCallbacks(MessageEnum.GET_LOBBIES);
@@ -75,6 +80,13 @@ export default class Client {
             password: password,
         };
         this.socket.emit(MessageEnum.LOGIN, loginData);
+    }
+
+    createLobby(settings: LobbySettings) {
+        const createLobbyRequest: CreateLobbyRequest = {
+            lobbySettings: settings,
+        };
+        this.socket.emit(MessageEnum.CREATE_LOBBY, createLobbyRequest);
     }
 
     loadLobbyList(callbackFunc?: callbackFunction): void {
