@@ -3,6 +3,7 @@ import { Board } from "phaser3-rex-plugins/plugins/board-components";
 import Location from "../../shared/game/location";
 import PhaserGameUnit from "./units/phaserGameUnit";
 import log, { LOG_LEVEL } from "../../shared/utility/logger";
+import MoveAction from "../../shared/game/move/moveAction";
 
 export default class GameBoard extends Board {
     scene: GameScene;
@@ -49,7 +50,7 @@ export default class GameBoard extends Board {
                 if (pointer.leftButtonDown()) {
                     log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
                     const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
-                    if (unit) {
+                    if (unit && unit.gameUnit.controller == this.scene.gameManager.controllerId) {
                         if (this.state === ActionState.IDLE) {
                             this.setSelected(tileXY, unit);
                         }
@@ -74,9 +75,17 @@ export default class GameBoard extends Board {
                         this.state = ActionState.IDLE;
                         if (this.moveTo) {
                             const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
-                            this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
-                            //Re-set selection (because move)
-                            this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
+                            if (distanceBetween > 0) {
+                                this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
+                                // send move request to server
+                                const move: MoveAction = {
+                                    unitDoingAction: this.selected[1].gameUnit,
+                                    targetedCoordinates: this.moveTo,
+                                };
+                                this.scene.client.sendMove(move);
+                                //Re-set selection (because move)
+                                this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
+                            }
                         }
                     })
                     .moveAlongPath(this.selectedPath);

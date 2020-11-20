@@ -59,7 +59,8 @@
     "lint": "eslint . --ext .ts --fix",
     "build": "webpack --watch --mode production",
     "start": "webpack-dev-server --mode development --open --hot",
-    "server": "tsc && node ./serverDist/src/server/server.js"
+    "server": "tsc && node ./serverDist/src/server/server.js",
+    "debug_server": "tsc && node inspect ./serverDist/src/server/server.js"
   },
   "author": "",
   "license": "ISC"

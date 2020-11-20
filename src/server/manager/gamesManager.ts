@@ -1,11 +1,12 @@
 import LobbyManger from "./lobbyManager";
 import Lobby from "../room/lobby/lobby";
-import UserManager, { User } from "./userManager";
+import UserManager from "./userManager";
 import MoveAction from "../../shared/game/move/moveAction";
 import GameManager from "../../shared/game/manager/gameManager";
 import MapManager from "../../shared/game/manager/mapManager";
 import SpecialAction from "../../shared/game/move/specialAction";
 import GameUnit from "../../shared/game/units/gameUnit";
+import log, { LOG_LEVEL } from "../../shared/utility/logger";
 
 export default class GamesManager extends LobbyManger {
     private userManager: UserManager;
@@ -20,9 +21,9 @@ export default class GamesManager extends LobbyManger {
         this.lobbyToGameManagerMap = {};
     }
 
-    lobbyToGame(lobby: Lobby) {
+    lobbyToGame(lobby: Lobby): GameManager {
         const lobbyLeader = this.userManager.getUserFromUserId(lobby.lobbyLeader);
-        const createdGame = this.userCreateLobby(lobbyLeader, lobby.settings);
+        const createdGame = this.userCreateLobby(lobbyLeader, lobby.settings, lobby.id);
         lobby.players.forEach((playerId) => {
             const user = this.userManager.getUserFromUserId(playerId);
             const teamId = Object.keys(lobby.playerTeamMap).find((teamId) => {
@@ -36,10 +37,28 @@ export default class GamesManager extends LobbyManger {
             lobby.players,
             MapManager.getMapFromId(lobby.settings.mapId, lobby.players),
         );
+        return this.lobbyToGameManagerMap[lobby.id];
     }
 
     addPlayerMove(playerId: number, move: MoveAction) {
-        this.playerToGameManager(playerId).addMovesForPlayer(playerId, [move]);
+        const gameManager = this.playerToGameManager(playerId);
+        if (gameManager) {
+            gameManager.addMovesForPlayer(playerId, [move]);
+        } else {
+            log(
+                `Unable to find game for player ${playerId} from games ${JSON.stringify(
+                    Object.values(this.lobbyToGameManagerMap).map((gameManager) => gameManager.playerIds),
+                )}`,
+                this.constructor.name,
+                LOG_LEVEL.WARN,
+            );
+            log(`users lobby: ${this.usersToLobbyMap[playerId].id}`, this.constructor.name, LOG_LEVEL.DEBUG);
+            log(
+                `game manager lobbies: ${JSON.stringify(Object.keys(this.lobbyToGameManagerMap))}`,
+                this.constructor.name,
+                LOG_LEVEL.DEBUG,
+            );
+        }
     }
 
     addPlayerSpecial(playerId: number, special: SpecialAction) {

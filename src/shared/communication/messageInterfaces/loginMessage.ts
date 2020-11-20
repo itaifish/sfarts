@@ -11,4 +11,5 @@ export enum LoginMessageResponseType {
 
 export interface LoginMessageResponse {
     status: LoginMessageResponseType;
+    id?: number;
 }

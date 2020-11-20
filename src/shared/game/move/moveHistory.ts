@@ -1,5 +1,6 @@
 import MoveAction from "./moveAction";
 import SpecialAction from "./specialAction";
+import Location from "../location";
 
 interface singleTurnMoveHistory {
     [playerId: number]: {
@@ -20,17 +21,19 @@ export default class MoveHistory {
     playerMove(playerId: number, move: MoveAction) {
         this.verifyPlayerAndAction(playerId, move);
         const currentTurn = this.history[this.history.length - 1];
-        const locationKey = `${move.unitDoingAction.turnStartLocation}`;
+        const locationKey = this.locationToString(move.unitDoingAction.turnStartLocation);
         const currentMoveAction = currentTurn[playerId][locationKey].moveAction;
         if (currentMoveAction) {
             currentMoveAction.targetedCoordinates = move.targetedCoordinates;
+        } else {
+            currentTurn[playerId][locationKey].moveAction = move;
         }
     }
 
     playerSpecial(playerId: number, special: SpecialAction) {
         this.verifyPlayerAndAction(playerId, special);
         const currentTurn = this.history[this.history.length - 1];
-        const locationKey = `${special.unitDoingAction.turnStartLocation}`;
+        const locationKey = this.locationToString(special.unitDoingAction.turnStartLocation);
         currentTurn[playerId][locationKey].specialAction = special;
     }
 
@@ -43,7 +46,7 @@ export default class MoveHistory {
     private verifyPlayerAndAction(playerId: number, move: MoveAction | SpecialAction) {
         const currentTurn = this.history[this.history.length - 1];
         const playerActions = currentTurn[playerId];
-        const locationKey = `${move.unitDoingAction.turnStartLocation}`;
+        const locationKey = this.locationToString(move.unitDoingAction.turnStartLocation);
         if (!playerActions) {
             currentTurn[playerId] = {
                 [locationKey]: {
@@ -57,5 +60,9 @@ export default class MoveHistory {
                 specialAction: null,
             };
         }
+    }
+
+    private locationToString(location: Location): string {
+        return `${location.x}, ${location.y}`;
     }
 }

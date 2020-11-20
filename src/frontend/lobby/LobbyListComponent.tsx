@@ -6,6 +6,7 @@ import { ClientLobby } from "../../shared/communication/messageInterfaces/lobbyM
 
 export interface LobbyListComponentProps {
     client: Client;
+    gameHasLoadedCallback: () => void;
 }
 
 export interface LobbyListComponentState {
@@ -35,6 +36,9 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
 
     componentDidMount() {
         this.reloadLobbyList();
+        this.props.client.addOnServerMessageCallback(MessageEnum.START_GAME, () => {
+            this.props.gameHasLoadedCallback();
+        });
     }
 
     componentWillUnmount() {
@@ -46,7 +50,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
             this.props.client.createLobby({
                 maxPlayersPerTeam: 1,
                 numTeams: 2,
-                turnTime: 30,
+                turnTime: 30_000, //30 seconds
                 lobbyName: "bitches and hoes",
                 mapId: "mapId",
             });
@@ -85,6 +89,24 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                 )}
             </>
         );
+        const startGameJsx = (
+            <>
+                {" "}
+                {this.props.client?.lobbyList[0]?.lobbyLeader == this.props.client.userId ? (
+                    <button
+                        type="button"
+                        className="btn btn-success"
+                        onClick={() => {
+                            this.props.client.startGame();
+                        }}
+                    >
+                        Start Game
+                    </button>
+                ) : (
+                    <> </>
+                )}{" "}
+            </>
+        );
         const lobbiesJSX: JSX.Element[] = [];
         this.state.lobbyList.forEach((lobby) => {
             lobbiesJSX.push(<LobbyComponent lobby={lobby} key={lobby.id} />);
@@ -92,6 +114,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
         return (
             <>
                 {buttonJSX}
+                {startGameJsx}
                 <table className="table">
                     <thead>
                         <tr>

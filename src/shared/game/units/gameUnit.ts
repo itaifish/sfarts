@@ -1,14 +1,13 @@
 import { SpecialActionName } from "../move/specialAction";
 import Location from "../location";
-import location from "../location";
 import UnitStats from "./unitStats";
 
 export default class GameUnit {
     unitStats: UnitStats;
     controller: number;
     specialMoves: SpecialActionName[];
-    location: location;
-    turnStartLocation: location;
+    location: Location;
+    turnStartLocation: Location;
     team: string;
 
     constructor(
@@ -26,7 +25,7 @@ export default class GameUnit {
         this.turnStartLocation = { x: location.x, y: location.y };
     }
 
-    useMovesTo(moveAmount: number, location: Location) {
+    useMovesTo(moveAmount: number, location: Location): void {
         this.unitStats.movesRemaining -= moveAmount;
         this.location = { x: location.x, y: location.y };
     }

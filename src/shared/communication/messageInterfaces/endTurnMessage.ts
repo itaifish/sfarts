@@ -4,6 +4,7 @@ export interface EndTurnRequest {
     playerHasEndedTurn: boolean;
 }
 
-export interface EndTurnResponse {
+export interface GameStateResponse {
     gameState: GameUnit[][];
+    gameId?: string;
 }

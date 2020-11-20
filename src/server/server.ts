@@ -19,7 +19,7 @@ import log, { LOG_LEVEL } from "../shared/utility/logger";
 import GamesManager from "./manager/gamesManager";
 import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
 import SpecialAction from "../shared/game/move/specialAction";
-import { EndTurnRequest, EndTurnResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
+import { EndTurnRequest, GameStateResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
 
 class Server {
     // Server Variables
@@ -33,7 +33,10 @@ class Server {
     gamesManager: GamesManager;
 
     gameTurnLoops: {
-        [gameId: string]: NodeJS.Timeout;
+        [gameId: string]: {
+            timeOut: NodeJS.Timeout;
+            endTime: number;
+        };
     };
 
     constructor() {
@@ -52,7 +55,9 @@ class Server {
 
     endTurn(gameId: string): void {
         const gameState = this.gamesManager.endTurnAndGetGameState(gameId);
-        const response: EndTurnResponse = {
+        this.gameTurnLoops[gameId].endTime =
+            new Date().getTime() + this.gamesManager.lobbyMap[gameId].settings.turnTime;
+        const response: GameStateResponse = {
             gameState: gameState,
         };
         this.io.to(this.gamesManager.lobbyMap[gameId].getRoomName()).emit(MessageEnum.END_TURN_SIGNAL, response);
@@ -71,6 +76,9 @@ class Server {
                 const responseMessage: LoginMessageResponse = {
                     status: status,
                 };
+                if (userResult) {
+                    responseMessage.id = userResult.id;
+                }
                 socket.emit(MessageEnum.LOGIN, responseMessage);
             });
             // Lobbies
@@ -116,14 +124,28 @@ class Server {
             socket.on(MessageEnum.START_GAME, () => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
                 const lobby = this.lobbyManager.usersToLobbyMap[user.id];
-                this.gamesManager.lobbyToGame(lobby);
-                this.lobbyManager.deleteLobby(lobby.id);
+                if (lobby.lobbyLeader == user.id) {
+                    const createdManager = this.gamesManager.lobbyToGame(lobby);
+                    const response: GameStateResponse = {
+                        gameState: createdManager.boardState,
+                        gameId: createdManager.gameId,
+                    };
+                    this.io.to(lobby.getRoomName()).emit(MessageEnum.START_GAME, response);
+                    this.lobbyManager.deleteLobby(lobby.id);
+                }
             });
             socket.on(MessageEnum.PLAYER_INPUT, (inputMessageRequest: InputMessageRequest) => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
                 if (!user) {
                     socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
                 } else {
+                    log(
+                        `Adding player ${user.id}'s move to: ${JSON.stringify(
+                            inputMessageRequest.action.targetedCoordinates,
+                        )}`,
+                        this.constructor.name,
+                        LOG_LEVEL.INFO,
+                    );
                     if (inputMessageRequest.actionType == ACTION_TYPE.SPECIAL) {
                         this.gamesManager.addPlayerSpecial(user.id, inputMessageRequest.action as SpecialAction);
                     } else {
@@ -142,12 +164,27 @@ class Server {
                     const intervalLoop = this.gameTurnLoops[game.gameId];
                     // if not the first turn, reset game interval loop
                     if (intervalLoop) {
-                        clearInterval(intervalLoop);
+                        clearInterval(intervalLoop.timeOut);
                     }
+                    const turnTime = this.gamesManager.lobbyMap[game.gameId].settings.turnTime;
+                    this.gameTurnLoops[game.gameId] = {
+                        endTime: new Date().getTime() + turnTime,
+                        timeOut: setInterval(() => {
+                            this.endTurn(game.gameId);
+                        }, turnTime),
+                    };
+
                     this.endTurn(game.gameId);
-                    this.gameTurnLoops[game.gameId] = setInterval(() => {
-                        this.endTurn(game.gameId);
-                    }, this.gamesManager.lobbyMap[game.gameId].settings.turnTime);
+                }
+            });
+            socket.on(MessageEnum.GET_TIME_REMAINING, () => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                } else {
+                    const game = this.gamesManager.playerToGameManager(user.id);
+                    const endTime = this.gameTurnLoops[game.gameId]?.endTime;
+                    socket.emit(MessageEnum.GET_TIME_REMAINING, endTime || 0);
                 }
             });
             // Default behaviors

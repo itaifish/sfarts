@@ -76,12 +76,12 @@ export default class UserManager {
     }
 
     /**
-     * This function logs a user in, returning true if successful, null if the user does not
+     * This function logs a user in, returning the user if successful, null if the user does not
      * exist, and false if the password is incorrect
      * @param username User's username
      * @param password User's password
      */
-    loginUser(username: string, password: string, socket: socketio.Socket): boolean | null {
+    loginUser(username: string, password: string, socket: socketio.Socket): User | false | null {
         const user: User = this.usernamesMap[username];
         if (user) {
             if (user.password === password) {
@@ -91,7 +91,7 @@ export default class UserManager {
                 user.socket = socket;
                 user.status = UserStatus.ONLINE;
                 this.userTokenMap[socket.id] = user;
-                return true;
+                return user;
             }
             return false;
         }

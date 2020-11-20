@@ -19,13 +19,15 @@ export default class LobbyManger {
         return Object.keys(this.lobbyMap).map((key: string) => this.lobbyMap[key].asClientLobby());
     }
 
-    userCreateLobby(user: User, settings: LobbySettings): Lobby {
+    userCreateLobby(user: User, settings: LobbySettings, presetId?: string): Lobby {
         // disconnect user from any previous lobby they are in
         this.playerDisconnects(user);
-        let id;
-        do {
-            id = uuid4();
-        } while (this.lobbyMap[id] != null); // this should basically never happen, but just in case
+        let id = presetId;
+        if (!id) {
+            do {
+                id = uuid4();
+            } while (this.lobbyMap[id] != null); // this should basically never happen, but just in case
+        }
         const newLobby: Lobby = new Lobby(id, user, settings);
         this.usersToLobbyMap[user.id] = newLobby;
         this.lobbyMap[id] = newLobby;

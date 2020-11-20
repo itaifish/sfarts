@@ -15,13 +15,17 @@ import {
 } from "../shared/communication/messageInterfaces/lobbyMessage";
 import log, { LOG_LEVEL } from "../shared/utility/logger";
 import GameManager from "../shared/game/manager/gameManager";
-import { EndTurnResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
+import { EndTurnRequest, GameStateResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
 import GameUnit from "../shared/game/units/gameUnit";
+import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
+import MoveAction from "../shared/game/move/moveAction";
 
 type callbackFunction = (...args: any[]) => void;
 
 export default class Client {
     loginStatus: LoginMessageResponseType | null;
+
+    userId: number;
 
     lobbyList: ClientLobby[];
 
@@ -38,6 +42,7 @@ export default class Client {
     constructor() {
         this.gameManager = null;
         this.loginStatus = null;
+        this.userId = null;
         this.lobbyList = [];
         this.socket = socketio(Constants.URL);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -70,6 +75,7 @@ export default class Client {
                 LOG_LEVEL.INFO,
             );
             this.loginStatus = msg.status;
+            this.userId = msg.id;
             this.runAndRemoveCallbacks(MessageEnum.LOGIN);
         });
         this.socket.on(MessageEnum.GET_LOBBIES, (response: GetLobbiesResponse) => {
@@ -78,10 +84,17 @@ export default class Client {
             log(`Got ${this.lobbyList.length} lobbies`, this.constructor.name, LOG_LEVEL.INFO);
             this.runAndRemoveCallbacks(MessageEnum.GET_LOBBIES);
         });
-        this.socket.on(MessageEnum.END_TURN_SIGNAL, (response: EndTurnResponse) => {
+        this.socket.on(MessageEnum.END_TURN_SIGNAL, (response: GameStateResponse) => {
             this.gameManager.endTurn();
             this.gameManager.boardState = response.gameState;
             this.updateBoardStateCallback(this.gameManager.boardState);
+            this.runAndRemoveCallbacks(MessageEnum.END_TURN_SIGNAL);
+        });
+        this.socket.on(MessageEnum.START_GAME, (response: GameStateResponse) => {
+            log(`Starting game: ${response.gameId}`, this.constructor.name, LOG_LEVEL.INFO);
+            this.gameManager = new GameManager(response.gameId, this.userId, []);
+            this.gameManager.copyBoardState(response.gameState);
+            this.runAndRemoveCallbacks(MessageEnum.START_GAME);
         });
     }
 
@@ -130,6 +143,33 @@ export default class Client {
             this.addOnServerMessageCallback(MessageEnum.GET_LOBBIES, callbackFunc);
         }
         this.socket.emit(MessageEnum.GET_LOBBIES);
+    }
+
+    startGame(callbackFunc?: callbackFunction): void {
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.START_GAME, callbackFunc);
+        }
+        this.socket.emit(MessageEnum.START_GAME);
+    }
+
+    sendMove(move: MoveAction): void {
+        const request: InputMessageRequest = {
+            actionType: ACTION_TYPE.MOVE,
+            action: move,
+        };
+        this.socket.emit(MessageEnum.PLAYER_INPUT, request);
+    }
+
+    setEndTurn(endTurn: boolean): void {
+        const request: EndTurnRequest = {
+            playerHasEndedTurn: endTurn,
+        };
+        this.socket.emit(MessageEnum.END_TURN_SIGNAL, request);
+    }
+
+    getTimeRemaining(processRemainingTimeFunction: (remainingTime: number) => void) {
+        // add callback for time remaining to call function
+        // send request
     }
 
     /**************************/

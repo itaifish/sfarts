@@ -5,6 +5,7 @@ import log, { LOG_LEVEL } from "../../utility/logger";
 import MoveHistory from "../move/moveHistory";
 import MoveAction from "../move/moveAction";
 import SpecialAction from "../move/specialAction";
+import locationToString from "../../utility/convertToString";
 
 export default class GameManager {
     gameId: string;
@@ -26,6 +27,25 @@ export default class GameManager {
         this.moveHistory = new MoveHistory(allPlayers);
         this.playerIds = allPlayers;
         this.endedTurnMap = new Set<number>();
+    }
+
+    copyBoardState(boardState: GameUnit[][]) {
+        this.boardState = [];
+        for (let y = 0; y < boardState.length; y++) {
+            this.boardState.push([]);
+            for (let x = 0; x < boardState[y].length; x++) {
+                const oldGameUnit = boardState[y][x];
+                this.boardState[y].push(
+                    new GameUnit(
+                        oldGameUnit.controller,
+                        oldGameUnit.team,
+                        oldGameUnit.unitStats,
+                        oldGameUnit.specialMoves,
+                        oldGameUnit.location,
+                    ),
+                );
+            }
+        }
     }
 
     addMovesForPlayer(playerId: number, moveList: MoveAction[]) {
@@ -80,19 +100,23 @@ export default class GameManager {
     }
 
     getUnitAt(location: Location): GameUnit | null {
-        if (this.boardState[location.x]) {
-            return this.boardState[location.x][location.y];
+        if (this.boardState[location.y]) {
+            return this.boardState[location.y][location.x];
         }
         return null;
     }
 
     private setUnitAt(location: Location, unit: GameUnit | null) {
-        this.boardState[location.x][location.y] = unit;
+        this.boardState[location.y][location.x] = unit;
     }
 
     private moveUnit(unitMoving: GameUnit, oldLocation: Location, newLocation: Location) {
-        if (unitMoving != this.getUnitAt(oldLocation)) {
-            log(`${unitMoving} is not equal to ${this.getUnitAt(oldLocation)}`, this.constructor.name, LOG_LEVEL.ERROR);
+        if (unitMoving.location != oldLocation) {
+            log(
+                `${locationToString(unitMoving.location)} is not equal to ${locationToString(oldLocation)}`,
+                this.constructor.name,
+                LOG_LEVEL.ERROR,
+            );
         } else {
             this.setUnitAt(oldLocation, null);
             const newLocationUnit = this.getUnitAt(newLocation);

@@ -16,7 +16,7 @@ export default class GameScene extends Phaser.Scene {
     client: Client;
     gameManager: GameManager;
 
-    constructor(width: number, height: number, client: Client) {
+    constructor(width: number, height: number, client: Client, gameManager: GameManager) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
             active: false,
         };
@@ -26,7 +26,9 @@ export default class GameScene extends Phaser.Scene {
         this.client = client;
         this.gameManager = null;
         this.rexBoard = null;
+        this.loadBoardState = this.loadBoardState.bind(this);
         this.client.updateBoardStateCallback = this.loadBoardState;
+        this.gameManager = gameManager;
     }
 
     preload() {
@@ -46,8 +48,7 @@ export default class GameScene extends Phaser.Scene {
             wrap: true,
         };
         this.board = new GameBoard(this, config);
-        this.gameManager = new GameManager("game id", 1, [1, 2, 3]);
-        this.loadBoardState(this.gameManager.boardState);
+        this.loadBoardState();
 
         const cursors = this.input.keyboard.createCursorKeys();
         this.cameraController = new Phaser.Cameras.Controls.SmoothedKeyControl({
@@ -75,7 +76,7 @@ export default class GameScene extends Phaser.Scene {
         this.cameraController.camera.setZoom(MathUtility.clamp(this.cameraController.camera.zoom, 3, 1));
     }
 
-    loadBoardState(boardState: GameUnit[][]) {
+    loadBoardState() {
         this.board.removeAllChess(true);
         this.board.forEachTileXY((tileXY: any, board: any) => {
             const location = { x: tileXY.x, y: tileXY.y };
