@@ -1,59 +1,74 @@
-import GameBoard from "../../client/game/gameBoard";
-import GameUnit from "./units/gameUnit";
-import Location from "./location";
-import log, { LOG_LEVEL } from "../utility/logger";
-import MoveHistory from "./move/moveHistory";
-import MoveAction from "./move/moveAction";
-import SpecialAction from "./move/specialAction";
+import GameBoard from "../../../client/game/gameBoard";
+import GameUnit from "../units/gameUnit";
+import Location from "../location";
+import log, { LOG_LEVEL } from "../../utility/logger";
+import MoveHistory from "../move/moveHistory";
+import MoveAction from "../move/moveAction";
+import SpecialAction from "../move/specialAction";
 
 export default class GameManager {
     gameId: string;
-    controllerId: string;
+    controllerId: number;
     private board: GameBoard;
     boardState: GameUnit[][];
     moveHistory: MoveHistory;
+    playerIds: number[];
+    endedTurnMap: Set<number>;
 
-    constructor(
-        gameId: string,
-        controllerId: string,
-        allPlayers: string[],
-        board: GameBoard,
-        boardState?: GameUnit[][],
-    ) {
+    constructor(gameId: string, controllerId: number, allPlayers: number[], boardState?: GameUnit[][]) {
         this.gameId = gameId;
         this.controllerId = controllerId;
-        this.board = board;
         if (boardState) {
             this.boardState = boardState;
         } else {
             this.boardState = new Array(5);
         }
         this.moveHistory = new MoveHistory(allPlayers);
+        this.playerIds = allPlayers;
+        this.endedTurnMap = new Set<number>();
     }
 
-    addMovesForPlayer(playerId: string, moveList: MoveAction[]) {
+    addMovesForPlayer(playerId: number, moveList: MoveAction[]) {
         moveList.forEach((move) => {
             this.moveHistory.playerMove(playerId, move);
         });
     }
 
-    addSpecialsForPlayer(playerId: string, specialList: SpecialAction[]) {
+    addSpecialsForPlayer(playerId: number, specialList: SpecialAction[]) {
         specialList.forEach((special) => {
             this.moveHistory.playerSpecial(playerId, special);
         });
+    }
+
+    getNumTurns(): number {
+        return this.moveHistory.history.length;
+    }
+
+    playerSendsEndTurnSignal(playerId: number, endTurn: boolean) {
+        if (endTurn) {
+            this.endedTurnMap.add(playerId);
+        } else {
+            this.endedTurnMap.delete(playerId);
+        }
+    }
+
+    allPlayersHaveEndedTurn(): boolean {
+        return this.endedTurnMap.size == this.playerIds.length;
     }
 
     endTurn() {
         // Do Specials **FIRST** and then moves
         const turnHistory = this.moveHistory.saveAndGetTurnHistory();
         Object.keys(turnHistory).forEach((playerId) => {
-            Object.keys(turnHistory[playerId]).forEach((locationKey) => {
-                this.doSpecial(turnHistory[playerId][locationKey].specialAction);
+            const playerIdNum = parseInt(playerId);
+            Object.keys(turnHistory[playerIdNum]).forEach((locationKey) => {
+                this.doSpecial(turnHistory[playerIdNum][locationKey].specialAction);
             });
         });
         Object.keys(turnHistory).forEach((playerId) => {
-            Object.keys(turnHistory[playerId]).forEach((locationKey) => {
-                const moveAction = turnHistory[playerId][locationKey].moveAction;
+            const playerIdNum = parseInt(playerId);
+            Object.keys(turnHistory[playerIdNum]).forEach((locationKey) => {
+                const moveAction = turnHistory[playerIdNum][locationKey].moveAction;
                 this.moveUnit(
                     moveAction.unitDoingAction,
                     moveAction.unitDoingAction.location,
@@ -61,6 +76,7 @@ export default class GameManager {
                 );
             });
         });
+        this.endedTurnMap.clear();
     }
 
     getUnitAt(location: Location): GameUnit | null {

@@ -5,14 +5,14 @@ import UnitStats from "./unitStats";
 
 export default class GameUnit {
     unitStats: UnitStats;
-    controller: string;
+    controller: number;
     specialMoves: SpecialActionName[];
     location: location;
     turnStartLocation: location;
     team: string;
 
     constructor(
-        controller: string,
+        controller: number,
         team: string,
         unitStats: UnitStats,
         specialMoves: SpecialActionName[],

@@ -7,6 +7,8 @@ enum MessageEnum {
     JOIN_LOBBY = "join lobby",
     CREATE_LOBBY = "create lobby",
     START_GAME = "start game",
+    PLAYER_INPUT = "player input",
+    END_TURN_SIGNAL = "end turn? maybe idk dude",
 }
 
 export default MessageEnum;

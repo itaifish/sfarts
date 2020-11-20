@@ -12,12 +12,14 @@ import {
     CreateLobbyRequest,
     GetLobbiesResponse,
     JoinLobbyRequest,
-    LobbyResponse,
 } from "../shared/communication/messageInterfaces/lobbyMessage";
 import UserManager from "./manager/userManager";
 import LobbyManger from "./manager/lobbyManager";
 import log, { LOG_LEVEL } from "../shared/utility/logger";
-import GameManager from "./manager/gameManager";
+import GamesManager from "./manager/gamesManager";
+import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
+import SpecialAction from "../shared/game/move/specialAction";
+import { EndTurnRequest, EndTurnResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
 
 class Server {
     // Server Variables
@@ -28,7 +30,11 @@ class Server {
     //Managers
     userManager: UserManager;
     lobbyManager: LobbyManger;
-    gameManager: GameManager;
+    gamesManager: GamesManager;
+
+    gameTurnLoops: {
+        [gameId: string]: NodeJS.Timeout;
+    };
 
     constructor() {
         this.app = express();
@@ -40,7 +46,16 @@ class Server {
 
         this.userManager = new UserManager();
         this.lobbyManager = new LobbyManger();
-        this.gameManager = new GameManager(this.userManager);
+        this.gamesManager = new GamesManager(this.userManager);
+        this.gameTurnLoops = {};
+    }
+
+    endTurn(gameId: string): void {
+        const gameState = this.gamesManager.endTurnAndGetGameState(gameId);
+        const response: EndTurnResponse = {
+            gameState: gameState,
+        };
+        this.io.to(this.gamesManager.lobbyMap[gameId].getRoomName()).emit(MessageEnum.END_TURN_SIGNAL, response);
     }
 
     listen(): void {
@@ -66,6 +81,7 @@ class Server {
             socket.on(MessageEnum.CREATE_LOBBY, (lobbyRequest: CreateLobbyRequest) => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
                 const createdLobby = this.lobbyManager.userCreateLobby(user, lobbyRequest.lobbySettings);
+                log(`${user.username} has created lobby ${createdLobby.id}`);
                 // After creating a lobby respond with a list of all lobbies (Should have new lobby)
                 const response: GetLobbiesResponse = { lobbies: this.lobbyManager.getLobbyList() };
                 socket.join(createdLobby.getRoomName());
@@ -73,21 +89,66 @@ class Server {
             });
             socket.on(MessageEnum.JOIN_LOBBY, (joinLobbyRequest: JoinLobbyRequest) => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
+                log(
+                    `Client ${user.username} attempting to join lobby: ${joinLobbyRequest.lobbyId} on team ${joinLobbyRequest.teamId}`,
+                    this.constructor.name,
+                    LOG_LEVEL.INFO,
+                );
+                const usersCurrentLobby = this.lobbyManager.usersToLobbyMap[user.id];
+                if (usersCurrentLobby) {
+                    // User already exist, remove them from room
+                    socket.leave(usersCurrentLobby.getRoomName());
+                }
                 const joinedLobby = this.lobbyManager.userJoinTeamInLobby(
                     user,
                     joinLobbyRequest.lobbyId,
                     joinLobbyRequest.teamId,
                 );
-                // After joining a lobby respond with a list of all lobbies (Should have new lobby)
                 const response: GetLobbiesResponse = { lobbies: this.lobbyManager.getLobbyList() };
-                socket.join(joinedLobby.getRoomName());
-                this.io.to(joinedLobby.getRoomName()).emit(MessageEnum.GET_LOBBIES, response);
+                // After joining a lobby respond with a list of all lobbies (Should have new lobby)
+                if (joinedLobby) {
+                    socket.join(joinedLobby.getRoomName());
+                    this.io.to(joinedLobby.getRoomName()).emit(MessageEnum.GET_LOBBIES, response);
+                } else {
+                    socket.emit(MessageEnum.GET_LOBBIES, response);
+                }
             });
             socket.on(MessageEnum.START_GAME, () => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
                 const lobby = this.lobbyManager.usersToLobbyMap[user.id];
-                this.gameManager.lobbyToGame(lobby);
+                this.gamesManager.lobbyToGame(lobby);
                 this.lobbyManager.deleteLobby(lobby.id);
+            });
+            socket.on(MessageEnum.PLAYER_INPUT, (inputMessageRequest: InputMessageRequest) => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                } else {
+                    if (inputMessageRequest.actionType == ACTION_TYPE.SPECIAL) {
+                        this.gamesManager.addPlayerSpecial(user.id, inputMessageRequest.action as SpecialAction);
+                    } else {
+                        this.gamesManager.addPlayerMove(user.id, inputMessageRequest.action);
+                    }
+                }
+            });
+            socket.on(MessageEnum.END_TURN_SIGNAL, (endTurnRequest: EndTurnRequest) => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                }
+                const game = this.gamesManager.playerToGameManager(user.id);
+                this.gamesManager.playerSendsEndTurnSignal(user.id, endTurnRequest.playerHasEndedTurn);
+                if (this.gamesManager.allPlayersHaveEndedTurn(game.gameId)) {
+                    const intervalLoop = this.gameTurnLoops[game.gameId];
+                    // if not the first turn, reset game interval loop
+                    if (intervalLoop) {
+                        clearInterval(intervalLoop);
+                    }
+                    this.endTurn(game.gameId);
+                    this.gameTurnLoops[game.gameId] = setInterval(() => {
+                        this.endTurn(game.gameId);
+                    }, this.gamesManager.lobbyMap[game.gameId].settings.turnTime);
+                }
             });
             // Default behaviors
             socket.on(MessageEnum.DISCONNECT, (reason: string) => {

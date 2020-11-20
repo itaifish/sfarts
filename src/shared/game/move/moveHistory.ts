@@ -2,7 +2,7 @@ import MoveAction from "./moveAction";
 import SpecialAction from "./specialAction";
 
 interface singleTurnMoveHistory {
-    [playerId: string]: {
+    [playerId: number]: {
         [locationKey: string]: {
             moveAction: MoveAction;
             specialAction: SpecialAction;
@@ -13,11 +13,11 @@ interface singleTurnMoveHistory {
 export default class MoveHistory {
     history: singleTurnMoveHistory[];
 
-    constructor(players: string[]) {
+    constructor(players: number[]) {
         this.history = [{}];
     }
 
-    playerMove(playerId: string, move: MoveAction) {
+    playerMove(playerId: number, move: MoveAction) {
         this.verifyPlayerAndAction(playerId, move);
         const currentTurn = this.history[this.history.length - 1];
         const locationKey = `${move.unitDoingAction.turnStartLocation}`;
@@ -27,7 +27,7 @@ export default class MoveHistory {
         }
     }
 
-    playerSpecial(playerId: string, special: SpecialAction) {
+    playerSpecial(playerId: number, special: SpecialAction) {
         this.verifyPlayerAndAction(playerId, special);
         const currentTurn = this.history[this.history.length - 1];
         const locationKey = `${special.unitDoingAction.turnStartLocation}`;
@@ -40,7 +40,7 @@ export default class MoveHistory {
         return currentTurn;
     }
 
-    private verifyPlayerAndAction(playerId: string, move: MoveAction | SpecialAction) {
+    private verifyPlayerAndAction(playerId: number, move: MoveAction | SpecialAction) {
         const currentTurn = this.history[this.history.length - 1];
         const playerActions = currentTurn[playerId];
         const locationKey = `${move.unitDoingAction.turnStartLocation}`;

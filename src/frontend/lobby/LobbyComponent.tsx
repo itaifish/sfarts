@@ -21,6 +21,7 @@ class LobbyComponent extends React.Component<LobbyComponentProps, LobbyComponent
                     <td>{this.props.lobby.settings.lobbyName}</td>
                     <td>{this.props.lobby.players.length}</td>
                     <td>{this.props.lobby.id}</td>
+                    <td>{this.props.lobby.lobbyLeader}</td>
                 </tr>
             </>
         );

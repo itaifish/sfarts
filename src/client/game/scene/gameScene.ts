@@ -4,9 +4,8 @@ import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
-import GameManager from "../../../shared/game/gameManager";
+import GameManager from "../../../shared/game/manager/gameManager";
 import GameUnit from "../../../shared/game/units/gameUnit";
-import FighterUnit from "../../../shared/game/units/fighterUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -27,6 +26,7 @@ export default class GameScene extends Phaser.Scene {
         this.client = client;
         this.gameManager = null;
         this.rexBoard = null;
+        this.client.updateBoardStateCallback = this.loadBoardState;
     }
 
     preload() {
@@ -46,9 +46,7 @@ export default class GameScene extends Phaser.Scene {
             wrap: true,
         };
         this.board = new GameBoard(this, config);
-        this.gameManager = new GameManager("game id", "1", ["1", "2", "3"], this.board, [
-            [new FighterUnit("1", "1", { x: 0, y: 0 })],
-        ]);
+        this.gameManager = new GameManager("game id", 1, [1, 2, 3]);
         this.loadBoardState(this.gameManager.boardState);
 
         const cursors = this.input.keyboard.createCursorKeys();

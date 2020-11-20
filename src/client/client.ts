@@ -11,9 +11,12 @@ import {
     ClientLobby,
     CreateLobbyRequest,
     GetLobbiesResponse,
+    JoinLobbyRequest,
 } from "../shared/communication/messageInterfaces/lobbyMessage";
 import log, { LOG_LEVEL } from "../shared/utility/logger";
-import GameManager from "../shared/game/gameManager";
+import GameManager from "../shared/game/manager/gameManager";
+import { EndTurnResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
+import GameUnit from "../shared/game/units/gameUnit";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -30,6 +33,8 @@ export default class Client {
 
     gameManager: GameManager;
 
+    updateBoardStateCallback: (boardState: GameUnit[][]) => void;
+
     constructor() {
         this.gameManager = null;
         this.loginStatus = null;
@@ -43,6 +48,9 @@ export default class Client {
             // @ts-ignore
             this.messageCallbacks[MessageEnum[key]] = [];
         }
+        this.updateBoardStateCallback = (boardState) => {
+            log("This function should absolutely never be called", this.constructor.name, LOG_LEVEL.WARN);
+        };
     }
 
     listen(): void {
@@ -70,6 +78,11 @@ export default class Client {
             log(`Got ${this.lobbyList.length} lobbies`, this.constructor.name, LOG_LEVEL.INFO);
             this.runAndRemoveCallbacks(MessageEnum.GET_LOBBIES);
         });
+        this.socket.on(MessageEnum.END_TURN_SIGNAL, (response: EndTurnResponse) => {
+            this.gameManager.endTurn();
+            this.gameManager.boardState = response.gameState;
+            this.updateBoardStateCallback(this.gameManager.boardState);
+        });
     }
 
     /** Server Communication **/
@@ -87,6 +100,29 @@ export default class Client {
             lobbySettings: settings,
         };
         this.socket.emit(MessageEnum.CREATE_LOBBY, createLobbyRequest);
+    }
+
+    joinLobby(lobbyId: string, teamId: number, callbackFunc?: callbackFunction) {
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.GET_LOBBIES, callbackFunc);
+        }
+        const joinLobbyRequest: JoinLobbyRequest = {
+            lobbyId: lobbyId,
+            teamId: teamId,
+        };
+        this.socket.emit(MessageEnum.JOIN_LOBBY, joinLobbyRequest);
+    }
+
+    leaveLobby(lobbyId: string, callbackFunc?: callbackFunction) {
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.GET_LOBBIES, callbackFunc);
+        }
+        // join a non-existant team in lobby to leave
+        const joinLobbyRequest: JoinLobbyRequest = {
+            lobbyId: lobbyId,
+            teamId: -1,
+        };
+        this.socket.emit(MessageEnum.JOIN_LOBBY, joinLobbyRequest);
     }
 
     loadLobbyList(callbackFunc?: callbackFunction): void {

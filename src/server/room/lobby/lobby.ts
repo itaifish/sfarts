@@ -2,6 +2,7 @@ import { User, UserStatus } from "../../manager/userManager";
 import Room from "../room";
 import LobbySettings from "./lobbySettings";
 import { ClientLobby, ClientUser } from "../../../shared/communication/messageInterfaces/lobbyMessage";
+import log, { LOG_LEVEL } from "../../../shared/utility/logger";
 
 export default class Lobby implements Room {
     settings: LobbySettings;
