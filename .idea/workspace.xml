@@ -20,26 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/utility/convertToString.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/gamesManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/gamesManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/userManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/userManager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/endTurnMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/endTurnMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/loginMessage.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/loginMessage.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/move/moveHistory.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/move/moveHistory.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +101,7 @@
       <workItem from="1605642239129" duration="8018000" />
       <workItem from="1605708274694" duration="18074000" />
       <workItem from="1605798838195" duration="18721000" />
-      <workItem from="1605878910799" duration="18041000" />
+      <workItem from="1605878910799" duration="19932000" />
     </task>
     <servers />
   </component>

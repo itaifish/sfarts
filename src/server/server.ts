@@ -54,6 +54,7 @@ class Server {
     }
 
     endTurn(gameId: string): void {
+        log(`Ending the turn for game ${gameId}`, this.constructor.name, LOG_LEVEL.INFO);
         const gameState = this.gamesManager.endTurnAndGetGameState(gameId);
         this.gameTurnLoops[gameId].endTime =
             new Date().getTime() + this.gamesManager.lobbyMap[gameId].settings.turnTime;

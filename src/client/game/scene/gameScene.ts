@@ -6,6 +6,8 @@ import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
 import GameUnit from "../../../shared/game/units/gameUnit";
+import PhaserGameUnit from "../units/phaserGameUnit";
+import phaserGameUnit from "../units/phaserGameUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -15,6 +17,7 @@ export default class GameScene extends Phaser.Scene {
     height: number;
     client: Client;
     gameManager: GameManager;
+    phaserGameUnitPool: PhaserGameUnit[];
 
     constructor(width: number, height: number, client: Client, gameManager: GameManager) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
@@ -29,6 +32,7 @@ export default class GameScene extends Phaser.Scene {
         this.loadBoardState = this.loadBoardState.bind(this);
         this.client.updateBoardStateCallback = this.loadBoardState;
         this.gameManager = gameManager;
+        this.phaserGameUnitPool = [];
     }
 
     preload() {
@@ -78,11 +82,16 @@ export default class GameScene extends Phaser.Scene {
 
     loadBoardState() {
         this.board.removeAllChess(true);
+        this.phaserGameUnitPool.forEach((phaserGameUnit) => {
+            phaserGameUnit.destroy();
+        });
+        this.phaserGameUnitPool = [];
         this.board.forEachTileXY((tileXY: any, board: any) => {
             const location = { x: tileXY.x, y: tileXY.y };
             const unit = this.gameManager.getUnitAt(location);
             if (unit) {
                 const phaserUnit: PhaserFighterUnit = new PhaserFighterUnit(this, location, unit);
+                this.phaserGameUnitPool.push(phaserUnit);
             }
         }, this);
     }
