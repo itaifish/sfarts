@@ -4,6 +4,8 @@ import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
+import { sortAndDeduplicateDiagnostics } from "typescript";
+import Ui from "./ui";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -68,6 +70,10 @@ export default class GameScene extends Phaser.Scene {
         const maxSize = this.board.getWorldSize();
         const minXY = this.board.getWorldCameraOrigin();
         this.cameraController.camera.setBounds(minXY.x, minXY.y, maxSize.x, maxSize.y);
+
+        // ui camera controller
+        // this.cameraController.camera.setViewport(0, 0, 1600, 1050);
+        this.cameras.main.setViewport(0, 0, 0, 0);
     }
 
     update(time: number, delta: number) {
@@ -91,5 +97,9 @@ export default class GameScene extends Phaser.Scene {
 
     static getSceneName(): string {
         return "GameScene";
+    }
+
+    getBoard() {
+        return this.board;
     }
 }
