@@ -51,6 +51,11 @@ export default class GameBoard extends Board {
                     log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
                     const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
                     if (unit && unit.gameUnit.controller == this.scene.gameManager.controllerId) {
+                        log(
+                            `Clicked on unit ${JSON.stringify(unit.gameUnit.unitStats)}`,
+                            this.constructor.name,
+                            LOG_LEVEL.TRACE,
+                        );
                         if (this.state === ActionState.IDLE) {
                             this.setSelected(tileXY, unit);
                         }
@@ -155,7 +160,7 @@ export default class GameBoard extends Board {
     }
 }
 
-enum ActionState {
+export enum ActionState {
     IDLE = "idle",
     SELECTED = "selected",
     MOVING = "moving",

@@ -100,6 +100,20 @@ export default class GameManager {
                 );
             });
         });
+        // copy over own boardstate because passed in objects lose their functions
+        // TODO: fix this feature in the server so this inefficiency does not have to happen
+        this.copyBoardState(this.boardState);
+        this.boardState.forEach((row) => {
+            row.forEach((gameUnit) => {
+                if (gameUnit) {
+                    if (gameUnit.unitStats.health <= 0) {
+                        gameUnit = null;
+                    } else {
+                        gameUnit.processNewTurn();
+                    }
+                }
+            });
+        });
         this.endedTurnMap.clear();
     }
 

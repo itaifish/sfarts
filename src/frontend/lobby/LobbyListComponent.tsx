@@ -50,7 +50,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
             this.props.client.createLobby({
                 maxPlayersPerTeam: 1,
                 numTeams: 2,
-                turnTime: 30_000, //30 seconds
+                turnTime: 0, // 0 seconds means no timer, 30_000 = 30 seconds
                 lobbyName: "bitches and hoes",
                 mapId: "1",
             });

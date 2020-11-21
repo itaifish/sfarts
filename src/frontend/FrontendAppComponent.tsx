@@ -40,6 +40,10 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
                 if (client.loginStatus == LoginMessageResponseType.SUCCESS) {
                     this.setState({ username: username, errorMessage: null });
                     console.log("login successful");
+                    // if successful gamestate sent over
+                    if (this.state.client.gameManager) {
+                        this.gameHasLoaded();
+                    }
                 } else {
                     this.setState({ errorMessage: "Username or password is incorrect" });
                 }

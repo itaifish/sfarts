@@ -56,8 +56,10 @@ class Server {
     endTurn(gameId: string): void {
         log(`Ending the turn for game ${gameId}`, this.constructor.name, LOG_LEVEL.INFO);
         const gameState = this.gamesManager.endTurnAndGetGameState(gameId);
-        this.gameTurnLoops[gameId].endTime =
-            new Date().getTime() + this.gamesManager.lobbyMap[gameId].settings.turnTime;
+        if (this.gameTurnLoops[gameId]?.endTime) {
+            this.gameTurnLoops[gameId].endTime =
+                new Date().getTime() + this.gamesManager.lobbyMap[gameId].settings.turnTime;
+        }
         const response: GameStateResponse = {
             gameState: gameState,
         };
@@ -79,6 +81,16 @@ class Server {
                 };
                 if (userResult) {
                     responseMessage.id = userResult.id;
+                    const usersLobby = this.gamesManager.usersToLobbyMap[userResult.id];
+                    const usersGame = this.gamesManager.lobbyToGameManagerMap[usersLobby?.id];
+                    // rejoin left game
+                    if (usersGame) {
+                        socket.join(usersLobby.getRoomName());
+                        responseMessage.gameStateToRejoin = {
+                            gameState: usersGame.boardState,
+                            gameId: usersGame.gameId,
+                        };
+                    }
                 }
                 socket.emit(MessageEnum.LOGIN, responseMessage);
             });
@@ -173,12 +185,14 @@ class Server {
                         clearInterval(intervalLoop.timeOut);
                     }
                     const turnTime = this.gamesManager.lobbyMap[game.gameId].settings.turnTime;
-                    this.gameTurnLoops[game.gameId] = {
-                        endTime: new Date().getTime() + turnTime,
-                        timeOut: setInterval(() => {
-                            this.endTurn(game.gameId);
-                        }, turnTime),
-                    };
+                    if (turnTime > 0) {
+                        this.gameTurnLoops[game.gameId] = {
+                            endTime: new Date().getTime() + turnTime,
+                            timeOut: setInterval(() => {
+                                this.endTurn(game.gameId);
+                            }, turnTime),
+                        };
+                    }
 
                     this.endTurn(game.gameId);
                 }

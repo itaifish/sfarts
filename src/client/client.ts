@@ -76,6 +76,10 @@ export default class Client {
             );
             this.loginStatus = msg.status;
             this.userId = msg.id;
+            if (msg.gameStateToRejoin) {
+                this.gameManager = new GameManager(msg.gameStateToRejoin.gameId, this.userId, []);
+                this.gameManager.copyBoardState(msg.gameStateToRejoin.gameState);
+            }
             this.runAndRemoveCallbacks(MessageEnum.LOGIN);
         });
         this.socket.on(MessageEnum.GET_LOBBIES, (response: GetLobbiesResponse) => {
