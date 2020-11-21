@@ -7,6 +7,7 @@ import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
 import PhaserGameUnit from "../units/phaserGameUnit";
+import HealthBar from "../gui/healthBar";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -16,7 +17,7 @@ export default class GameScene extends Phaser.Scene {
     height: number;
     client: Client;
     gameManager: GameManager;
-    phaserGameUnitPool: PhaserGameUnit[];
+    phaserGameUnitPool: Phaser.GameObjects.GameObject[];
 
     constructor(width: number, height: number, client: Client, gameManager: GameManager) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
@@ -92,7 +93,9 @@ export default class GameScene extends Phaser.Scene {
             const unit = this.gameManager.getUnitAt(location);
             if (unit) {
                 const phaserUnit: PhaserFighterUnit = new PhaserFighterUnit(this, location, unit);
+                const unitHealthBar: HealthBar = new HealthBar(this, phaserUnit);
                 this.phaserGameUnitPool.push(phaserUnit);
+                this.phaserGameUnitPool.push(unitHealthBar.bar);
             }
         }, this);
     }

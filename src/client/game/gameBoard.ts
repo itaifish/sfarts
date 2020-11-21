@@ -96,6 +96,7 @@ export default class GameBoard extends Board {
                                 this.unSelect();
                             }
                         }
+                        this.selected[1].emit("drawHealth");
                     })
                     .moveAlongPath(this.selectedPath);
                 this.state = ActionState.MOVING;
