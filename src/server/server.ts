@@ -174,7 +174,7 @@ class Server {
             socket.on(MessageEnum.END_TURN_SIGNAL, (endTurnRequest: EndTurnRequest) => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
                 if (!user) {
-                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                    return socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
                 }
                 const game = this.gamesManager.playerToGameManager(user.id);
                 this.gamesManager.playerSendsEndTurnSignal(user.id, endTurnRequest.playerHasEndedTurn);

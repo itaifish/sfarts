@@ -92,7 +92,8 @@ export default class GameBoard extends Board {
                                 };
                                 this.scene.client.sendMove(move);
                                 //Re-set selection (because move)
-                                this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
+                                //this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
+                                this.unSelect();
                             }
                         }
                     })
@@ -102,10 +103,7 @@ export default class GameBoard extends Board {
         });
         this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
             if (pointer.rightButtonDown()) {
-                this.setSelected(null, null);
-                this.moveTo = null;
-                this.state = ActionState.IDLE;
-                this.clearPath();
+                this.unSelect();
             }
         });
 
@@ -141,6 +139,13 @@ export default class GameBoard extends Board {
             this.state = ActionState.SELECTED;
             this.selectedPath = [this.chessToTileXYZ(unit)];
         }
+    }
+
+    unSelect() {
+        this.setSelected(null, null);
+        this.moveTo = null;
+        this.state = ActionState.IDLE;
+        this.clearPath();
     }
 
     clearPath() {

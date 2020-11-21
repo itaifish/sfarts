@@ -82,9 +82,7 @@ export default class GameScene extends Phaser.Scene {
 
     loadBoardState() {
         this.board.removeAllChess(true);
-        this.board.selected = null;
-        this.board.state = ActionState.IDLE;
-        this.board.moveTo = { x: 0, y: 0 };
+        this.board.unSelect();
         this.phaserGameUnitPool.forEach((phaserGameUnit) => {
             phaserGameUnit.destroy();
         });
