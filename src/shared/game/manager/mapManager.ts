@@ -34,7 +34,7 @@ export default class MapManager {
     static mapStringToMap(mapString: string): GameUnit[][] {
         const gameUnitArray: GameUnit[][] = [];
         let currentIndex = 0,
-            endIndex = 0;
+            endIndex: number;
         endIndex = mapString.indexOf(" ", currentIndex);
         const gameWidth = parseInt(mapString.substr(currentIndex, endIndex - currentIndex));
         currentIndex = endIndex + 1;

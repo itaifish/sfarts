@@ -65,45 +65,55 @@ export default class GameBoard extends Board {
             .on("tilemove", (pointer: Phaser.Input.Pointer, tileXY: any) => {
                 if (this.state == ActionState.SELECTED) {
                     this.selectedPath.length = 1;
-                    const distanceBetween = this.getDistance(this.selected[0], tileXY);
+                    this.getPath(this.selected[1], tileXY, this.selectedPath);
+                    const distanceBetween = this.selectedPath.reduce((acc, curr, idx, arr) => {
+                        if (idx == 0) {
+                            return 0;
+                        } else {
+                            return acc + this.getDistance(arr[idx - 1], curr);
+                        }
+                    }, 0);
                     if (distanceBetween <= this.selected[1].gameUnit.unitStats.movesRemaining) {
-                        this.drawPath(this.getPath(this.selected[1], tileXY, this.selectedPath));
+                        this.drawPath(this.selectedPath);
                         this.moveTo = { x: tileXY.x, y: tileXY.y };
                     }
                 }
             });
         this.scene.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
             if (pointer.leftButtonReleased() && this.state == ActionState.SELECTED) {
-                this.selected[1]
-                    .once("move.complete", () => {
-                        this.clearPath();
-                        this.state = ActionState.IDLE;
-                        if (this.selected[1].gameUnit.unitStats.movesRemaining == 0) {
-                            this.selected[1].setTint(0xffffff);
-                        }
-                        if (this.moveTo) {
-                            const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
-                            if (distanceBetween > 0) {
-                                this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
-                                // send move request to server
-                                const move: MoveAction = {
-                                    unitDoingAction: this.selected[1].gameUnit,
-                                    targetedCoordinates: this.moveTo,
-                                };
-                                this.scene.client.sendMove(move);
-                                //Re-set selection (because move)
-                                //this.setSelected(this.selected[1].gameUnit.location, this.selected[1]);
-                                this.unSelect();
+                const unitMovingOnTopOf = this.scene.client.gameManager.getUnitAt(this?.moveTo);
+                if (!unitMovingOnTopOf) {
+                    this.selected[1]
+                        .once("move.complete", () => {
+                            this.clearPath();
+                            this.state = ActionState.IDLE;
+                            if (this.selected[1].gameUnit.unitStats.movesRemaining == 0) {
+                                this.selected[1].setTint(0xffffff);
                             }
-                        }
-                        this.selected[1].emit("drawHealth");
-                    })
-                    .moveAlongPath(this.selectedPath);
-                this.state = ActionState.MOVING;
+                            if (this.moveTo) {
+                                const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
+                                log(`Distance between: ${distanceBetween}`, this.constructor.name, LOG_LEVEL.DEBUG);
+                                if (distanceBetween > 0) {
+                                    this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
+                                    // send move request to server
+                                    const move: MoveAction = {
+                                        unitDoingAction: this.selected[1].gameUnit,
+                                        targetedCoordinates: this.moveTo,
+                                    };
+                                    this.scene.client.sendMove(move);
+                                    this.selected[1].emit("drawHealth");
+                                    //Re-set selection (because move)
+                                    this.unSelect();
+                                }
+                            }
+                        })
+                        .moveAlongPath(this.selectedPath);
+                    this.state = ActionState.MOVING;
+                }
             }
         });
         this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
-            if (pointer.rightButtonDown()) {
+            if (pointer.rightButtonDown() && this.state == ActionState.SELECTED) {
                 this.unSelect();
             }
         });

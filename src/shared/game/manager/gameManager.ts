@@ -123,7 +123,7 @@ export default class GameManager {
     }
 
     getUnitAt(location: Location): GameUnit | null {
-        if (this.boardState[location.y]) {
+        if (location && this.boardState[location.y]) {
             return this.boardState[location.y][location.x];
         }
         return null;

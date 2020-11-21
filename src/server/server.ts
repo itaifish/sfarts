@@ -90,6 +90,8 @@ class Server {
                             gameState: usersGame.boardState,
                             gameId: usersGame.gameId,
                         };
+                        // reset moves so player is seeing same thing as server
+                        usersGame.resetPlayerMoves(userResult.id);
                     }
                 }
                 socket.emit(MessageEnum.LOGIN, responseMessage);

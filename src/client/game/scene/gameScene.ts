@@ -50,7 +50,7 @@ export default class GameScene extends Phaser.Scene {
             grid: this.getHexagonGrid(this),
             width: this.width,
             height: this.height,
-            wrap: true,
+            wrap: false,
         };
         this.board = new GameBoard(this, config);
         this.loadBoardState();

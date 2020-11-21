@@ -23,11 +23,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/tbsfartsGame.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/units/phaserFighterUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/units/phaserFighterUnit.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/units/phaserGameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/units/phaserGameUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +126,8 @@
       <workItem from="1605642239129" duration="8018000" />
       <workItem from="1605708274694" duration="18074000" />
       <workItem from="1605798838195" duration="18721000" />
-      <workItem from="1605878910799" duration="32926000" />
+      <workItem from="1605878910799" duration="33302000" />
+      <workItem from="1605993560775" duration="3657000" />
     </task>
     <servers />
   </component>
