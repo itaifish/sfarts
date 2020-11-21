@@ -11,6 +11,8 @@ export default class MapManager {
             for (let x = 0; x < size; x++) {
                 if ((x + y) % size == 0) {
                     map[y].push(new FighterUnit(players[playerIdx++] || 1, `${playerIdx + 1}`, { x: x, y: y }));
+                } else {
+                    map[y].push(null);
                 }
             }
         }

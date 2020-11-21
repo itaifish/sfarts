@@ -131,6 +131,11 @@ class Server {
                         gameState: createdManager.boardState,
                         gameId: createdManager.gameId,
                     };
+                    log(
+                        `Sending boardstate and game start info to clients for lobby ${createdManager.gameId}`,
+                        this.constructor.name,
+                        LOG_LEVEL.INFO,
+                    );
                     this.io.to(lobby.getRoomName()).emit(MessageEnum.START_GAME, response);
                     this.lobbyManager.deleteLobby(lobby.id);
                 }

@@ -35,15 +35,19 @@ export default class GameManager {
             this.boardState.push([]);
             for (let x = 0; x < boardState[y].length; x++) {
                 const oldGameUnit = boardState[y][x];
-                this.boardState[y].push(
-                    new GameUnit(
-                        oldGameUnit.controller,
-                        oldGameUnit.team,
-                        oldGameUnit.unitStats,
-                        oldGameUnit.specialMoves,
-                        oldGameUnit.location,
-                    ),
-                );
+                if (oldGameUnit) {
+                    this.boardState[y].push(
+                        new GameUnit(
+                            oldGameUnit.controller,
+                            oldGameUnit.team,
+                            oldGameUnit.unitStats,
+                            oldGameUnit.specialMoves,
+                            oldGameUnit.location,
+                        ),
+                    );
+                } else {
+                    this.boardState[y].push(null);
+                }
             }
         }
     }
@@ -91,7 +95,7 @@ export default class GameManager {
                 const moveAction = turnHistory[playerIdNum][locationKey].moveAction;
                 this.moveUnit(
                     moveAction.unitDoingAction,
-                    moveAction.unitDoingAction.location,
+                    moveAction.unitDoingAction.turnStartLocation,
                     moveAction.targetedCoordinates,
                 );
             });
@@ -111,9 +115,9 @@ export default class GameManager {
     }
 
     private moveUnit(unitMoving: GameUnit, oldLocation: Location, newLocation: Location) {
-        if (unitMoving.location != oldLocation) {
+        if (unitMoving.turnStartLocation != oldLocation) {
             log(
-                `${locationToString(unitMoving.location)} is not equal to ${locationToString(oldLocation)}`,
+                `${locationToString(unitMoving.turnStartLocation)} is not equal to ${locationToString(oldLocation)}`,
                 this.constructor.name,
                 LOG_LEVEL.ERROR,
             );
