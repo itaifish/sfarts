@@ -5,9 +5,7 @@ import Fighter from "../../resources/images/fighter.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
-import GameUnit from "../../../shared/game/units/gameUnit";
 import PhaserGameUnit from "../units/phaserGameUnit";
-import phaserGameUnit from "../units/phaserGameUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;

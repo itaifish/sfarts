@@ -86,7 +86,7 @@ export default class Client {
         });
         this.socket.on(MessageEnum.END_TURN_SIGNAL, (response: GameStateResponse) => {
             this.gameManager.endTurn();
-            this.gameManager.boardState = response.gameState;
+            this.gameManager.copyBoardState(response.gameState);
             this.updateBoardStateCallback(this.gameManager.boardState);
             this.runAndRemoveCallbacks(MessageEnum.END_TURN_SIGNAL);
         });

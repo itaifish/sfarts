@@ -20,11 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/server/shared/game/manager/gameManagerTest.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +123,7 @@
       <workItem from="1605642239129" duration="8018000" />
       <workItem from="1605708274694" duration="18074000" />
       <workItem from="1605798838195" duration="18721000" />
-      <workItem from="1605878910799" duration="23501000" />
+      <workItem from="1605878910799" duration="26659000" />
     </task>
     <servers />
   </component>

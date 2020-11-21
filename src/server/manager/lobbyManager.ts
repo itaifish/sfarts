@@ -2,7 +2,6 @@ import uuid4 from "uuid4";
 import Lobby from "../room/lobby/lobby";
 import LobbySettings from "../room/lobby/lobbySettings";
 import { User } from "./userManager";
-import log, { LOG_LEVEL } from "../../shared/utility/logger";
 import { ClientLobby } from "../../shared/communication/messageInterfaces/lobbyMessage";
 
 export default class LobbyManger {
