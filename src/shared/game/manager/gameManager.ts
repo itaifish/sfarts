@@ -117,6 +117,11 @@ export default class GameManager {
         this.endedTurnMap.clear();
     }
 
+    resetPlayerMoves(playerId: number): GameUnit[][] {
+        this.moveHistory.resetPlayerMoves(playerId);
+        return this.boardState;
+    }
+
     getUnitAt(location: Location): GameUnit | null {
         if (this.boardState[location.y]) {
             return this.boardState[location.y][location.x];

@@ -100,6 +100,11 @@ export default class Client {
             this.gameManager.copyBoardState(response.gameState);
             this.runAndRemoveCallbacks(MessageEnum.START_GAME);
         });
+        this.socket.on(MessageEnum.RESET_PLAYER_MOVES, (response: GameStateResponse) => {
+            this.gameManager.copyBoardState(response.gameState);
+            this.updateBoardStateCallback(this.gameManager.boardState);
+            this.runAndRemoveCallbacks(MessageEnum.RESET_PLAYER_MOVES);
+        });
     }
 
     /** Server Communication **/
@@ -169,6 +174,10 @@ export default class Client {
             playerHasEndedTurn: endTurn,
         };
         this.socket.emit(MessageEnum.END_TURN_SIGNAL, request);
+    }
+
+    resetMoves(): void {
+        this.socket.emit(MessageEnum.RESET_PLAYER_MOVES);
     }
 
     getTimeRemaining(processRemainingTimeFunction: (remainingTime: number) => void) {

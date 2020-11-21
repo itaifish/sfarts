@@ -207,6 +207,18 @@ class Server {
                     socket.emit(MessageEnum.GET_TIME_REMAINING, endTime || 0);
                 }
             });
+            socket.on(MessageEnum.RESET_PLAYER_MOVES, () => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                } else {
+                    const state = this.gamesManager.resetPlayerMoves(user.id);
+                    const response: GameStateResponse = {
+                        gameState: state,
+                    };
+                    socket.emit(MessageEnum.RESET_PLAYER_MOVES, response);
+                }
+            });
             // Default behaviors
             socket.on(MessageEnum.DISCONNECT, (reason: string) => {
                 log(`Client disconnected with reason ${reason}`, this.constructor.name, LOG_LEVEL.INFO);

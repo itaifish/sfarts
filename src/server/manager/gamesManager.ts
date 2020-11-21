@@ -61,12 +61,16 @@ export default class GamesManager extends LobbyManger {
         }
     }
 
-    addPlayerSpecial(playerId: number, special: SpecialAction) {
+    addPlayerSpecial(playerId: number, special: SpecialAction): void {
         this.playerToGameManager(playerId).addSpecialsForPlayer(playerId, [special]);
     }
 
     playerSendsEndTurnSignal(playerId: number, endTurn: boolean): void {
         this.playerToGameManager(playerId)?.playerSendsEndTurnSignal(playerId, endTurn);
+    }
+
+    resetPlayerMoves(playerId: number): GameUnit[][] {
+        return this.playerToGameManager(playerId)?.resetPlayerMoves(playerId);
     }
 
     allPlayersHaveEndedTurn(gameId: string): boolean {

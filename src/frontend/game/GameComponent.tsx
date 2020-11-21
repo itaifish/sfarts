@@ -17,16 +17,27 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
     }
     render() {
         return (
-            <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => {
-                    this.props.client.setEndTurn(!this.state.hasEndedTurn);
-                    this.setState({ hasEndedTurn: !this.state.hasEndedTurn });
-                }}
-            >
-                {this.state.hasEndedTurn ? "Unend Turn" : "End Turn"}
-            </button>
+            <>
+                <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => {
+                        this.props.client.setEndTurn(!this.state.hasEndedTurn);
+                        this.setState({ hasEndedTurn: !this.state.hasEndedTurn });
+                    }}
+                >
+                    {this.state.hasEndedTurn ? "Unend Turn" : "End Turn"}
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-warning"
+                    onClick={() => {
+                        this.props.client.resetMoves();
+                    }}
+                >
+                    Reset Moves
+                </button>
+            </>
         );
     }
 }

@@ -37,6 +37,11 @@ export default class MoveHistory {
         currentTurn[playerId][locationKey].specialAction = special;
     }
 
+    resetPlayerMoves(playerId: number) {
+        const currentTurn = this.history[this.history.length - 1];
+        currentTurn[playerId] = {};
+    }
+
     saveAndGetTurnHistory() {
         const currentTurn = this.history[this.history.length - 1];
         this.history.push({});
