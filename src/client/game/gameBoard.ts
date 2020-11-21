@@ -73,6 +73,9 @@ export default class GameBoard extends Board {
                     .once("move.complete", () => {
                         this.clearPath();
                         this.state = ActionState.IDLE;
+                        if (this.selected[1].gameUnit.unitStats.movesRemaining == 0) {
+                            this.selected[1].setTint(0xffffff);
+                        }
                         if (this.moveTo) {
                             const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
                             if (distanceBetween > 0) {
@@ -103,7 +106,7 @@ export default class GameBoard extends Board {
 
         this.pathGraphics = scene.add.graphics({
             lineStyle: {
-                width: 1,
+                width: 3,
                 color: 0x007ac1,
                 alpha: 1,
             },

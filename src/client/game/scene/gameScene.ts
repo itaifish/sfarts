@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import GameBoard from "../gameBoard";
 import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
+import EnemyFighter from "../../resources/images/enemyfighter.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
@@ -40,6 +41,7 @@ export default class GameScene extends Phaser.Scene {
             sceneKey: "rexBoard",
         });
         this.load.image("fighter", Fighter);
+        this.load.image("enemyFighter", EnemyFighter);
     }
 
     create() {

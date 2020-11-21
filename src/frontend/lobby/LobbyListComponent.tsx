@@ -52,7 +52,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                 numTeams: 2,
                 turnTime: 30_000, //30 seconds
                 lobbyName: "bitches and hoes",
-                mapId: "mapId",
+                mapId: "1",
             });
             this.props.client.addOnServerMessageCallback(MessageEnum.GET_LOBBIES, this.reloadState);
         } else {
