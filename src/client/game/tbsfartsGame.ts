@@ -30,7 +30,8 @@ export default class TbsfartsGame extends Phaser.Game {
         this.canvas.oncontextmenu = (e) => {
             e.preventDefault();
         };
-        const size = client.gameManager.boardState.length;
-        this.scene.add(GameScene.getSceneName(), new GameScene(size, size, client, client.gameManager), true);
+        const height = client.gameManager.boardState.length;
+        const width = client.gameManager.boardState[0].length;
+        this.scene.add(GameScene.getSceneName(), new GameScene(width, height, client, client.gameManager), true);
     }
 }
