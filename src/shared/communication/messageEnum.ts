@@ -11,6 +11,8 @@ enum MessageEnum {
     END_TURN_SIGNAL = "end turn? maybe idk dude",
     GET_TIME_REMAINING = "how much time is remaining bro",
     RESET_PLAYER_MOVES = "undo that shit bro i fucked up",
+    CONCEDE = "i give in!!!!",
+    GAME_HAS_ENDED = "game over gg wp no re",
 }
 
 export default MessageEnum;

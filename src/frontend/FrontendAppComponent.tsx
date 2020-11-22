@@ -48,6 +48,11 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
                     this.setState({ errorMessage: "Username or password is incorrect" });
                 }
             });
+            client.addOnServerMessageCallback(MessageEnum.GAME_HAS_ENDED, () => {
+                this.state.game.destroy(true);
+                this.setState({ game: null });
+                alert(`The Game is over: ${client.gameOverWinner} has won`);
+            });
             client.sendLoginAttempt(username, password);
         }
     }

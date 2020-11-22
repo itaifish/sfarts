@@ -26,14 +26,44 @@ export default class MapManager {
         "1":
             "15 8 " +
             "n n n n n n n n n n n n n n n " +
-            "f0 f0 f0 n n n n n n n n n n n n " +
-            "n n n n n n n n n f1 f1 f1 n n n " +
-            "b0 n n s0 n n n n n n d1 n n n b1 " +
+            "f0 s0 f0 n n n n n n n n n n n n " +
+            "n n n n n n n n n f1 s1 f1 n n n " +
+            "b0 n n d0 n n n n n n d1 n n n b1 " +
             "n n n n n n n n n n n n n n n " +
-            "f0 f0 f0 n n n n n n n n n n n n " +
-            "n n n n n n n n n f1 f1 f1 n n n " +
+            "f0 s0 f0 n n n n n n n n n n n n " +
+            "n n n n n n n n n f1 s1 f1 n n n " +
             "n n n n n n n n n n n n n n n ",
+        "2":
+            "20 15 " +
+            "n n n n n n n n n n n n n n n n n n n d0 " +
+            "n b0 n s0 s0 n n n n n n n n n n n n n n n " +
+            "n n n d0 n n n n n n n n n n n n n n n n " +
+            "n n s0 n n n n n n n n n n n n n n n n n " +
+            "n s0 n n f0 n n n n n n n n n n n n n n n " +
+            "n n n n n n n n n n n n n n n n n n n n " +
+            "n n n n n n n n n n n n n n n n n n n n " +
+            "n n n n n n n n n n n n n n n n n n n n " +
+            "n n n n n n n n n n n n n n n n n n n n " +
+            "n n n n n n n n n n n n n n n n n n n n " +
+            "n n n n n n n n n n n n n n f1 n n n n s1 " +
+            "n n n n n n n n n n n n n n n n n n s1 n " +
+            "n n n n n n n n n n n n n n n n n d1 n n " +
+            "n n n n n n n n n n n n f1 n n s1 s1 n b1 n " +
+            "d1 n n n n n n n n n n n n n n n n n n n ",
     };
+
+    static getMaps() {
+        return [
+            {
+                id: "1",
+                name: "Faceoff",
+            },
+            {
+                id: "2",
+                name: "Edgeworld",
+            },
+        ];
+    }
 
     static getMapFromId(mapId: string, players: number[]): GameUnit[][] {
         return MapManager.mapStringToMap(MapManager.mapIdToString[mapId]);

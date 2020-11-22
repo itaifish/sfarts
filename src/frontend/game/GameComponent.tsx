@@ -37,6 +37,15 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
                 >
                     Reset Moves
                 </button>
+                <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => {
+                        this.props.client.concede();
+                    }}
+                >
+                    Concede
+                </button>
             </>
         );
     }

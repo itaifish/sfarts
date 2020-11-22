@@ -20,12 +20,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/client/game/units/phaserMainBaseUnit.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/shared/game/units/mainBaseUnit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyCreatorComponent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/communication/messageInterfaces/gameOverMessage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/manager/gamesManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/gamesManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +133,7 @@
       <workItem from="1605798838195" duration="18721000" />
       <workItem from="1605878910799" duration="33302000" />
       <workItem from="1605993560775" duration="6551000" />
-      <workItem from="1606059670490" duration="18841000" />
+      <workItem from="1606059670490" duration="22991000" />
     </task>
     <servers />
   </component>
@@ -194,10 +198,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605544985533" />
-    <state x="667" y="119" width="585" height="801" key="find.popup" timestamp="1605902846089">
+    <state x="667" y="119" width="585" height="801" key="find.popup" timestamp="1606084685552">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="119" width="585" height="801" key="find.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605902846089" />
+    <state x="667" y="119" width="585" height="801" key="find.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1606084685552" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605840800941">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
