@@ -79,7 +79,7 @@ export default class GameBoard extends Board {
                             if (this.state === ActionState.ATTACKING) {
                                 const damage = this.selected[1].gameUnit.unitStats.damage;
                                 unit.gameUnit.unitStats.health -= damage;
-                                this.selected[1].gameUnit.specialsUsed.push(SpecialActionName.ATTACK);
+                                this.selected[1].gameUnit.useSpecialAction(SpecialActionName.ATTACK);
                                 const special: SpecialAction = {
                                     actionName: SpecialActionName.ATTACK,
                                     alliesInvolved: [],
@@ -160,7 +160,12 @@ export default class GameBoard extends Board {
         this.scene.input.keyboard.on("keydown-A", () => {
             const unit = this.selected[1];
             const attackKey: number = SpecialActionName.ATTACK as number;
-            if (unit && unit.gameUnit.specialMoves.includes(attackKey) && this.state == ActionState.SELECTED) {
+            if (
+                unit &&
+                unit.gameUnit.specialMoves.includes(attackKey) &&
+                unit.gameUnit.canUseSpecial(attackKey) &&
+                this.state == ActionState.SELECTED
+            ) {
                 // check if unit has already moved
                 // for now just check if starting position is equal to current position
                 if (MathUtility.locationEquals(unit.gameUnit.turnStartLocation, unit.gameUnit.location)) {

@@ -31,6 +31,10 @@ export default class GameUnit {
         this.specialsUsed.push(special);
     }
 
+    canUseSpecial(special: SpecialActionName) {
+        return !this.specialsUsed.includes(special);
+    }
+
     useMovesTo(moveAmount: number, location: Location): void {
         this.unitStats.movesRemaining -= moveAmount;
         this.location = { x: location.x, y: location.y };
