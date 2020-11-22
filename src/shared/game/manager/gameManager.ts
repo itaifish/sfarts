@@ -43,6 +43,7 @@ export default class GameManager {
                             oldGameUnit.unitStats,
                             oldGameUnit.specialMoves,
                             oldGameUnit.location,
+                            oldGameUnit.name,
                         ),
                     );
                 } else {

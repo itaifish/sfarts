@@ -3,11 +3,20 @@ import GameBoard, { ActionState } from "../gameBoard";
 import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
 import EnemyFighter from "../../resources/images/enemyfighter.png";
+import Speeder from "../../resources/images/speeder.png";
+import EnemySpeeder from "../../resources/images/enemyspeeder.png";
+import Destroyer from "../../resources/images/destroyer.png";
+import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
-import PhaserGameUnit from "../units/phaserGameUnit";
 import HealthBar from "../gui/healthBar";
+import PhaserGameUnit from "../units/phaserGameUnit";
+import PhaserSpeederUnit from "../units/phaserSpeederUnit";
+import SpeederUnit from "../../../shared/game/units/speederUnit";
+import FighterUnit from "../../../shared/game/units/fighterUnit";
+import DestroyerUnit from "../../../shared/game/units/destoyerUnit";
+import PhaserDestroyerUnit from "../units/phaserDestroyerUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -43,6 +52,10 @@ export default class GameScene extends Phaser.Scene {
         });
         this.load.image("fighter", Fighter);
         this.load.image("enemyFighter", EnemyFighter);
+        this.load.image("speeder", Speeder);
+        this.load.image("enemySpeeder", EnemySpeeder);
+        this.load.image("destroyer", Destroyer);
+        this.load.image("enemyDestroyer", EnemyDestroyer);
     }
 
     create() {
@@ -92,7 +105,17 @@ export default class GameScene extends Phaser.Scene {
             const location = { x: tileXY.x, y: tileXY.y };
             const unit = this.gameManager.getUnitAt(location);
             if (unit) {
-                const phaserUnit: PhaserFighterUnit = new PhaserFighterUnit(this, location, unit);
+                const unitType = unit.name;
+                console.log(unitType);
+                console.log(FighterUnit.prototype.constructor.name);
+                const phaserUnit: PhaserGameUnit =
+                    unitType == FighterUnit.prototype.constructor.name
+                        ? new PhaserFighterUnit(this, location, unit)
+                        : unitType == SpeederUnit.prototype.constructor.name
+                        ? new PhaserSpeederUnit(this, location, unit)
+                        : unitType == DestroyerUnit.prototype.constructor.name
+                        ? new PhaserDestroyerUnit(this, location, unit)
+                        : null;
                 const unitHealthBar: HealthBar = new HealthBar(this, phaserUnit);
                 this.phaserGameUnitPool.push(phaserUnit);
                 this.phaserGameUnitPool.push(unitHealthBar.bar);

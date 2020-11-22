@@ -20,9 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/client/game/units/phaserDestroyerUnit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/client/game/units/phaserSpeederUnit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/units/destoyerUnit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/game/units/speederUnit.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/gameBoard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/gameBoard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/mapManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/units/fighterUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/fighterUnit.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/gameUnit.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/units/unitStats.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +49,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../comp426-cli/a09" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/client/game/units" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -56,15 +64,17 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\manager" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\frontend" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
     </key>
   </component>
   <component name="RunManager">
@@ -124,7 +134,7 @@
       <workItem from="1605798838195" duration="18721000" />
       <workItem from="1605878910799" duration="33302000" />
       <workItem from="1605993560775" duration="6551000" />
-      <workItem from="1606059670490" duration="14825000" />
+      <workItem from="1606059670490" duration="17762000" />
     </task>
     <servers />
   </component>

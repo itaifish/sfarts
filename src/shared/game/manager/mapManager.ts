@@ -2,6 +2,8 @@ import GameUnit from "../units/gameUnit";
 import FighterUnit from "../units/fighterUnit";
 import Location from "../location";
 import log, { LOG_LEVEL } from "../../utility/logger";
+import SpeederUnit from "../units/speederUnit";
+import DestroyerUnit from "../units/destoyerUnit";
 
 export default class MapManager {
     private static unitToString = {
@@ -9,8 +11,12 @@ export default class MapManager {
         null: "n",
     };
     // eslint-disable-next-line @typescript-eslint/ban-types
-    private static stringToUnitContructor: { [key: string]: Function | null } = {
+    private static stringToUnitContructor: {
+        [key: string]: (controller: number, team: string, location: Location) => GameUnit | null;
+    } = {
         f: (controller: number, team: string, location: Location) => new FighterUnit(controller, team, location),
+        s: (controller: number, team: string, location: Location) => new SpeederUnit(controller, team, location),
+        d: (controller: number, team: string, location: Location) => new DestroyerUnit(controller, team, location),
         n: null,
     };
 
@@ -20,7 +26,7 @@ export default class MapManager {
             "n n n n n n n n n n n n n n n " +
             "f0 f0 f0 n n n n n n n n n n n n " +
             "n n n n n n n n n f1 f1 f1 n n n " +
-            "n n n n n n n n n n n n n n n " +
+            "n n n s0 n n n n n n d1 n n n n " +
             "n n n n n n n n n n n n n n n " +
             "f0 f0 f0 n n n n n n n n n n n n " +
             "n n n n n n n n n f1 f1 f1 n n n " +
@@ -50,7 +56,7 @@ export default class MapManager {
                 const justLetters = fullUnitStr.replace(/[0-9]/g, "");
                 const unitConstructor = MapManager.stringToUnitContructor[justLetters];
                 if (unitConstructor) {
-                    gameUnitArray[y].push(unitConstructor(justNumbers, justNumbers, { x: x, y: y }));
+                    gameUnitArray[y].push(unitConstructor(parseInt(justNumbers), justNumbers, { x: x, y: y }));
                 } else {
                     gameUnitArray[y].push(null);
                 }
