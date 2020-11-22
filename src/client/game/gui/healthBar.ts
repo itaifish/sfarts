@@ -1,5 +1,3 @@
-import log from "../../../shared/utility/logger";
-import { LOG_LEVEL } from "../../../shared/utility/logger";
 import GameScene from "../scene/gameScene";
 import PhaserGameUnit from "../units/phaserGameUnit";
 
@@ -39,44 +37,46 @@ export default class HealthBar {
         // draw background
         this.bar.fillStyle(0x000000);
         this.bar.fillRect(barXY.x, barXY.y, this.parentUnit.displayWidth, this.barHeight);
-        const border = 2;
-        const innerDimension = [
-            barXY.x + border,
-            barXY.y + border,
-            this.parentUnit.displayWidth - border,
-            this.barHeight - border,
-        ];
-        this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(innerDimension[0], innerDimension[1], innerDimension[2], innerDimension[3]);
-        const healthPercentWidth =
-            this.parentUnit.displayWidth *
-            (this.parentUnit.gameUnit.unitStats.health / this.parentUnit.gameUnit.unitStats.maxHealth);
-        const ally = this.parentUnit.gameUnit.controller == this.scene.client.userId;
-        if (ally) {
-            // Draw remaining moves
-            const movesBarXY = {
-                x: barXY.x,
-                y: barXY.y - this.barHeight / 2 - border,
-            };
-            this.bar.fillStyle(0x000000);
-            this.bar.fillRect(movesBarXY.x, movesBarXY.y, this.parentUnit.displayWidth, this.barHeight / 2);
+        if (this.parentUnit.gameUnit.unitStats.health > 0) {
+            const border = 2;
             const innerDimension = [
-                movesBarXY.x + border,
-                movesBarXY.y + border,
+                barXY.x + border,
+                barXY.y + border,
                 this.parentUnit.displayWidth - border,
-                this.barHeight / 2 - border,
+                this.barHeight - border,
             ];
             this.bar.fillStyle(0xffffff);
             this.bar.fillRect(innerDimension[0], innerDimension[1], innerDimension[2], innerDimension[3]);
-            const movesPercentWidth =
+            const healthPercentWidth =
                 this.parentUnit.displayWidth *
-                (this.parentUnit.gameUnit.unitStats.movesRemaining / this.parentUnit.gameUnit.unitStats.moveSpeed);
-            this.bar.fillStyle(0xffd300);
-            this.bar.fillRect(innerDimension[0], innerDimension[1], movesPercentWidth, innerDimension[3]);
-            this.bar.fillStyle(0x00ffc2);
-        } else {
-            this.bar.fillStyle(0xff1122);
+                (this.parentUnit.gameUnit.unitStats.health / this.parentUnit.gameUnit.unitStats.maxHealth);
+            const ally = this.parentUnit.gameUnit.controller == this.scene.client.userId;
+            if (ally) {
+                // Draw remaining moves
+                const movesBarXY = {
+                    x: barXY.x,
+                    y: barXY.y - this.barHeight / 2 - border,
+                };
+                this.bar.fillStyle(0x000000);
+                this.bar.fillRect(movesBarXY.x, movesBarXY.y, this.parentUnit.displayWidth, this.barHeight / 2);
+                const innerDimension = [
+                    movesBarXY.x + border,
+                    movesBarXY.y + border,
+                    this.parentUnit.displayWidth - border,
+                    this.barHeight / 2 - border,
+                ];
+                this.bar.fillStyle(0xffffff);
+                this.bar.fillRect(innerDimension[0], innerDimension[1], innerDimension[2], innerDimension[3]);
+                const movesPercentWidth =
+                    this.parentUnit.displayWidth *
+                    (this.parentUnit.gameUnit.unitStats.movesRemaining / this.parentUnit.gameUnit.unitStats.moveSpeed);
+                this.bar.fillStyle(0xffd300);
+                this.bar.fillRect(innerDimension[0], innerDimension[1], movesPercentWidth, innerDimension[3]);
+                this.bar.fillStyle(0x00ffc2);
+            } else {
+                this.bar.fillStyle(0xff1122);
+            }
+            this.bar.fillRect(innerDimension[0], innerDimension[1], healthPercentWidth, innerDimension[3]);
         }
-        this.bar.fillRect(innerDimension[0], innerDimension[1], healthPercentWidth, innerDimension[3]);
     }
 }

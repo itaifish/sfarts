@@ -4,7 +4,7 @@ import Location from "../../shared/game/location";
 import PhaserGameUnit from "./units/phaserGameUnit";
 import log, { LOG_LEVEL } from "../../shared/utility/logger";
 import MoveAction from "../../shared/game/move/moveAction";
-import { SpecialActionName } from "../../shared/game/move/specialAction";
+import SpecialAction, { SpecialActionName } from "../../shared/game/move/specialAction";
 import MathUtility from "../../shared/utility/math";
 
 export default class GameBoard extends Board {
@@ -12,6 +12,9 @@ export default class GameBoard extends Board {
     selected: [Location, PhaserGameUnit];
     selectedRenderTexture: Phaser.GameObjects.RenderTexture;
     selectedFillGraphics: Phaser.GameObjects.Graphics;
+    specialSelectableRenderTexture: Phaser.GameObjects.RenderTexture;
+    specialSelectableFillGraphics: Phaser.GameObjects.Graphics;
+    selectableLocations: Location[];
     state: ActionState;
     selectedPath: any[];
     moveTo: Location;
@@ -22,11 +25,18 @@ export default class GameBoard extends Board {
         this.scene = scene;
         this.selected = null;
         this.state = ActionState.IDLE;
+        this.selectableLocations = [];
         this.moveTo = { x: 0, y: 0 };
         // draw grid
         this.selectedFillGraphics = scene.add.graphics({
             fillStyle: {
                 color: 0x0071ff,
+                alpha: 0.85,
+            },
+        });
+        this.specialSelectableFillGraphics = scene.add.graphics({
+            fillStyle: {
+                color: 0xff6622,
                 alpha: 0.85,
             },
         });
@@ -45,21 +55,43 @@ export default class GameBoard extends Board {
         const size: { x: number; y: number } = this.getWorldSize();
         scene.add.renderTexture(0, 0, size.x, size.y).draw(gridGraphics).setDepth(-1);
         this.selectedRenderTexture = scene.add.renderTexture(0, 0, size.x, size.y);
+        this.specialSelectableRenderTexture = scene.add.renderTexture(0, 0, size.x, size.y);
         gridGraphics.destroy();
 
         this.setInteractive()
-            .on("tiledown", (pointer: Phaser.Input.Pointer, tileXY: any) => {
+            .on("tiledown", (pointer: Phaser.Input.Pointer, tileXY: Location) => {
                 if (pointer.leftButtonDown()) {
                     log(`Clicked on tile ${tileXY.x},${tileXY.y}`, this.constructor.name, LOG_LEVEL.TRACE);
                     const unit: PhaserGameUnit = this.tileXYZToChess(tileXY.x, tileXY.y, 1);
-                    if (unit && unit.gameUnit.controller == this.scene.gameManager.controllerId) {
-                        log(
-                            `Clicked on unit ${JSON.stringify(unit.gameUnit.unitStats)}`,
-                            this.constructor.name,
-                            LOG_LEVEL.TRACE,
-                        );
-                        if (this.state === ActionState.IDLE) {
-                            this.setSelected(tileXY, unit);
+                    if (unit) {
+                        // if clicking on ally unit - try to select
+                        if (unit.gameUnit.controller == this.scene.gameManager.controllerId) {
+                            log(
+                                `Clicked on unit ${JSON.stringify(unit.gameUnit.unitStats)}`,
+                                this.constructor.name,
+                                LOG_LEVEL.TRACE,
+                            );
+                            if (this.state === ActionState.IDLE) {
+                                this.setSelected(tileXY, unit);
+                            }
+                        } else {
+                            //   if clicking on enemy unit, try to attack
+                            if (this.state === ActionState.ATTACKING) {
+                                const damage = this.selected[1].gameUnit.unitStats.damage;
+                                unit.gameUnit.unitStats.health -= damage;
+                                this.selected[1].gameUnit.specialsUsed.push(SpecialActionName.ATTACK);
+                                const special: SpecialAction = {
+                                    actionName: SpecialActionName.ATTACK,
+                                    alliesInvolved: [],
+                                    enemiesInvolved: [unit.gameUnit],
+                                    amounts: [],
+                                    unitDoingAction: this.selected[1].gameUnit,
+                                    targetedCoordinates: tileXY,
+                                };
+                                this.scene.client.sendSpecial(special);
+                                this.unSelect();
+                                unit.emit("drawHealth");
+                            }
                         }
                     }
                 }
@@ -117,7 +149,10 @@ export default class GameBoard extends Board {
             }
         });
         this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
-            if (pointer.rightButtonDown() && this.state == ActionState.SELECTED) {
+            if (
+                pointer.rightButtonDown() &&
+                (this.state == ActionState.SELECTED || this.state == ActionState.ATTACKING)
+            ) {
                 this.unSelect();
             }
         });
@@ -133,6 +168,13 @@ export default class GameBoard extends Board {
                         unit.gameUnit.location,
                         unit.gameUnit.unitStats.range,
                     );
+                    this.selectableLocations = positionsAroundUnit.filter((position) => {
+                        const unit: PhaserGameUnit = this.tileXYZToChess(position.x, position.y, 1);
+                        return unit && unit.gameUnit.controller != this.scene.client.userId;
+                    });
+                    this.state = ActionState.ATTACKING;
+                    this.clearPath();
+                    this.drawSelectableLocations();
                     //
                 }
             }
@@ -160,6 +202,15 @@ export default class GameBoard extends Board {
         return this.tileXYToWorldXY(this.scene.width, this.scene.height);
     }
 
+    drawSelectableLocations(): void {
+        this.specialSelectableRenderTexture.clear();
+        this.specialSelectableFillGraphics.clear();
+        this.selectableLocations.forEach((location) => {
+            this.specialSelectableFillGraphics.fillPoints(this.getGridPoints(location.x, location.y, true), true);
+        });
+        this.specialSelectableRenderTexture.draw(this.specialSelectableFillGraphics);
+    }
+
     setSelected(location: Location, unit: PhaserGameUnit): void {
         this.selectedRenderTexture.clear();
         this.selectedFillGraphics.clear();
@@ -177,6 +228,9 @@ export default class GameBoard extends Board {
         this.moveTo = null;
         this.state = ActionState.IDLE;
         this.clearPath();
+        this.selectedRenderTexture.clear();
+        this.specialSelectableRenderTexture.clear();
+        this.specialSelectableFillGraphics.clear();
     }
 
     clearPath() {
@@ -199,5 +253,6 @@ export default class GameBoard extends Board {
 export enum ActionState {
     IDLE = "idle",
     SELECTED = "selected",
+    ATTACKING = "attacking",
     MOVING = "moving",
 }

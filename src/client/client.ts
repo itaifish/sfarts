@@ -19,6 +19,7 @@ import { EndTurnRequest, GameStateResponse } from "../shared/communication/messa
 import GameUnit from "../shared/game/units/gameUnit";
 import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
 import MoveAction from "../shared/game/move/moveAction";
+import SpecialAction from "../shared/game/move/specialAction";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -165,6 +166,14 @@ export default class Client {
         const request: InputMessageRequest = {
             actionType: ACTION_TYPE.MOVE,
             action: move,
+        };
+        this.socket.emit(MessageEnum.PLAYER_INPUT, request);
+    }
+
+    sendSpecial(special: SpecialAction): void {
+        const request: InputMessageRequest = {
+            actionType: ACTION_TYPE.SPECIAL,
+            action: special,
         };
         this.socket.emit(MessageEnum.PLAYER_INPUT, request);
     }

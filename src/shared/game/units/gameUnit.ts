@@ -1,6 +1,6 @@
 import { SpecialActionName } from "../move/specialAction";
 import Location from "../location";
-import UnitStats from "./unitStats";
+import UnitStats, { copyStats } from "./unitStats";
 
 export default class GameUnit {
     unitStats: UnitStats;
@@ -18,7 +18,7 @@ export default class GameUnit {
         specialMoves: SpecialActionName[],
         location: Location,
     ) {
-        this.unitStats = unitStats;
+        this.unitStats = copyStats(unitStats);
         this.controller = controller;
         this.team = team;
         this.specialMoves = specialMoves;

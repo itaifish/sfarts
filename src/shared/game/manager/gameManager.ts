@@ -4,7 +4,7 @@ import Location from "../location";
 import log, { LOG_LEVEL } from "../../utility/logger";
 import MoveHistory from "../move/moveHistory";
 import MoveAction from "../move/moveAction";
-import SpecialAction from "../move/specialAction";
+import SpecialAction, { SpecialActionName } from "../move/specialAction";
 import locationToString from "../../utility/convertToString";
 
 export default class GameManager {
@@ -93,11 +93,11 @@ export default class GameManager {
             const playerIdNum = parseInt(playerId);
             Object.keys(turnHistory[playerIdNum]).forEach((locationKey) => {
                 const moveAction = turnHistory[playerIdNum][locationKey].moveAction;
-                this.moveUnit(
-                    moveAction.unitDoingAction,
-                    moveAction.unitDoingAction.turnStartLocation,
-                    moveAction.targetedCoordinates,
-                );
+                if (moveAction) {
+                    const unitDoingAction = this.getUnitAt(moveAction.unitDoingAction.turnStartLocation);
+                    // copy over health and stuff
+                    this.moveUnit(unitDoingAction, unitDoingAction.turnStartLocation, moveAction.targetedCoordinates);
+                }
             });
         });
         // copy over own boardstate because passed in objects lose their functions
@@ -167,6 +167,30 @@ export default class GameManager {
     }
 
     private doSpecial(action: SpecialAction) {
-        //
+        if (!action) {
+            return;
+        }
+        if (action.actionName == SpecialActionName.ATTACK) {
+            const unitAttacking = this.getUnitAt(action.unitDoingAction?.turnStartLocation);
+            if (action.unitDoingAction?.unitStats?.damage != unitAttacking?.unitStats.damage) {
+                log(
+                    `ERROR: Damage is not consistent, likely refering to different gameobjects or something is incorrectly null`,
+                    this.constructor.name,
+                    LOG_LEVEL.WARN,
+                );
+            } else {
+                const unitBeingAttacked = this.getUnitAt(action.targetedCoordinates);
+                if (!unitBeingAttacked || unitAttacking?.controller == unitBeingAttacked?.controller) {
+                    log(`ERROR: unit is attacking null or an ally`, this.constructor.name, LOG_LEVEL.WARN);
+                } else {
+                    unitBeingAttacked.unitStats.health -= unitAttacking.unitStats.damage;
+                    log(
+                        `Unit for player ${unitBeingAttacked.controller} took ${unitAttacking.unitStats.damage} damage, health is now at ${unitBeingAttacked.unitStats.health}`,
+                        this.constructor.name,
+                        LOG_LEVEL.DEBUG,
+                    );
+                }
+            }
+        }
     }
 }
