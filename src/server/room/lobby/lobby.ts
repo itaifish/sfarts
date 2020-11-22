@@ -1,6 +1,8 @@
 import { User, UserStatus } from "../../manager/userManager";
 import Room from "../room";
 import LobbySettings from "./lobbySettings";
+import { ClientLobby, ClientUser } from "../../../shared/communication/messageInterfaces/lobbyMessage";
+import log, { LOG_LEVEL } from "../../../shared/utility/logger";
 
 export default class Lobby implements Room {
     settings: LobbySettings;
@@ -25,7 +27,7 @@ export default class Lobby implements Room {
         this.lobbyLeader = initialPlayer.id;
     }
     getRoomName(): string {
-        return this.settings.lobbyName;
+        return `${this.settings.lobbyName}: ${this.id}`;
     }
 
     /**
@@ -74,5 +76,32 @@ export default class Lobby implements Room {
                 return;
             }
         }
+    }
+
+    asClientLobby(): ClientLobby {
+        const playerTeamMap: {
+            [teamId: number]: {
+                [userId: number]: ClientUser;
+            };
+        } = {};
+        Object.keys(this.playerTeamMap).forEach((teamId) => {
+            const teamIdInt = parseInt(teamId);
+            playerTeamMap[teamIdInt] = {};
+            Object.keys(this.playerTeamMap[teamIdInt]).forEach((userId) => {
+                const userIdInt = parseInt(userId);
+                const user = this.playerTeamMap[teamIdInt][userIdInt];
+                playerTeamMap[teamIdInt][userIdInt] = {
+                    username: user.username,
+                    id: user.id,
+                };
+            });
+        });
+        return {
+            settings: this.settings,
+            id: this.id,
+            lobbyLeader: this.lobbyLeader,
+            players: this.players,
+            playerTeamMap: playerTeamMap,
+        };
     }
 }

@@ -4,13 +4,13 @@ export default class DatabaseReader {
     loadUsers(): User[] {
         return [
             {
-                username: "Fisherswamp",
+                username: "user1",
                 password: "1234",
                 status: UserStatus.OFFLINE,
                 id: 0,
             },
             {
-                username: "Redstreak4",
+                username: "user2",
                 password: "1234",
                 status: UserStatus.OFFLINE,
                 id: 1,

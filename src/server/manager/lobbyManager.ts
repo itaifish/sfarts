@@ -2,6 +2,7 @@ import uuid4 from "uuid4";
 import Lobby from "../room/lobby/lobby";
 import LobbySettings from "../room/lobby/lobbySettings";
 import { User } from "./userManager";
+import { ClientLobby } from "../../shared/communication/messageInterfaces/lobbyMessage";
 
 export default class LobbyManger {
     lobbyMap: { [lobbyId: string]: Lobby };
@@ -13,17 +14,19 @@ export default class LobbyManger {
         this.usersToLobbyMap = {};
     }
 
-    getLobbyList(): Lobby[] {
-        return Object.keys(this.lobbyMap).map((key: string) => this.lobbyMap[key]);
+    getLobbyList(): ClientLobby[] {
+        return Object.keys(this.lobbyMap).map((key: string) => this.lobbyMap[key].asClientLobby());
     }
 
-    userCreateLobby(user: User, settings: LobbySettings): Lobby {
+    userCreateLobby(user: User, settings: LobbySettings, presetId?: string): Lobby {
         // disconnect user from any previous lobby they are in
         this.playerDisconnects(user);
-        let id;
-        do {
-            id = uuid4();
-        } while (this.lobbyMap[id]); // this should basically never happen, but just in case
+        let id = presetId;
+        if (!id) {
+            do {
+                id = uuid4();
+            } while (this.lobbyMap[id] != null); // this should basically never happen, but just in case
+        }
         const newLobby: Lobby = new Lobby(id, user, settings);
         this.usersToLobbyMap[user.id] = newLobby;
         this.lobbyMap[id] = newLobby;
@@ -33,9 +36,12 @@ export default class LobbyManger {
     userJoinTeamInLobby(user: User, lobbyId: string, teamId: number): Lobby {
         const lobby = this.lobbyMap[lobbyId];
         if (lobby) {
-            if (lobby.playerJoinTeam(user, teamId)) {
+            const success = lobby.playerJoinTeam(user, teamId);
+            if (success) {
                 this.usersToLobbyMap[user.id] = lobby;
                 return lobby;
+            } else if (lobby.players.length == 0) {
+                this.deleteLobby(lobby.id);
             }
         }
         return null;
@@ -53,9 +59,11 @@ export default class LobbyManger {
 
     deleteLobby(lobbyId: string): void {
         const lobbyToDel = this.lobbyMap[lobbyId];
-        delete this.lobbyMap[lobbyId];
-        lobbyToDel.players.forEach((player) => {
-            delete this.usersToLobbyMap[player];
-        });
+        if (lobbyToDel) {
+            delete this.lobbyMap[lobbyId];
+            lobbyToDel.players.forEach((player) => {
+                delete this.usersToLobbyMap[player];
+            });
+        }
     }
 }

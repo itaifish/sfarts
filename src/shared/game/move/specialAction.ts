@@ -1,15 +1,14 @@
 import GameUnit from "../units/gameUnit";
 import Location from "../location";
+import MoveAction from "./moveAction";
 
 export enum SpecialActionName {
     ATTACK,
 }
 
-export default interface SpecialAction {
+export default interface SpecialAction extends MoveAction {
     actionName: SpecialActionName;
-    unitDoingAction: GameUnit;
     alliesInvolved: GameUnit[];
     enemiesInvolved: GameUnit[];
-    targetedCoordinates: Location;
     amounts: number[];
 }
