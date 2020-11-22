@@ -1,6 +1,7 @@
 import gameBoard from "../gameBoard";
 import PhaserGameUnit from "../units/phaserGameUnit";
 import gameScene from "./gameScene";
+import log from "../../../shared/utility/logger"
 export default class UI extends Phaser.Scene {
     width: number;
     height: number;
@@ -64,6 +65,7 @@ export default class UI extends Phaser.Scene {
     displaySelect(tileXY: any) {
         console.log(tileXY);
         this.theWord.setText(tileXY.x + "," + tileXY.y);
-        console.log(this.board.tileXYZToChess(tileXY.x, tileXY.y));
+        let movesRemaining = this.board.selected[1].gameUnit.unitStats.movesRemaining;
+        this.theWord.setText(movesRemaining.toString());
     }
 }
