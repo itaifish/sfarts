@@ -22,5 +22,13 @@
     "health": 8,
     "damage": 3,
     "range": 3
+  },
+  "mainbase": {
+    "moveSpeed": 0,
+    "movesRemaining": 0,
+    "maxHealth": 15,
+    "health": 15,
+    "damage": 0,
+    "range": 0
   }
 }

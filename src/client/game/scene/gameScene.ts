@@ -7,6 +7,8 @@ import Speeder from "../../resources/images/speeder.png";
 import EnemySpeeder from "../../resources/images/enemyspeeder.png";
 import Destroyer from "../../resources/images/destroyer.png";
 import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
+import MainBase from "../../resources/images/mainbase.png";
+import EnemyMainBase from "../../resources/images/mainbaseenemy.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
@@ -17,6 +19,8 @@ import SpeederUnit from "../../../shared/game/units/speederUnit";
 import FighterUnit from "../../../shared/game/units/fighterUnit";
 import DestroyerUnit from "../../../shared/game/units/destoyerUnit";
 import PhaserDestroyerUnit from "../units/phaserDestroyerUnit";
+import MainBaseUnit from "../../../shared/game/units/mainBaseUnit";
+import PhaserMainBaseUnit from "../units/phaserMainBaseUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -56,6 +60,8 @@ export default class GameScene extends Phaser.Scene {
         this.load.image("enemySpeeder", EnemySpeeder);
         this.load.image("destroyer", Destroyer);
         this.load.image("enemyDestroyer", EnemyDestroyer);
+        this.load.image("mainbase", MainBase);
+        this.load.image("enemyMainbase", EnemyMainBase);
     }
 
     create() {
@@ -115,6 +121,8 @@ export default class GameScene extends Phaser.Scene {
                         ? new PhaserSpeederUnit(this, location, unit)
                         : unitType == DestroyerUnit.prototype.constructor.name
                         ? new PhaserDestroyerUnit(this, location, unit)
+                        : unitType == MainBaseUnit.prototype.constructor.name
+                        ? new PhaserMainBaseUnit(this, location, unit)
                         : null;
                 const unitHealthBar: HealthBar = new HealthBar(this, phaserUnit);
                 this.phaserGameUnitPool.push(phaserUnit);

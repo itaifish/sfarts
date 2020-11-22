@@ -4,6 +4,7 @@ import Location from "../location";
 import log, { LOG_LEVEL } from "../../utility/logger";
 import SpeederUnit from "../units/speederUnit";
 import DestroyerUnit from "../units/destoyerUnit";
+import MainBaseUnit from "../units/mainBaseUnit";
 
 export default class MapManager {
     private static unitToString = {
@@ -17,6 +18,7 @@ export default class MapManager {
         f: (controller: number, team: string, location: Location) => new FighterUnit(controller, team, location),
         s: (controller: number, team: string, location: Location) => new SpeederUnit(controller, team, location),
         d: (controller: number, team: string, location: Location) => new DestroyerUnit(controller, team, location),
+        b: (controller: number, team: string, location: Location) => new MainBaseUnit(controller, team, location),
         n: null,
     };
 
@@ -26,7 +28,7 @@ export default class MapManager {
             "n n n n n n n n n n n n n n n " +
             "f0 f0 f0 n n n n n n n n n n n n " +
             "n n n n n n n n n f1 f1 f1 n n n " +
-            "n n n s0 n n n n n n d1 n n n n " +
+            "b0 n n s0 n n n n n n d1 n n n b1 " +
             "n n n n n n n n n n n n n n n " +
             "f0 f0 f0 n n n n n n n n n n n n " +
             "n n n n n n n n n f1 f1 f1 n n n " +
