@@ -4,6 +4,8 @@ import Location from "../../shared/game/location";
 import PhaserGameUnit from "./units/phaserGameUnit";
 import log, { LOG_LEVEL } from "../../shared/utility/logger";
 import MoveAction from "../../shared/game/move/moveAction";
+import { SpecialActionName } from "../../shared/game/move/specialAction";
+import MathUtility from "../../shared/utility/math";
 
 export default class GameBoard extends Board {
     scene: GameScene;
@@ -80,9 +82,13 @@ export default class GameBoard extends Board {
                 }
             });
         this.scene.input.on("pointerup", (pointer: Phaser.Input.Pointer) => {
-            if (pointer.leftButtonReleased() && this.state == ActionState.SELECTED) {
-                const unitMovingOnTopOf = this.scene.client.gameManager.getUnitAt(this?.moveTo);
-                if (!unitMovingOnTopOf) {
+            const distanceBetween = this.selected && this.moveTo ? this.getDistance(this.selected[0], this.moveTo) : 0;
+            log(`Distance between: ${distanceBetween}`, this.constructor.name, LOG_LEVEL.DEBUG);
+            if (pointer.leftButtonReleased() && this.state == ActionState.SELECTED && distanceBetween > 0) {
+                const unitMovingOnTopOf: any[] = this.moveTo
+                    ? this.tileXYToChessArray(this.moveTo.x, this.moveTo.y)
+                    : null;
+                if (!(unitMovingOnTopOf?.length > 0)) {
                     this.selected[1]
                         .once("move.complete", () => {
                             this.clearPath();
@@ -91,8 +97,6 @@ export default class GameBoard extends Board {
                                 this.selected[1].setTint(0xffffff);
                             }
                             if (this.moveTo) {
-                                const distanceBetween = this.getDistance(this.selected[0], this.moveTo);
-                                log(`Distance between: ${distanceBetween}`, this.constructor.name, LOG_LEVEL.DEBUG);
                                 if (distanceBetween > 0) {
                                     this.selected[1].gameUnit.useMovesTo(distanceBetween, this.moveTo);
                                     // send move request to server
@@ -115,6 +119,22 @@ export default class GameBoard extends Board {
         this.scene.input.on("pointerdown", (pointer: Phaser.Input.Pointer) => {
             if (pointer.rightButtonDown() && this.state == ActionState.SELECTED) {
                 this.unSelect();
+            }
+        });
+
+        this.scene.input.keyboard.on("keydown-A", () => {
+            const unit = this.selected[1];
+            const attackKey: number = SpecialActionName.ATTACK as number;
+            if (unit && unit.gameUnit.specialMoves.includes(attackKey) && this.state == ActionState.SELECTED) {
+                // check if unit has already moved
+                // for now just check if starting position is equal to current position
+                if (MathUtility.locationEquals(unit.gameUnit.turnStartLocation, unit.gameUnit.location)) {
+                    const positionsAroundUnit: Location[] = this.filledRingToTileXYArray(
+                        unit.gameUnit.location,
+                        unit.gameUnit.unitStats.range,
+                    );
+                    //
+                }
             }
         });
 

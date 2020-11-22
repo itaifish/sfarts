@@ -4,4 +4,5 @@ export default interface UnitStats {
     maxHealth: number;
     health: number;
     damage?: number;
+    range?: number;
 }

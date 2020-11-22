@@ -53,6 +53,26 @@ export default class HealthBar {
             (this.parentUnit.gameUnit.unitStats.health / this.parentUnit.gameUnit.unitStats.maxHealth);
         const ally = this.parentUnit.gameUnit.controller == this.scene.client.userId;
         if (ally) {
+            // Draw remaining moves
+            const movesBarXY = {
+                x: barXY.x,
+                y: barXY.y - this.barHeight / 2 - border,
+            };
+            this.bar.fillStyle(0x000000);
+            this.bar.fillRect(movesBarXY.x, movesBarXY.y, this.parentUnit.displayWidth, this.barHeight / 2);
+            const innerDimension = [
+                movesBarXY.x + border,
+                movesBarXY.y + border,
+                this.parentUnit.displayWidth - border,
+                this.barHeight / 2 - border,
+            ];
+            this.bar.fillStyle(0xffffff);
+            this.bar.fillRect(innerDimension[0], innerDimension[1], innerDimension[2], innerDimension[3]);
+            const movesPercentWidth =
+                this.parentUnit.displayWidth *
+                (this.parentUnit.gameUnit.unitStats.movesRemaining / this.parentUnit.gameUnit.unitStats.moveSpeed);
+            this.bar.fillStyle(0xffd300);
+            this.bar.fillRect(innerDimension[0], innerDimension[1], movesPercentWidth, innerDimension[3]);
             this.bar.fillStyle(0x00ffc2);
         } else {
             this.bar.fillStyle(0xff1122);

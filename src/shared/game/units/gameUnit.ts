@@ -6,6 +6,7 @@ export default class GameUnit {
     unitStats: UnitStats;
     controller: number;
     specialMoves: SpecialActionName[];
+    specialsUsed: SpecialActionName[];
     location: Location;
     turnStartLocation: Location;
     team: string;
@@ -21,8 +22,13 @@ export default class GameUnit {
         this.controller = controller;
         this.team = team;
         this.specialMoves = specialMoves;
+        this.specialsUsed = [];
         this.location = location;
         this.turnStartLocation = { x: location.x, y: location.y };
+    }
+
+    useSpecialAction(special: SpecialActionName) {
+        this.specialsUsed.push(special);
     }
 
     useMovesTo(moveAmount: number, location: Location): void {
@@ -33,5 +39,6 @@ export default class GameUnit {
     processNewTurn() {
         this.turnStartLocation = { x: this.location.x, y: this.location.y };
         this.unitStats.movesRemaining = this.unitStats.moveSpeed;
+        this.specialsUsed = [];
     }
 }

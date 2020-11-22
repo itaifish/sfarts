@@ -2,8 +2,9 @@
   "fighter": {
     "moveSpeed": 4,
     "movesRemaining": 4,
-    "maxHealth": 50,
-    "health": 50,
-    "damage": 5
+    "maxHealth": 5,
+    "health": 5,
+    "damage": 2,
+    "range": 1,
   }
 }

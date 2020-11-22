@@ -58,7 +58,7 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
 
     render(): JSX.Element {
         const loginJSX = (
-            <div className="col-6 text-center">
+            <div className="col-6 text-center" style={{ backgroundColor: "white" }}>
                 <LoginForm sendLoginRequestFunc={this.handleLoginButton} />
                 {this.state.errorMessage ? <div style={{ color: "red" }}>{this.state.errorMessage}</div> : <></>}
             </div>
@@ -69,7 +69,9 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
                     {!this.state.username ? (
                         loginJSX
                     ) : !this.state.game ? (
-                        <LobbyListComponent client={this.state.client} gameHasLoadedCallback={this.gameHasLoaded} />
+                        <div style={{ backgroundColor: "white" }}>
+                            <LobbyListComponent client={this.state.client} gameHasLoadedCallback={this.gameHasLoaded} />
+                        </div>
                     ) : (
                         //Game holder stuff goes here
                         <GameComponent client={this.state.client} />
