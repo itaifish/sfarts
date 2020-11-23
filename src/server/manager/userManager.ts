@@ -1,3 +1,4 @@
+import DatabaseReader from "../database/databaseReader";
 import socketio from "socket.io";
 
 export interface User {
@@ -5,7 +6,7 @@ export interface User {
     password: string;
     status: UserStatus;
     id: number;
-    socket?: socketio.EngineSocket;
+    socket?: socketio.Socket;
 }
 
 export enum UserStatus {
@@ -20,6 +21,10 @@ interface UserTokenMap {
 }
 
 interface UserIdMap {
+    [key: number]: User;
+}
+
+interface UserNameMap {
     [key: string]: User;
 }
 
@@ -28,7 +33,7 @@ export default class UserManager {
 
     userIdMap: UserIdMap;
 
-    usernamesMap: UserIdMap;
+    usernamesMap: UserNameMap;
 
     runningId: number;
 
@@ -36,7 +41,20 @@ export default class UserManager {
         this.userIdMap = {};
         this.userTokenMap = {};
         this.usernamesMap = {};
+        this.loadUsers();
     }
+
+    /**
+     * This function loads the users from the database
+     */
+    loadUsers(): void {
+        const reader: DatabaseReader = new DatabaseReader();
+        reader.loadUsers().forEach((user) => {
+            this.userIdMap[user.id] = user;
+            this.usernamesMap[user.username] = user;
+        });
+    }
+
     /**
      * This function creates a user and returns true if successful, false if user is not unique
      * @param user The user to create
@@ -58,12 +76,12 @@ export default class UserManager {
     }
 
     /**
-     * This function logs a user in, returning true if successful, null if the user does not
+     * This function logs a user in, returning the user if successful, null if the user does not
      * exist, and false if the password is incorrect
      * @param username User's username
      * @param password User's password
      */
-    loginUser(username: string, password: string, socket: socketio.EngineSocket): boolean | null {
+    loginUser(username: string, password: string, socket: socketio.Socket): User | false | null {
         const user: User = this.usernamesMap[username];
         if (user) {
             if (user.password === password) {
@@ -73,7 +91,7 @@ export default class UserManager {
                 user.socket = socket;
                 user.status = UserStatus.ONLINE;
                 this.userTokenMap[socket.id] = user;
-                return true;
+                return user;
             }
             return false;
         }
@@ -95,6 +113,14 @@ export default class UserManager {
         return false;
     }
 
+    getUserFromSocketId(socketId: string): User {
+        return this.userTokenMap[socketId];
+    }
+
+    getUserFromUserId(userId: number): User {
+        return this.userIdMap[userId];
+    }
+
     /**
      * If a user disconnects without triggering logout functionality,
      * this function will try to look up the user by user token and then
@@ -102,7 +128,7 @@ export default class UserManager {
      * @param token socket id to log user out
      */
     userDisconnected(token: string): boolean {
-        const user = this.userTokenMap[token];
+        const user = this.getUserFromSocketId(token);
         if (user) {
             return this.logoutUser(user.username);
         } else {

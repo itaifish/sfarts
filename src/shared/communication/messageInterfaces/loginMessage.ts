@@ -1,3 +1,5 @@
+import { GameStateResponse } from "./endTurnMessage";
+
 export interface LoginMessageRequest {
     username: string;
     password: string;
@@ -11,4 +13,6 @@ export enum LoginMessageResponseType {
 
 export interface LoginMessageResponse {
     status: LoginMessageResponseType;
+    id?: number;
+    gameStateToRejoin?: GameStateResponse;
 }
