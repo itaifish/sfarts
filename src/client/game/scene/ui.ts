@@ -4,6 +4,10 @@ import gameScene from "./gameScene";
 import log from "../../../shared/utility/logger";
 import Fighter from "../../resources/images/fighter.png";
 import EnemyFighter from "../../resources/images/enemyfighter.png";
+import Speeder from "../../resources/images/speeder.png";
+import EnemySpeeder from "../../resources/images/enemyspeeder.png";
+import Destroyer from "../../resources/images/destroyer.png";
+import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
 export default class UI extends Phaser.Scene {
     width: number;
     height: number;
@@ -19,6 +23,8 @@ export default class UI extends Phaser.Scene {
     runInitFlag: boolean;
     unitSelected: PhaserGameUnit;
     theWord: Phaser.GameObjects.Text;
+    unitPictureMap: any;
+    selectedUnitPicture: Phaser.GameObjects.Image;
 
     constructor(width: number, height: number, theGame: gameScene) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
@@ -32,8 +38,12 @@ export default class UI extends Phaser.Scene {
         this.displayStats = this.displayStats.bind(this);
     }
     preload() {
-        this.load.image("fighter", Fighter);
-        this.load.image("enemyFighter", EnemyFighter);
+        this.load.image("fighter1", Fighter);
+        this.load.image("enemyFighter1", EnemyFighter);
+        this.load.image("speeder1", Speeder);
+        this.load.image("enemySpeeder1", EnemySpeeder);
+        this.load.image("destroyer1", Destroyer);
+        this.load.image("enemyDestroyer1", EnemyDestroyer);
     }
 
     create() {
@@ -54,6 +64,28 @@ export default class UI extends Phaser.Scene {
         this.theWord.setBackgroundColor("white");
         this.theWord.setColor("black");
         this.theWord.setFontSize(100);
+        // making the pictures for the ui
+        const fighterUnit1 = this.add.image(220, mainHeight - 170, "fighter1");
+        fighterUnit1.setVisible(false);
+        const enemyFighter1 = this.add.image(100, 100, "enemyFighter1");
+        enemyFighter1.setVisible(false);
+        const speeder1 = this.add.image(220, mainHeight - 170, "speeder1");
+        speeder1.setVisible(false);
+        const enemySpeeder1 = this.add.image(100, 100, "enemySpeeder1");
+        enemySpeeder1.setVisible(false);
+        const destroyer1 = this.add.image(220, mainHeight - 170, "destroyer1");
+        destroyer1.setVisible(false);
+        const enemyDestroyer1 = this.add.image(100, 100, "enemyDestroyer1");
+        enemyDestroyer1.setVisible(false);
+        this.selectedUnitPicture = enemyDestroyer1;
+        this.unitPictureMap = {
+            fighter1: fighterUnit1,
+            enemyFighter1: enemyFighter1,
+            speeder1: speeder1,
+            enemySpeeder1: enemySpeeder1,
+            destroyer1: destroyer1,
+            enemyDestroyer1: enemyDestroyer1,
+        };
     }
 
     update() {
@@ -63,11 +95,13 @@ export default class UI extends Phaser.Scene {
             //process board here
             this.board.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
                 this.displayStats();
+                this.displayPicture();
             });
         }
     }
 
     displayStats() {
+        console.log(this.board.selected[1].gameUnit.name);
         const stats = this.board.selected[1].gameUnit.unitStats;
         const speed = stats.moveSpeed;
         const movesRemaining = stats.movesRemaining;
@@ -79,14 +113,24 @@ export default class UI extends Phaser.Scene {
         statSheet += "Health: " + maxHealth + "/" + health + "\n";
         statSheet += "Range: " + range + "\n";
         statSheet += "Damage: " + damage + "\n";
-        if (this.board.selected[1].gameUnit.specialsUsed.length > 0) {
-            statSheet += "Ammo Remaining: " + 0;
-        } else {
-            statSheet += "Ammo Remaining: " + 1;
-        }
+        statSheet +=
+            "Ammo Remaining: " +
+            (this.board.selected[1].gameUnit.specialMoves.length - this.board.selected[1].gameUnit.specialsUsed.length);
 
         this.theWord.setText(statSheet);
         this.theWord.setFont("30px Arial");
         this.board.selected[1].once("drawHealth", this.displayStats);
+    }
+    displayPicture() {
+        this.selectedUnitPicture.setVisible(false);
+        this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)].setVisible(true);
+        this.selectedUnitPicture = this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)];
+    }
+    formatPicName(unitName: string) {
+        let firstLetter = unitName.charAt(0);
+        firstLetter = firstLetter.toLowerCase();
+        const nameLength = unitName.length;
+        const fileName = firstLetter + unitName.substring(1, nameLength - 4) + "1";
+        return fileName;
     }
 }
