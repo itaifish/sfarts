@@ -49,7 +49,7 @@ export default class Client {
         this.userId = null;
         this.gameOverWinner = null;
         this.lobbyList = [];
-        this.socket = socketio(Constants.URL);
+        this.socket = socketio(Constants.HOSTED_URL);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.messageCallbacks = {};

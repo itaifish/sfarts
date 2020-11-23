@@ -21,41 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/1.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/destroyer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemydestroyer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemyfighter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemyspeeder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/fighter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/mainbase.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/mainbaseenemy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/speeder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/uiselector.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/client/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/client/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/client/client.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/client/client.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/FrontendAppComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/FrontendAppComponent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/FrontendAppComponent.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/FrontendAppComponent.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/login/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/login/LoginForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/login/LoginForm.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/login/LoginForm.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/server/database/databaseReader.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/server/database/databaseReader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/server/database/databaseReader.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/server/database/databaseReader.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/server/manager/userManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/server/manager/userManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/server/manager/userManager.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/server/manager/userManager.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/server/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/server/server.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/server/server.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/shared/communication/messageEnum.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/shared/communication/messageEnum.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/serverDist/src/shared/communication/messageEnum.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/shared/communication/messageEnum.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/FrontendAppComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/lobby/LobbyCreatorComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyCreatorComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/lobby/LobbyListComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontend/login/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/login/LoginForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/database/databaseReader.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/database/databaseReader.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/userManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/userManager.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/communication/messageEnum.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/config/constants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/config/constants.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,7 +129,7 @@
       <workItem from="1605993560775" duration="6551000" />
       <workItem from="1606059670490" duration="34689000" />
       <workItem from="1606116543559" duration="1240000" />
-      <workItem from="1606148997149" duration="2222000" />
+      <workItem from="1606148997149" duration="2966000" />
     </task>
     <servers />
   </component>
