@@ -10,6 +10,7 @@ export default class GameUnit {
     location: Location;
     turnStartLocation: Location;
     team: string;
+    name: string;
 
     constructor(
         controller: number,
@@ -17,6 +18,7 @@ export default class GameUnit {
         unitStats: UnitStats,
         specialMoves: SpecialActionName[],
         location: Location,
+        name: string,
     ) {
         this.unitStats = copyStats(unitStats);
         this.controller = controller;
@@ -25,6 +27,7 @@ export default class GameUnit {
         this.specialsUsed = [];
         this.location = location;
         this.turnStartLocation = { x: location.x, y: location.y };
+        this.name = name;
     }
 
     useSpecialAction(special: SpecialActionName) {

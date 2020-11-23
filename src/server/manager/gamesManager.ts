@@ -88,4 +88,15 @@ export default class GamesManager extends LobbyManger {
         const lobbyFromPlayer = this.usersToLobbyMap[userId];
         return this.lobbyToGameManagerMap[lobbyFromPlayer.id];
     }
+
+    gameOver(userIdOfLoser: number): { winnerId: number; roomName: string } {
+        const lobbyFromPlayer = this.usersToLobbyMap[userIdOfLoser];
+        if (lobbyFromPlayer) {
+            const anyOtherPlayer = lobbyFromPlayer.players.find((playerId) => playerId != userIdOfLoser);
+            delete this.lobbyToGameManagerMap[lobbyFromPlayer.id];
+            this.deleteLobby(lobbyFromPlayer.id);
+            return { winnerId: anyOtherPlayer, roomName: lobbyFromPlayer.getRoomName() };
+        }
+        return null;
+    }
 }

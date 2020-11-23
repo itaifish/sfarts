@@ -20,6 +20,8 @@ import GameUnit from "../shared/game/units/gameUnit";
 import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
 import MoveAction from "../shared/game/move/moveAction";
 import SpecialAction from "../shared/game/move/specialAction";
+import { response } from "express";
+import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -27,6 +29,8 @@ export default class Client {
     loginStatus: LoginMessageResponseType | null;
 
     userId: number;
+
+    gameOverWinner: string;
 
     lobbyList: ClientLobby[];
 
@@ -44,6 +48,7 @@ export default class Client {
         this.gameManager = null;
         this.loginStatus = null;
         this.userId = null;
+        this.gameOverWinner = null;
         this.lobbyList = [];
         this.socket = socketio(Constants.URL);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -105,6 +110,11 @@ export default class Client {
             this.gameManager.copyBoardState(response.gameState);
             this.updateBoardStateCallback(this.gameManager.boardState);
             this.runAndRemoveCallbacks(MessageEnum.RESET_PLAYER_MOVES);
+        });
+        this.socket.on(MessageEnum.GAME_HAS_ENDED, (response: GameOverMessage) => {
+            this.gameOverWinner = response.winner;
+            this.gameManager = null;
+            this.runAndRemoveCallbacks(MessageEnum.GAME_HAS_ENDED);
         });
     }
 
@@ -187,6 +197,10 @@ export default class Client {
 
     resetMoves(): void {
         this.socket.emit(MessageEnum.RESET_PLAYER_MOVES);
+    }
+
+    concede(): void {
+        this.socket.emit(MessageEnum.CONCEDE);
     }
 
     getTimeRemaining(processRemainingTimeFunction: (remainingTime: number) => void) {
