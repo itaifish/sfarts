@@ -22,7 +22,6 @@
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,18 +55,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\manager" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\frontend" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts" />
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\units" />
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
     </key>
   </component>
   <component name="RunManager">
@@ -127,7 +126,8 @@
       <workItem from="1605798838195" duration="18721000" />
       <workItem from="1605878910799" duration="33302000" />
       <workItem from="1605993560775" duration="6551000" />
-      <workItem from="1606059670490" duration="34342000" />
+      <workItem from="1606059670490" duration="34689000" />
+      <workItem from="1606116543559" duration="1240000" />
     </task>
     <servers />
   </component>

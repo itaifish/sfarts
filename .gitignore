@@ -3,5 +3,5 @@ build
 npm-debug.log
 .env
 .DS_Store
-dist
+# dist
 # serverDist
