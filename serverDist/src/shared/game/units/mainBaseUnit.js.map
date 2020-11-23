@@ -1,0 +1,1 @@
+{"version":3,"file":"mainBaseUnit.js","sourceRoot":"","sources":["../../../../../src/shared/game/units/mainBaseUnit.ts"],"names":[],"mappings":";;;;;AAAA,0DAAkC;AAClC,sEAAyC;AAGzC,MAAqB,YAAa,SAAQ,kBAAQ;IAC9C,YAAY,UAAkB,EAAE,IAAY,EAAE,QAAkB;QAC5D,KAAK,CAAC,UAAU,EAAE,IAAI,EAAE,wBAAS,CAAC,QAAQ,EAAE,EAAE,EAAE,QAAQ,EAAE,cAAc,CAAC,CAAC;IAC9E,CAAC;CACJ;AAJD,+BAIC"}

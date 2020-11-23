@@ -60,6 +60,7 @@
     "coverage": "jest --coverage",
     "lint": "eslint . --ext .ts --fix",
     "build": "webpack -p --config ./webpackprod.config.js",
+    "build_server": "tsc -p .",
     "start": "webpack-dev-server --mode development --open --hot",
     "server": "tsc && node ./serverDist/src/server/server.js",
     "debug_server": "tsc && node inspect ./serverDist/src/server/server.js",
