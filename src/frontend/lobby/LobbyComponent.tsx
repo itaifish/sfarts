@@ -1,3 +1,4 @@
+import { type } from "jquery";
 import * as React from "react";
 import { ClientLobby } from "../../shared/communication/messageInterfaces/lobbyMessage";
 
@@ -7,6 +8,7 @@ export interface LobbyComponentProps {
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LobbyComponentState {}
+
 
 class LobbyComponent extends React.Component<LobbyComponentProps, LobbyComponentState> {
     constructor(props: LobbyComponentProps) {

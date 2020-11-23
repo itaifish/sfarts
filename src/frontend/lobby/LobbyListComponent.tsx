@@ -51,7 +51,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                 maxPlayersPerTeam: 1,
                 numTeams: 2,
                 turnTime: 30_000, //30 seconds
-                lobbyName: "bitches and hoes",
+                lobbyName: prompt("Please enter a lobby name: ", "new lobby"),
                 mapId: "mapId",
             });
             this.props.client.addOnServerMessageCallback(MessageEnum.GET_LOBBIES, this.reloadState);
@@ -120,7 +120,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Lobby Name</th>
-                            <th scope="col">Number of players connected</th>
+                            <th scope="col">No. Players Connected</th>
                             <th scope="col">Lobby ID</th>
                             <th scope="col">Lobby Manager</th>
                         </tr>

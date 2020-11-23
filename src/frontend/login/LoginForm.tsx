@@ -1,4 +1,5 @@
 import * as React from "react";
+import './myStyle.css';
 
 export interface LoginFormProps {
     sendLoginRequestFunc: (username: string, password: string) => void;
