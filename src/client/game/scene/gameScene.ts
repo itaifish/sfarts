@@ -91,7 +91,7 @@ export default class GameScene extends Phaser.Scene {
         });
         const maxSize = this.board.getWorldSize();
         const minXY = this.board.getWorldCameraOrigin();
-        this.cameraController.camera.setBounds(minXY.x, minXY.y, maxSize.x, maxSize.y);
+        this.cameraController.camera.setBounds(minXY.x, minXY.y, maxSize.x, maxSize.y + 300);
     }
 
     update(time: number, delta: number) {
