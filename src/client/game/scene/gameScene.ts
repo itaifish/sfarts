@@ -92,10 +92,6 @@ export default class GameScene extends Phaser.Scene {
         const maxSize = this.board.getWorldSize();
         const minXY = this.board.getWorldCameraOrigin();
         this.cameraController.camera.setBounds(minXY.x, minXY.y, maxSize.x, maxSize.y);
-
-        // ui camera controller
-        // this.cameraController.camera.setViewport(0, 0, 1600, 1050);
-        this.cameras.main.setViewport(0, 0, 0, 0);
     }
 
     update(time: number, delta: number) {
