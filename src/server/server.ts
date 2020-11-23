@@ -126,6 +126,8 @@ class Server {
                     // User already exist, remove them from room
                     socket.leave(usersCurrentLobby.getRoomName());
                 }
+                // disconnect player first
+                this.lobbyManager.playerDisconnects(user);
                 const joinedLobby = this.lobbyManager.userJoinTeamInLobby(
                     user,
                     joinLobbyRequest.lobbyId,

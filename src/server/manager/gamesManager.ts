@@ -93,7 +93,6 @@ export default class GamesManager extends LobbyManger {
         const lobbyFromPlayer = this.usersToLobbyMap[userIdOfLoser];
         if (lobbyFromPlayer) {
             const anyOtherPlayer = lobbyFromPlayer.players.find((playerId) => playerId != userIdOfLoser);
-            console.log(lobbyFromPlayer.players);
             delete this.lobbyToGameManagerMap[lobbyFromPlayer.id];
             this.deleteLobby(lobbyFromPlayer.id);
             return { winnerId: anyOtherPlayer, roomName: lobbyFromPlayer.getRoomName() };
