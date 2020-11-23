@@ -21,6 +21,7 @@ import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messag
 import SpecialAction from "../shared/game/move/specialAction";
 import { EndTurnRequest, GameStateResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
 import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
+import ServerStatsMessage from "../shared/communication/messageInterfaces/serverStatsMessage";
 
 class Server {
     // Server Variables
@@ -277,6 +278,19 @@ class Server {
                                 );
                             });
                     }
+                }
+            });
+            socket.on(MessageEnum.GET_SERVER_STATS, () => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                } else {
+                    const serverStats: ServerStatsMessage = {
+                        numberOfGames: Object.keys(this.gamesManager.lobbyToGameManagerMap).length,
+                        numberOfLobbies: Object.keys(this.lobbyManager.lobbyMap).length,
+                        username: user.username,
+                    };
+                    socket.emit(MessageEnum.GET_SERVER_STATS, serverStats);
                 }
             });
             // Default behaviors

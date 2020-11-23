@@ -251,6 +251,20 @@ class Server {
                     }
                 }
             });
+            socket.on(messageEnum_1.default.GET_SERVER_STATS, () => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(messageEnum_1.default.LOGIN, { status: loginMessage_1.LoginMessageResponseType.USER_NOT_EXIST });
+                }
+                else {
+                    const serverStats = {
+                        numberOfGames: Object.keys(this.gamesManager.lobbyToGameManagerMap).length,
+                        numberOfLobbies: Object.keys(this.lobbyManager.lobbyMap).length,
+                        username: user.username,
+                    };
+                    socket.emit(messageEnum_1.default.GET_SERVER_STATS, serverStats);
+                }
+            });
             // Default behaviors
             socket.on(messageEnum_1.default.DISCONNECT, (reason) => {
                 logger_1.default(`Client disconnected with reason ${reason}`, this.constructor.name, logger_1.LOG_LEVEL.INFO);

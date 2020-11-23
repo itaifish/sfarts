@@ -31,15 +31,19 @@ class LobbyListComponent extends React.Component {
         super(props);
         this.state = {
             lobbyList: [],
+            stats: null,
         };
-        this.reloadLobbyList = this.reloadLobbyList.bind(this);
+        this.reloadLobbyListAndStats = this.reloadLobbyListAndStats.bind(this);
         this.lobbyButton = this.lobbyButton.bind(this);
         this.reloadState = this.reloadState.bind(this);
         this.createLobby = this.createLobby.bind(this);
-        this.interval = setInterval(this.reloadLobbyList, 2000);
+        this.interval = setInterval(this.reloadLobbyListAndStats, 4000);
     }
-    reloadLobbyList() {
+    reloadLobbyListAndStats() {
         this.props.client.loadLobbyList(this.reloadState);
+        this.props.client.getServerStats(() => {
+            this.setState({ stats: this.props.client.stats });
+        });
     }
     reloadState() {
         this.setState({ lobbyList: this.props.client.lobbyList });
@@ -49,7 +53,7 @@ class LobbyListComponent extends React.Component {
         this.props.client.addOnServerMessageCallback(messageEnum_1.default.GET_LOBBIES, this.reloadState);
     }
     componentDidMount() {
-        this.reloadLobbyList();
+        this.reloadLobbyListAndStats();
         this.props.client.addOnServerMessageCallback(messageEnum_1.default.START_GAME, () => {
             this.props.gameHasLoadedCallback();
         });
@@ -83,7 +87,17 @@ class LobbyListComponent extends React.Component {
         this.state.lobbyList.forEach((lobby, index) => {
             lobbiesJSX.push(React.createElement(LobbyComponent_1.default, { lobby: lobby, key: index, joined: index == myLobbyIdx, index: index, onClickJoin: this.lobbyButton }));
         });
+        const statsJsx = this.state.stats ? (React.createElement("div", { className: "col" },
+            React.createElement("div", { className: "alert alert-success", role: "alert", style: { backgroundColor: "white" } },
+                "Welcome, ",
+                this.state.stats.username,
+                "! There are currently ",
+                this.state.stats.numberOfLobbies,
+                " lobbies available and ",
+                this.state.stats.numberOfGames,
+                " games being played"))) : (React.createElement(React.Fragment, null));
         return (React.createElement(React.Fragment, null,
+            statsJsx,
             buttonJSX,
             startGameJsx,
             React.createElement("table", { className: "table table-bordered table-hover" },

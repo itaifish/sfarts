@@ -110,6 +110,8 @@ export default class GameBoard extends Board {
                     if (distanceBetween <= this.selected[1].gameUnit.unitStats.movesRemaining) {
                         this.drawPath(this.selectedPath);
                         this.moveTo = { x: tileXY.x, y: tileXY.y };
+                    } else {
+                        this.moveTo = null;
                     }
                 }
             });

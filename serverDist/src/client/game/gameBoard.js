@@ -116,6 +116,9 @@ class GameBoard extends board_components_1.Board {
                     this.drawPath(this.selectedPath);
                     this.moveTo = { x: tileXY.x, y: tileXY.y };
                 }
+                else {
+                    this.moveTo = null;
+                }
             }
         });
         this.scene.input.on("pointerup", (pointer) => {

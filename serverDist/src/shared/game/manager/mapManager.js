@@ -72,10 +72,32 @@ class MapManager {
         logger_1.default(JSON.stringify(gameUnitArray), this.constructor.name, logger_1.LOG_LEVEL.DEBUG);
         return gameUnitArray;
     }
+    static mapToMapString(map) {
+        let mapStr = `${map[0].length} ${map.length} `;
+        const unitIds = [];
+        map.forEach((rowY) => {
+            rowY.forEach((unit) => {
+                if (unit) {
+                    let index = unitIds.findIndex((unitId) => unitId == unit.controller);
+                    if (index == -1) {
+                        index = unitIds.push(unit.controller) - 1;
+                    }
+                    mapStr += `${this.unitToString[unit === null || unit === void 0 ? void 0 : unit.name]}${index} `;
+                }
+                else {
+                    mapStr += "n ";
+                }
+            });
+        });
+        return mapStr;
+    }
 }
 exports.default = MapManager;
 MapManager.unitToString = {
-    FighterUnit: "f",
+    [fighterUnit_1.default.prototype.constructor.name]: "f",
+    [speederUnit_1.default.prototype.constructor.name]: "s",
+    [destoyerUnit_1.default.prototype.constructor.name]: "d",
+    [mainBaseUnit_1.default.prototype.constructor.name]: "b",
     null: "n",
 };
 // eslint-disable-next-line @typescript-eslint/ban-types

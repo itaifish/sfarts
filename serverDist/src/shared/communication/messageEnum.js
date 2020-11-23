@@ -17,6 +17,7 @@ var MessageEnum;
     MessageEnum["RESET_PLAYER_MOVES"] = "undo that shit bro i fucked up";
     MessageEnum["CONCEDE"] = "i give in!!!!";
     MessageEnum["GAME_HAS_ENDED"] = "game over gg wp no re";
+    MessageEnum["GET_SERVER_STATS"] = "server stats";
 })(MessageEnum || (MessageEnum = {}));
 exports.default = MessageEnum;
 //# sourceMappingURL=messageEnum.js.map

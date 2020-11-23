@@ -30,12 +30,14 @@ const gameManager_1 = __importDefault(require("../shared/game/manager/gameManage
 const inputMessage_1 = require("../shared/communication/messageInterfaces/inputMessage");
 const process_json_1 = __importDefault(require("../../process.json"));
 const constants_1 = __importDefault(require("../shared/config/constants"));
+const mapManager_1 = __importDefault(require("../shared/game/manager/mapManager"));
 class Client {
     constructor() {
         this.gameManager = null;
         this.loginStatus = null;
         this.userId = null;
         this.gameOverWinner = null;
+        this.stats = null;
         this.lobbyList = [];
         const url = (process_json_1.default === null || process_json_1.default === void 0 ? void 0 : process_json_1.default.PROD) ? constants_1.default.HOSTED_URL : constants_1.default.URL;
         this.socket = socket_io_client_1.default(url);
@@ -84,6 +86,7 @@ class Client {
         this.socket.on(messageEnum_1.default.END_TURN_SIGNAL, (response) => {
             this.gameManager.endTurn();
             this.gameManager.copyBoardState(response.gameState);
+            logger_1.default(mapManager_1.default.mapToMapString(this.gameManager.boardState), this.constructor.name, logger_1.LOG_LEVEL.TRACE);
             this.updateBoardStateCallback(this.gameManager.boardState);
             this.runAndRemoveCallbacks(messageEnum_1.default.END_TURN_SIGNAL);
         });
@@ -102,6 +105,10 @@ class Client {
             this.gameOverWinner = response.winner;
             this.gameManager = null;
             this.runAndRemoveCallbacks(messageEnum_1.default.GAME_HAS_ENDED);
+        });
+        this.socket.on(messageEnum_1.default.GET_SERVER_STATS, (response) => {
+            this.stats = response;
+            this.runAndRemoveCallbacks(messageEnum_1.default.GET_SERVER_STATS);
         });
     }
     /** Server Communication **/
@@ -186,6 +193,12 @@ class Client {
     }
     concede() {
         this.socket.emit(messageEnum_1.default.CONCEDE);
+    }
+    getServerStats(callbackFunc) {
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(messageEnum_1.default.GET_SERVER_STATS, callbackFunc);
+        }
+        this.socket.emit(messageEnum_1.default.GET_SERVER_STATS);
     }
     getTimeRemaining(processRemainingTimeFunction) {
         // add callback for time remaining to call function

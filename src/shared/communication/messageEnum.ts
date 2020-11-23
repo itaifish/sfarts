@@ -14,6 +14,7 @@ enum MessageEnum {
     RESET_PLAYER_MOVES = "undo that shit bro i fucked up",
     CONCEDE = "i give in!!!!",
     GAME_HAS_ENDED = "game over gg wp no re",
+    GET_SERVER_STATS = "server stats",
 }
 
 export default MessageEnum;

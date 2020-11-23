@@ -1,6 +1,5 @@
 import socketio from "socket.io-client";
 import MessageEnum from "../shared/communication/messageEnum";
-import Constants from "../shared/config/constants";
 import {
     LoginMessageRequest,
     LoginMessageResponse,
@@ -22,7 +21,9 @@ import MoveAction from "../shared/game/move/moveAction";
 import SpecialAction from "../shared/game/move/specialAction";
 import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
 import Process from "../../process.json";
-import constants from "../shared/config/constants";
+import Constants from "../shared/config/constants";
+import MapManager from "../shared/game/manager/mapManager";
+import ServerStatsMessage from "../shared/communication/messageInterfaces/serverStatsMessage";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -43,6 +44,8 @@ export default class Client {
 
     gameManager: GameManager;
 
+    stats: ServerStatsMessage;
+
     updateBoardStateCallback: (boardState: GameUnit[][]) => void;
 
     constructor() {
@@ -50,8 +53,9 @@ export default class Client {
         this.loginStatus = null;
         this.userId = null;
         this.gameOverWinner = null;
+        this.stats = null;
         this.lobbyList = [];
-        const url = Process?.PROD ? constants.HOSTED_URL : constants.URL;
+        const url = Process?.PROD ? Constants.HOSTED_URL : Constants.URL;
         this.socket = socketio(url);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -103,6 +107,7 @@ export default class Client {
         this.socket.on(MessageEnum.END_TURN_SIGNAL, (response: GameStateResponse) => {
             this.gameManager.endTurn();
             this.gameManager.copyBoardState(response.gameState);
+            log(MapManager.mapToMapString(this.gameManager.boardState), this.constructor.name, LOG_LEVEL.TRACE);
             this.updateBoardStateCallback(this.gameManager.boardState);
             this.runAndRemoveCallbacks(MessageEnum.END_TURN_SIGNAL);
         });
@@ -121,6 +126,10 @@ export default class Client {
             this.gameOverWinner = response.winner;
             this.gameManager = null;
             this.runAndRemoveCallbacks(MessageEnum.GAME_HAS_ENDED);
+        });
+        this.socket.on(MessageEnum.GET_SERVER_STATS, (response: ServerStatsMessage) => {
+            this.stats = response;
+            this.runAndRemoveCallbacks(MessageEnum.GET_SERVER_STATS);
         });
     }
 
@@ -218,6 +227,13 @@ export default class Client {
 
     concede(): void {
         this.socket.emit(MessageEnum.CONCEDE);
+    }
+
+    getServerStats(callbackFunc?: callbackFunction): void {
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.GET_SERVER_STATS, callbackFunc);
+        }
+        this.socket.emit(MessageEnum.GET_SERVER_STATS);
     }
 
     getTimeRemaining(processRemainingTimeFunction: (remainingTime: number) => void) {
