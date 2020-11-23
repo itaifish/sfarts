@@ -36,7 +36,7 @@ class Client {
         this.userId = null;
         this.gameOverWinner = null;
         this.lobbyList = [];
-        this.socket = socket_io_client_1.default(constants_1.default.URL);
+        this.socket = socket_io_client_1.default(constants_1.default.HOSTED_URL);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.messageCallbacks = {};

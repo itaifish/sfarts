@@ -66,10 +66,10 @@ export default class MapManager {
     }
 
     static getMapFromId(mapId: string, players: number[]): GameUnit[][] {
-        return MapManager.mapStringToMap(MapManager.mapIdToString[mapId]);
+        return MapManager.mapStringToMap(MapManager.mapIdToString[mapId], players);
     }
 
-    static mapStringToMap(mapString: string): GameUnit[][] {
+    static mapStringToMap(mapString: string, players: number[]): GameUnit[][] {
         const gameUnitArray: GameUnit[][] = [];
         let currentIndex = 0,
             endIndex: number;
@@ -88,7 +88,7 @@ export default class MapManager {
                 const justLetters = fullUnitStr.replace(/[0-9]/g, "");
                 const unitConstructor = MapManager.stringToUnitContructor[justLetters];
                 if (unitConstructor) {
-                    gameUnitArray[y].push(unitConstructor(parseInt(justNumbers), justNumbers, { x: x, y: y }));
+                    gameUnitArray[y].push(unitConstructor(players[parseInt(justNumbers)], justNumbers, { x: x, y: y }));
                 } else {
                     gameUnitArray[y].push(null);
                 }
