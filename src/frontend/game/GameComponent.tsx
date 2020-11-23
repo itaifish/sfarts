@@ -1,6 +1,7 @@
 import * as React from "react";
 import MessageEnum from "../../shared/communication/messageEnum";
 import Client from "../../client/client";
+import log, { LOG_LEVEL } from "../../shared/utility/logger";
 
 export interface GameComponentProps {
     client: Client;
@@ -22,7 +23,7 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
     updateEndTurn() {
         this.props.client.addOnServerMessageCallback(MessageEnum.END_TURN_SIGNAL, () => {
             this.setState({ hasEndedTurn: false });
-            this.updateEndTurn();
+            log("Calling end turn", this.constructor.name, LOG_LEVEL.DEBUG);
         });
     }
 
@@ -33,6 +34,7 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
                     type="button"
                     className="btn btn-primary"
                     onClick={() => {
+                        this.updateEndTurn();
                         this.props.client.setEndTurn(!this.state.hasEndedTurn);
                         this.setState({ hasEndedTurn: !this.state.hasEndedTurn });
                     }}
