@@ -1,4 +1,5 @@
 import * as React from "react";
+import MessageEnum from "../../shared/communication/messageEnum";
 import Client from "../../client/client";
 
 export interface GameComponentProps {
@@ -14,7 +15,17 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
     constructor(props: GameComponentProps) {
         super(props);
         this.state = { hasEndedTurn: false };
+        this.updateEndTurn = this.updateEndTurn.bind(this);
+        this.updateEndTurn();
     }
+
+    updateEndTurn() {
+        this.props.client.addOnServerMessageCallback(MessageEnum.END_TURN_SIGNAL, () => {
+            this.setState({ hasEndedTurn: false });
+            this.updateEndTurn();
+        });
+    }
+
     render() {
         return (
             <>

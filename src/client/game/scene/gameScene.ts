@@ -112,8 +112,6 @@ export default class GameScene extends Phaser.Scene {
             const unit = this.gameManager.getUnitAt(location);
             if (unit) {
                 const unitType = unit.name;
-                console.log(unitType);
-                console.log(FighterUnit.prototype.constructor.name);
                 const phaserUnit: PhaserGameUnit =
                     unitType == FighterUnit.prototype.constructor.name
                         ? new PhaserFighterUnit(this, location, unit)
