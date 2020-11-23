@@ -13,6 +13,7 @@
     "@typescript-eslint/parser": "^4.7.0",
     "aws-sdk": "^2.792.0",
     "bootstrap": "^4.5.3",
+    "clean-webpack-plugin": "^3.0.0",
     "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-prettier": "^3.1.4",

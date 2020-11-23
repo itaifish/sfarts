@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const BrowserSyncPlugin = require("browser-sync-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
 module.exports = {
@@ -38,8 +38,19 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/frontend/index.html",
+            minify: {
+                removeAttributeQuotes: true,
+                collapseWhitespace: true,
+                html5: true,
+                minifyCSS: true,
+                minifyJS: true,
+                minifyURLs: true,
+                removeComments: true,
+                removeEmptyAttributes: true,
+            },
         }),
         new BundleAnalyzerPlugin(),
+        new CleanWebpackPlugin(),
     ],
     optimization: {
         splitChunks: {
