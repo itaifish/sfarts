@@ -13,6 +13,10 @@ body {
     min-height: 100%;
 }
 
+/* .container{
+    background-image: url("gameTitle.PNG");
+} */
+
 h1 {
     color: white;
     font-family: "Lucida Console", Monaco, monospace;

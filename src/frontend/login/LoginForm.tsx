@@ -1,5 +1,6 @@
 import * as React from "react";
 import './myStyle.css';
+// import gametitle from url("gameTitle.PNG");
 
 export interface LoginFormProps {
     sendLoginRequestFunc: (username: string, password: string) => void;
@@ -28,6 +29,8 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
     render() {
         return (
             <form>
+                {/* <div  className="container">
+                </div> */}
                 <div className="form-group">
                     <label htmlFor="usernameInput">Username</label>
                     <input
