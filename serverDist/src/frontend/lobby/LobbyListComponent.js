@@ -97,7 +97,7 @@ class LobbyListComponent extends React.Component {
                         React.createElement("th", { scope: "col" }, "Map"))),
                 React.createElement("tbody", null, lobbiesJSX)),
             React.createElement("div", { className: "fixed-bottom" },
-                React.createElement(LobbyCreatorComponent_1.default, { username: this.props.client.userId + "", createLobby: this.createLobby }))));
+                React.createElement(LobbyCreatorComponent_1.default, { username: this.props.username, createLobby: this.createLobby }))));
     }
 }
 exports.default = LobbyListComponent;

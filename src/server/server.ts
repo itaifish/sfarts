@@ -70,6 +70,18 @@ class Server {
     listen(): void {
         this.io.on("connection", (socket: socketio.Socket) => {
             log("Client connected", this.constructor.name, LOG_LEVEL.INFO);
+            socket.on(MessageEnum.CREATE_ACCOUNT, (msg: LoginMessageRequest) => {
+                const result = this.userManager.createUser(msg.username, msg.password);
+                const status: LoginMessageResponseType = result
+                    ? LoginMessageResponseType.SUCCESS
+                    : LoginMessageResponseType.USER_NOT_EXIST;
+                log(
+                    `User attempting to create account: ${result ? " Success " : " Failed "}`,
+                    this.constructor.name,
+                    LOG_LEVEL.DEBUG,
+                );
+                socket.emit(MessageEnum.CREATE_ACCOUNT, { status: status });
+            });
             socket.on(MessageEnum.LOGIN, (msg: LoginMessageRequest) => {
                 const userResult = this.userManager.loginUser(msg.username, msg.password, socket);
                 const status: LoginMessageResponseType = userResult

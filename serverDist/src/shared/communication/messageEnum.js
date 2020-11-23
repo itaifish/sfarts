@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var MessageEnum;
 (function (MessageEnum) {
+    MessageEnum["CREATE_ACCOUNT"] = "create";
     MessageEnum["LOGIN"] = "login";
     MessageEnum["DISCONNECT"] = "disconnect";
     MessageEnum["ERROR"] = "error";

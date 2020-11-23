@@ -18,6 +18,9 @@ class DatabaseReader {
             },
         ];
     }
+    getRunningId() {
+        return 1;
+    }
 }
 exports.default = DatabaseReader;
 //# sourceMappingURL=databaseReader.js.map

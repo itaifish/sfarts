@@ -61,6 +61,14 @@ class Server {
     listen() {
         this.io.on("connection", (socket) => {
             logger_1.default("Client connected", this.constructor.name, logger_1.LOG_LEVEL.INFO);
+            socket.on(messageEnum_1.default.CREATE_ACCOUNT, (msg) => {
+                const result = this.userManager.createUser(msg.username, msg.password);
+                const status = result
+                    ? loginMessage_1.LoginMessageResponseType.SUCCESS
+                    : loginMessage_1.LoginMessageResponseType.USER_NOT_EXIST;
+                logger_1.default(`User attempting to create account: ${result ? " Success " : " Failed "}`, this.constructor.name, logger_1.LOG_LEVEL.DEBUG);
+                socket.emit(messageEnum_1.default.CREATE_ACCOUNT, { status: status });
+            });
             socket.on(messageEnum_1.default.LOGIN, (msg) => {
                 const userResult = this.userManager.loginUser(msg.username, msg.password, socket);
                 const status = userResult

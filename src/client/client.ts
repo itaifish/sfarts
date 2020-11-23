@@ -20,7 +20,6 @@ import GameUnit from "../shared/game/units/gameUnit";
 import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
 import MoveAction from "../shared/game/move/moveAction";
 import SpecialAction from "../shared/game/move/specialAction";
-import { response } from "express";
 import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
 
 type callbackFunction = (...args: any[]) => void;
@@ -88,6 +87,10 @@ export default class Client {
             }
             this.runAndRemoveCallbacks(MessageEnum.LOGIN);
         });
+        this.socket.on(MessageEnum.CREATE_ACCOUNT, (msg: LoginMessageResponse) => {
+            this.loginStatus = msg.status;
+            this.runAndRemoveCallbacks(MessageEnum.CREATE_ACCOUNT);
+        });
         this.socket.on(MessageEnum.GET_LOBBIES, (response: GetLobbiesResponse) => {
             log(`Got this response: ${JSON.stringify(response)}`, this.constructor.name, LOG_LEVEL.DEBUG);
             this.lobbyList = response.lobbies;
@@ -119,6 +122,17 @@ export default class Client {
     }
 
     /** Server Communication **/
+
+    createAccount(username: string, password: string, callbackFunc?: callbackFunction): void {
+        const loginData: LoginMessageRequest = {
+            username: username,
+            password: password,
+        };
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.CREATE_ACCOUNT, callbackFunc);
+        }
+        this.socket.emit(MessageEnum.CREATE_ACCOUNT, loginData);
+    }
 
     sendLoginAttempt(username: string, password: string): void {
         const loginData: LoginMessageRequest = {

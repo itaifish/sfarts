@@ -69,6 +69,10 @@ class Client {
             }
             this.runAndRemoveCallbacks(messageEnum_1.default.LOGIN);
         });
+        this.socket.on(messageEnum_1.default.CREATE_ACCOUNT, (msg) => {
+            this.loginStatus = msg.status;
+            this.runAndRemoveCallbacks(messageEnum_1.default.CREATE_ACCOUNT);
+        });
         this.socket.on(messageEnum_1.default.GET_LOBBIES, (response) => {
             logger_1.default(`Got this response: ${JSON.stringify(response)}`, this.constructor.name, logger_1.LOG_LEVEL.DEBUG);
             this.lobbyList = response.lobbies;
@@ -99,6 +103,16 @@ class Client {
         });
     }
     /** Server Communication **/
+    createAccount(username, password, callbackFunc) {
+        const loginData = {
+            username: username,
+            password: password,
+        };
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(messageEnum_1.default.CREATE_ACCOUNT, callbackFunc);
+        }
+        this.socket.emit(messageEnum_1.default.CREATE_ACCOUNT, loginData);
+    }
     sendLoginAttempt(username, password) {
         const loginData = {
             username: username,

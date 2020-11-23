@@ -17,4 +17,8 @@ export default class DatabaseReader {
             },
         ];
     }
+
+    getRunningId(): number {
+        return 1;
+    }
 }

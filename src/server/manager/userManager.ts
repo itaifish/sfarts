@@ -49,6 +49,7 @@ export default class UserManager {
      */
     loadUsers(): void {
         const reader: DatabaseReader = new DatabaseReader();
+        this.runningId = reader.getRunningId();
         reader.loadUsers().forEach((user) => {
             this.userIdMap[user.id] = user;
             this.usernamesMap[user.username] = user;

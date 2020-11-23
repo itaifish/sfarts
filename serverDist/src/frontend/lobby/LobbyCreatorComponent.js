@@ -55,7 +55,7 @@ class LobbyCreatorComponent extends React.Component {
     }
     render() {
         const maps = mapManager_1.default.getMaps();
-        return (React.createElement("div", { className: "col-2 text-center justify-content-center", style: { backgroundColor: "white" } },
+        return (React.createElement("div", { className: "col-4 text-center justify-content-center", style: { backgroundColor: "white" } },
             React.createElement("form", { onSubmit: (event) => {
                     event.preventDefault();
                     this.props.createLobby(this.state.settings);

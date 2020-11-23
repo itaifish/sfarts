@@ -24,6 +24,7 @@ class UserManager {
      */
     loadUsers() {
         const reader = new databaseReader_1.default();
+        this.runningId = reader.getRunningId();
         reader.loadUsers().forEach((user) => {
             this.userIdMap[user.id] = user;
             this.usernamesMap[user.username] = user;

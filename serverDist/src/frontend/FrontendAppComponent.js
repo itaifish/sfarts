@@ -38,10 +38,12 @@ class FrontendAppComponent extends React.Component {
             client: new client_1.default(),
             username: null,
             errorMessage: null,
+            successMessage: null,
             game: null,
         };
         this.state.client.listen();
         this.handleLoginButton = this.handleLoginButton.bind(this);
+        this.handleCreateAccountButton = this.handleCreateAccountButton.bind(this);
         this.gameHasLoaded = this.gameHasLoaded.bind(this);
     }
     handleLoginButton(username, password) {
@@ -57,7 +59,10 @@ class FrontendAppComponent extends React.Component {
                     }
                 }
                 else {
-                    this.setState({ errorMessage: "Username or password is incorrect" });
+                    this.setState({
+                        errorMessage: "Username or password is incorrect",
+                        successMessage: null,
+                    });
                 }
             });
             client.addOnServerMessageCallback(messageEnum_1.default.GAME_HAS_ENDED, () => {
@@ -68,16 +73,28 @@ class FrontendAppComponent extends React.Component {
             client.sendLoginAttempt(username, password);
         }
     }
+    handleCreateAccountButton(username, password) {
+        const client = this.state.client;
+        client.createAccount(username, password, () => {
+            if (client.loginStatus == loginMessage_1.LoginMessageResponseType.SUCCESS) {
+                this.setState({ successMessage: "Account has been successfully created", errorMessage: null });
+            }
+            else {
+                this.setState({ errorMessage: "Username is taken", successMessage: null });
+            }
+        });
+    }
     gameHasLoaded() {
         this.setState({ game: new tbsfartsGame_1.default(this.state.client) });
     }
     render() {
         const loginJSX = (React.createElement("div", { className: "col-6 text-center", style: { backgroundColor: "white" } },
-            React.createElement(LoginForm_1.default, { sendLoginRequestFunc: this.handleLoginButton }),
-            this.state.errorMessage ? React.createElement("div", { style: { color: "red" } }, this.state.errorMessage) : React.createElement(React.Fragment, null)));
+            React.createElement(LoginForm_1.default, { sendLoginRequestFunc: this.handleLoginButton, sendCreateAccountRequestFunc: this.handleCreateAccountButton }),
+            this.state.errorMessage ? React.createElement("div", { style: { color: "red" } }, this.state.errorMessage) : React.createElement(React.Fragment, null),
+            this.state.successMessage ? React.createElement("div", { style: { color: "green" } }, this.state.successMessage) : React.createElement(React.Fragment, null)));
         return (React.createElement("div", { className: "container-fluid" },
             React.createElement("div", { className: "row justify-content-center" }, !this.state.username ? (loginJSX) : !this.state.game ? (React.createElement("div", { style: { backgroundColor: "white" } },
-                React.createElement(LobbyListComponent_1.default, { client: this.state.client, gameHasLoadedCallback: this.gameHasLoaded }))) : (
+                React.createElement(LobbyListComponent_1.default, { client: this.state.client, gameHasLoadedCallback: this.gameHasLoaded, username: this.state.username }))) : (
             //Game holder stuff goes here
             React.createElement(GameComponent_1.default, { client: this.state.client })))));
     }

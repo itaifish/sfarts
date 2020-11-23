@@ -28,10 +28,21 @@ class LoginForm extends React.Component {
             password: "",
         };
         this.handleLoginButton = this.handleLoginButton.bind(this);
+        this.createAccountButton = this.createAccountButton.bind(this);
     }
     handleLoginButton(event) {
-        event.preventDefault();
-        this.props.sendLoginRequestFunc(this.state.username, this.state.password);
+        if (this.state.username.length > 0 && this.state.password.length > 0) {
+            event.preventDefault();
+            this.props.sendLoginRequestFunc(this.state.username, this.state.password);
+            this.setState((prevState, _props) => ({ username: prevState.username, password: "" }));
+        }
+    }
+    createAccountButton(event) {
+        if (this.state.username.length > 0 && this.state.password.length > 0) {
+            event.preventDefault();
+            this.props.sendCreateAccountRequestFunc(this.state.username, this.state.password);
+            this.setState((prevState, _props) => ({ username: prevState.username, password: "" }));
+        }
     }
     render() {
         return (React.createElement("form", null,
@@ -45,7 +56,8 @@ class LoginForm extends React.Component {
                 React.createElement("input", { type: "password", className: "form-control", id: "passwordInput", placeholder: "Password", value: this.state.password, onChange: (event) => {
                         this.setState({ password: event.target.value });
                     } })),
-            React.createElement("button", { type: "submit", className: "btn btn-primary", onClick: this.handleLoginButton }, "Login")));
+            React.createElement("button", { type: "submit", className: "btn btn-primary", onClick: this.handleLoginButton }, "Login"),
+            React.createElement("button", { type: "submit", className: "btn btn-success", onClick: this.createAccountButton }, "Create Account")));
     }
 }
 exports.default = LoginForm;

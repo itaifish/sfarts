@@ -9,6 +9,7 @@ import LobbySettings from "../../server/room/lobby/lobbySettings";
 export interface LobbyListComponentProps {
     client: Client;
     gameHasLoadedCallback: () => void;
+    username: string;
 }
 
 export interface LobbyListComponentState {
@@ -133,7 +134,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                     <tbody>{lobbiesJSX}</tbody>
                 </table>
                 <div className="fixed-bottom">
-                    <LobbyCreatorComponent username={this.props.client.userId + ""} createLobby={this.createLobby} />
+                    <LobbyCreatorComponent username={this.props.username} createLobby={this.createLobby} />
                 </div>
             </>
         );

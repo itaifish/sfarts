@@ -1,4 +1,5 @@
 enum MessageEnum {
+    CREATE_ACCOUNT = "create",
     LOGIN = "login",
     DISCONNECT = "disconnect", // Reserved namespace
     ERROR = "error", // Reserved namespace

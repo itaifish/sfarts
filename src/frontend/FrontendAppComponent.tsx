@@ -15,6 +15,7 @@ export interface FrontendAppComponentState {
     client: Client;
     username: string;
     errorMessage: string;
+    successMessage: string;
     game: TbsfartsGame;
 }
 
@@ -25,11 +26,13 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
             client: new Client(),
             username: null,
             errorMessage: null,
+            successMessage: null,
             game: null,
         };
         this.state.client.listen();
 
         this.handleLoginButton = this.handleLoginButton.bind(this);
+        this.handleCreateAccountButton = this.handleCreateAccountButton.bind(this);
         this.gameHasLoaded = this.gameHasLoaded.bind(this);
     }
 
@@ -45,7 +48,10 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
                         this.gameHasLoaded();
                     }
                 } else {
-                    this.setState({ errorMessage: "Username or password is incorrect" });
+                    this.setState({
+                        errorMessage: "Username or password is incorrect",
+                        successMessage: null,
+                    });
                 }
             });
             client.addOnServerMessageCallback(MessageEnum.GAME_HAS_ENDED, () => {
@@ -57,6 +63,17 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
         }
     }
 
+    handleCreateAccountButton(username: string, password: string): void {
+        const client = this.state.client;
+        client.createAccount(username, password, () => {
+            if (client.loginStatus == LoginMessageResponseType.SUCCESS) {
+                this.setState({ successMessage: "Account has been successfully created", errorMessage: null });
+            } else {
+                this.setState({ errorMessage: "Username is taken", successMessage: null });
+            }
+        });
+    }
+
     gameHasLoaded(): void {
         this.setState({ game: new TbsfartsGame(this.state.client) });
     }
@@ -64,8 +81,12 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
     render(): JSX.Element {
         const loginJSX = (
             <div className="col-6 text-center" style={{ backgroundColor: "white" }}>
-                <LoginForm sendLoginRequestFunc={this.handleLoginButton} />
+                <LoginForm
+                    sendLoginRequestFunc={this.handleLoginButton}
+                    sendCreateAccountRequestFunc={this.handleCreateAccountButton}
+                />
                 {this.state.errorMessage ? <div style={{ color: "red" }}>{this.state.errorMessage}</div> : <></>}
+                {this.state.successMessage ? <div style={{ color: "green" }}>{this.state.successMessage}</div> : <></>}
             </div>
         );
         return (
@@ -75,7 +96,11 @@ class FrontendAppComponent extends React.Component<FrontendAppComponentProps, Fr
                         loginJSX
                     ) : !this.state.game ? (
                         <div style={{ backgroundColor: "white" }}>
-                            <LobbyListComponent client={this.state.client} gameHasLoadedCallback={this.gameHasLoaded} />
+                            <LobbyListComponent
+                                client={this.state.client}
+                                gameHasLoadedCallback={this.gameHasLoaded}
+                                username={this.state.username}
+                            />
                         </div>
                     ) : (
                         //Game holder stuff goes here
