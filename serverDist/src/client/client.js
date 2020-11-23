@@ -24,11 +24,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const socket_io_client_1 = __importDefault(require("socket.io-client"));
 const messageEnum_1 = __importDefault(require("../shared/communication/messageEnum"));
-const constants_1 = __importDefault(require("../shared/config/constants"));
 const loginMessage_1 = require("../shared/communication/messageInterfaces/loginMessage");
 const logger_1 = __importStar(require("../shared/utility/logger"));
 const gameManager_1 = __importDefault(require("../shared/game/manager/gameManager"));
 const inputMessage_1 = require("../shared/communication/messageInterfaces/inputMessage");
+const process_json_1 = __importDefault(require("../../process.json"));
+const constants_1 = __importDefault(require("../shared/config/constants"));
 class Client {
     constructor() {
         this.gameManager = null;
@@ -36,7 +37,8 @@ class Client {
         this.userId = null;
         this.gameOverWinner = null;
         this.lobbyList = [];
-        this.socket = socket_io_client_1.default(constants_1.default.HOSTED_URL);
+        const url = (process_json_1.default === null || process_json_1.default === void 0 ? void 0 : process_json_1.default.PROD) ? constants_1.default.HOSTED_URL : constants_1.default.URL;
+        this.socket = socket_io_client_1.default(url);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.messageCallbacks = {};

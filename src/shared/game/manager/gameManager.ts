@@ -108,6 +108,11 @@ export default class GameManager {
             row.forEach((gameUnit, colIdx) => {
                 if (gameUnit) {
                     if (gameUnit.unitStats.health <= 0) {
+                        log(
+                            `gameUnit ${gameUnit.name} is dying, at position ${gameUnit.location.x}, ${gameUnit.location.y}`,
+                            this.constructor.name,
+                            LOG_LEVEL.TRACE,
+                        );
                         this.setUnitAt({ x: colIdx, y: rowIdx }, null);
                     } else {
                         gameUnit.processNewTurn();

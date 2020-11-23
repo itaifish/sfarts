@@ -21,7 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/process.json" beforeDir="false" afterPath="$PROJECT_DIR$/process.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +129,7 @@
       <workItem from="1605993560775" duration="6551000" />
       <workItem from="1606059670490" duration="34689000" />
       <workItem from="1606116543559" duration="1240000" />
-      <workItem from="1606148997149" duration="8019000" />
+      <workItem from="1606148997149" duration="9427000" />
     </task>
     <servers />
   </component>

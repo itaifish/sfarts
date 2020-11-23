@@ -107,8 +107,9 @@ class UI extends Phaser.Scene {
         this.board.selected[1].once("drawHealth", this.displayStats);
     }
     displayPicture() {
-        this.selectedUnitPicture.setVisible(false);
-        this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)].setVisible(true);
+        var _a, _b;
+        (_a = this.selectedUnitPicture) === null || _a === void 0 ? void 0 : _a.setVisible(false);
+        (_b = this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)]) === null || _b === void 0 ? void 0 : _b.setVisible(true);
         this.selectedUnitPicture = this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)];
     }
     formatPicName(unitName) {

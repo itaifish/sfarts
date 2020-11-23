@@ -107,6 +107,7 @@ class GameManager {
             row.forEach((gameUnit, colIdx) => {
                 if (gameUnit) {
                     if (gameUnit.unitStats.health <= 0) {
+                        logger_1.default(`gameUnit ${gameUnit.name} is dying, at position ${gameUnit.location.x}, ${gameUnit.location.y}`, this.constructor.name, logger_1.LOG_LEVEL.TRACE);
                         this.setUnitAt({ x: colIdx, y: rowIdx }, null);
                     }
                     else {
