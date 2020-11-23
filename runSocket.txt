@@ -1,2 +1,0 @@
-Server.INFO [8:10:27 AM]: listening on *:9911
-node serverDist/src/server/server.js

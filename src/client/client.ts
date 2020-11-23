@@ -21,6 +21,8 @@ import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messag
 import MoveAction from "../shared/game/move/moveAction";
 import SpecialAction from "../shared/game/move/specialAction";
 import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
+import Process from "../../process.json";
+import constants from "../shared/config/constants";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -49,7 +51,8 @@ export default class Client {
         this.userId = null;
         this.gameOverWinner = null;
         this.lobbyList = [];
-        this.socket = socketio(Constants.HOSTED_URL);
+        const url = Process?.PROD ? constants.HOSTED_URL : constants.URL;
+        this.socket = socketio(url);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.messageCallbacks = {};
