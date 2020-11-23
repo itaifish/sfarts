@@ -1,7 +1,9 @@
 import gameBoard from "../gameBoard";
 import PhaserGameUnit from "../units/phaserGameUnit";
 import gameScene from "./gameScene";
-import log from "../../../shared/utility/logger"
+import log from "../../../shared/utility/logger";
+import Fighter from "../../resources/images/fighter.png";
+import EnemyFighter from "../../resources/images/enemyfighter.png";
 export default class UI extends Phaser.Scene {
     width: number;
     height: number;
@@ -27,8 +29,12 @@ export default class UI extends Phaser.Scene {
         this.height = height;
         this.theGame = theGame;
         this.runInitFlag = false;
+        this.displayStats = this.displayStats.bind(this);
     }
-    preload() {}
+    preload() {
+        this.load.image("fighter", Fighter);
+        this.load.image("enemyFighter", EnemyFighter);
+    }
 
     create() {
         // area where the UI is
@@ -41,9 +47,10 @@ export default class UI extends Phaser.Scene {
         this.minY = this.rect.getTopLeft().y;
         this.maxX = this.rect.getBottomRight().x;
         this.maxY = this.rect.getBottomRight().y;
-        console.log(" minX = " + this.minX + " minY = " + this.minY + " maxX = " + this.maxX + " maxY = " + this.maxY);
+        this.rect.destroy();
         // add place for text
-        this.theWord = this.add.text(this.minX, this.minY, "Hello World");
+        this.theWord = this.add.text(this.minX, this.minY - 100, "");
+        this.rect.destroy();
         this.theWord.setBackgroundColor("white");
         this.theWord.setColor("black");
         this.theWord.setFontSize(100);
@@ -52,20 +59,34 @@ export default class UI extends Phaser.Scene {
     update() {
         if (!this.runInitFlag && this.theGame.board) {
             this.runInitFlag = true;
-            console.log("flag works");
             this.board = this.theGame.board;
-            console.log(this.board);
             //process board here
             this.board.setInteractive().on("tiledown", (pointer: any, tileXY: any) => {
-                this.displaySelect(tileXY);
+                this.displayStats();
             });
         }
     }
 
-    displaySelect(tileXY: any) {
-        console.log(tileXY);
-        this.theWord.setText(tileXY.x + "," + tileXY.y);
-        let movesRemaining = this.board.selected[1].gameUnit.unitStats.movesRemaining;
-        this.theWord.setText(movesRemaining.toString());
+    displayStats() {
+        const stats = this.board.selected[1].gameUnit.unitStats;
+        const speed = stats.moveSpeed;
+        const movesRemaining = stats.movesRemaining;
+        const maxHealth = stats.maxHealth;
+        const health = stats.health;
+        const range = stats.range;
+        const damage = stats.damage;
+        let statSheet = "Energy: " + movesRemaining.toString() + "/" + speed.toString() + "\n";
+        statSheet += "Health: " + maxHealth + "/" + health + "\n";
+        statSheet += "Range: " + range + "\n";
+        statSheet += "Damage: " + damage + "\n";
+        if (this.board.selected[1].gameUnit.specialsUsed.length > 0) {
+            statSheet += "Ammo Remaining: " + 0;
+        } else {
+            statSheet += "Ammo Remaining: " + 1;
+        }
+
+        this.theWord.setText(statSheet);
+        this.theWord.setFont("30px Arial");
+        this.board.selected[1].once("drawHealth", this.displayStats);
     }
 }
