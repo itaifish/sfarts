@@ -19,25 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/process.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/1.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/destroyer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemydestroyer.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemyfighter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemyspeeder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/fighter.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/mainbase.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/mainbaseenemy.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/speeder.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/uiselector.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/bundle/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runServer.sh" beforeDir="false" afterPath="$PROJECT_DIR$/runServer.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runSocket.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
-    </list>
+    <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,7 +125,7 @@
       <workItem from="1605993560775" duration="6551000" />
       <workItem from="1606059670490" duration="34689000" />
       <workItem from="1606116543559" duration="1240000" />
-      <workItem from="1606148997149" duration="6509000" />
+      <workItem from="1606148997149" duration="6825000" />
     </task>
     <servers />
   </component>
