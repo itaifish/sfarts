@@ -145,4 +145,8 @@ export default class GameScene extends Phaser.Scene {
     static getSceneName(): string {
         return "GameScene";
     }
+
+    getBoard() {
+        return this.board;
+    }
 }

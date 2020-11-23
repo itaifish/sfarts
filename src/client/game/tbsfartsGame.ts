@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import GameScene from "./scene/gameScene";
 import Client from "../client";
+import UI from "./scene/ui";
 
 /**
  * Class that represents the Turn-Based Science Fiction Action Real-Time Strategy Game (tbsfarts)
@@ -27,11 +28,13 @@ export default class TbsfartsGame extends Phaser.Game {
         };
         super(config);
         this.client = client;
+        const height = client.gameManager.boardState.length;
+        const width = client.gameManager.boardState[0].length;
         this.canvas.oncontextmenu = (e) => {
             e.preventDefault();
         };
-        const height = client.gameManager.boardState.length;
-        const width = client.gameManager.boardState[0].length;
-        this.scene.add(GameScene.getSceneName(), new GameScene(width, height, client, client.gameManager), true);
+        const gameScene = new GameScene(width, height, client, client.gameManager);
+        this.scene.add(GameScene.getSceneName(), gameScene, true);
+        this.scene.add("UI", new UI(30, 30, gameScene), true);
     }
 }
