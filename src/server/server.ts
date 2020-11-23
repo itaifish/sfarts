@@ -104,6 +104,9 @@ class Server {
             });
             socket.on(MessageEnum.CREATE_LOBBY, (lobbyRequest: CreateLobbyRequest) => {
                 const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    return socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                }
                 const createdLobby = this.lobbyManager.userCreateLobby(user, lobbyRequest.lobbySettings);
                 log(`${user.username} has created lobby ${createdLobby.id}`, this.constructor.name, LOG_LEVEL.INFO);
                 // After creating a lobby respond with a list of all lobbies (Should have new lobby)
@@ -123,6 +126,8 @@ class Server {
                     // User already exist, remove them from room
                     socket.leave(usersCurrentLobby.getRoomName());
                 }
+                // disconnect player first
+                this.lobbyManager.playerDisconnects(user);
                 const joinedLobby = this.lobbyManager.userJoinTeamInLobby(
                     user,
                     joinLobbyRequest.lobbyId,
@@ -236,7 +241,16 @@ class Server {
                 } else {
                     const winner = this.gamesManager.gameOver(user.id);
                     if (winner) {
-                        const usersUsername = this.userManager.getUserFromUserId(winner.winnerId).username;
+                        let usersUsername = "nobody";
+                        if (winner.winnerId) {
+                            usersUsername = this.userManager.getUserFromUserId(winner.winnerId).username;
+                        } else {
+                            log(
+                                `No user winning for game ${JSON.stringify(winner)}`,
+                                this.constructor.name,
+                                LOG_LEVEL.WARN,
+                            );
+                        }
                         const gameOverResponse: GameOverMessage = {
                             winner: usersUsername,
                         };
