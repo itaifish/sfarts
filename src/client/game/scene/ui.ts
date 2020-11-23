@@ -128,8 +128,8 @@ export default class UI extends Phaser.Scene {
         this.board.selected[1].once("drawHealth", this.displayStats);
     }
     displayPicture() {
-        this.selectedUnitPicture.setVisible(false);
-        this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)].setVisible(true);
+        this.selectedUnitPicture?.setVisible(false);
+        this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)]?.setVisible(true);
         this.selectedUnitPicture = this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)];
     }
     formatPicName(unitName: string) {
