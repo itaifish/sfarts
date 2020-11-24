@@ -8,7 +8,10 @@ import MainBaseUnit from "../units/mainBaseUnit";
 
 export default class MapManager {
     private static unitToString = {
-        FighterUnit: "f",
+        [FighterUnit.prototype.constructor.name]: "f",
+        [SpeederUnit.prototype.constructor.name]: "s",
+        [DestroyerUnit.prototype.constructor.name]: "d",
+        [MainBaseUnit.prototype.constructor.name]: "b",
         null: "n",
     };
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -66,10 +69,10 @@ export default class MapManager {
     }
 
     static getMapFromId(mapId: string, players: number[]): GameUnit[][] {
-        return MapManager.mapStringToMap(MapManager.mapIdToString[mapId]);
+        return MapManager.mapStringToMap(MapManager.mapIdToString[mapId], players);
     }
 
-    static mapStringToMap(mapString: string): GameUnit[][] {
+    static mapStringToMap(mapString: string, players: number[]): GameUnit[][] {
         const gameUnitArray: GameUnit[][] = [];
         let currentIndex = 0,
             endIndex: number;
@@ -88,7 +91,7 @@ export default class MapManager {
                 const justLetters = fullUnitStr.replace(/[0-9]/g, "");
                 const unitConstructor = MapManager.stringToUnitContructor[justLetters];
                 if (unitConstructor) {
-                    gameUnitArray[y].push(unitConstructor(parseInt(justNumbers), justNumbers, { x: x, y: y }));
+                    gameUnitArray[y].push(unitConstructor(players[parseInt(justNumbers)], justNumbers, { x: x, y: y }));
                 } else {
                     gameUnitArray[y].push(null);
                 }
@@ -97,5 +100,24 @@ export default class MapManager {
         }
         log(JSON.stringify(gameUnitArray), this.constructor.name, LOG_LEVEL.DEBUG);
         return gameUnitArray;
+    }
+
+    static mapToMapString(map: GameUnit[][]): string {
+        let mapStr = `${map[0].length} ${map.length} `;
+        const unitIds: number[] = [];
+        map.forEach((rowY) => {
+            rowY.forEach((unit) => {
+                if (unit) {
+                    let index = unitIds.findIndex((unitId) => unitId == unit.controller);
+                    if (index == -1) {
+                        index = unitIds.push(unit.controller) - 1;
+                    }
+                    mapStr += `${this.unitToString[unit?.name]}${index} `;
+                } else {
+                    mapStr += "n ";
+                }
+            });
+        });
+        return mapStr;
     }
 }

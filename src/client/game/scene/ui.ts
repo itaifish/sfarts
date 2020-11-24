@@ -8,6 +8,8 @@ import Speeder from "../../resources/images/speeder.png";
 import EnemySpeeder from "../../resources/images/enemyspeeder.png";
 import Destroyer from "../../resources/images/destroyer.png";
 import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
+import MainBase from "../../resources/images/mainbase.png";
+import EnemyMainBase from "../../resources/images/mainbaseenemy.png";
 import uiselector from "../../resources/images/uiselector.png";
 export default class UI extends Phaser.Scene {
     width: number;
@@ -45,6 +47,8 @@ export default class UI extends Phaser.Scene {
         this.load.image("enemySpeeder1", EnemySpeeder);
         this.load.image("destroyer1", Destroyer);
         this.load.image("enemyDestroyer1", EnemyDestroyer);
+        this.load.image("mainbase1", MainBase);
+        this.load.image("enemyMainbase1", EnemyMainBase);
         this.load.image("UIbackground", uiselector);
     }
 
@@ -73,14 +77,18 @@ export default class UI extends Phaser.Scene {
         fighterUnit1.setVisible(false);
         const enemyFighter1 = this.add.image(100, 100, "enemyFighter1");
         enemyFighter1.setVisible(false);
-        const speeder1 = this.add.image(130, mainHeight - 170, "speeder1");
+        const speeder1 = this.add.image(140, mainHeight - 160, "speeder1");
         speeder1.setVisible(false);
         const enemySpeeder1 = this.add.image(100, 100, "enemySpeeder1");
         enemySpeeder1.setVisible(false);
-        const destroyer1 = this.add.image(130, mainHeight - 170, "destroyer1");
+        const destroyer1 = this.add.image(140, mainHeight - 150, "destroyer1");
         destroyer1.setVisible(false);
         const enemyDestroyer1 = this.add.image(100, 100, "enemyDestroyer1");
         enemyDestroyer1.setVisible(false);
+        const mainBase1 = this.add.image(130, mainHeight - 160, "mainbase1");
+        mainBase1.setVisible(false);
+        const enemyMainbase1 = this.add.image(130, mainHeight - 170, "enemyMainbase1");
+        enemyMainbase1.setVisible(false);
         this.selectedUnitPicture = enemyDestroyer1;
         this.unitPictureMap = {
             fighter1: fighterUnit1,
@@ -89,6 +97,8 @@ export default class UI extends Phaser.Scene {
             enemySpeeder1: enemySpeeder1,
             destroyer1: destroyer1,
             enemyDestroyer1: enemyDestroyer1,
+            mainBase1: mainBase1,
+            enemyMainbase1: enemyMainbase1,
         };
         Object.keys(this.unitPictureMap).forEach((element) => {
             this.unitPictureMap[element].scale = 2;
@@ -116,7 +126,7 @@ export default class UI extends Phaser.Scene {
         const range = stats.range;
         const damage = stats.damage;
         let statSheet = "Energy: " + movesRemaining.toString() + "/" + speed.toString() + "\n";
-        statSheet += "Health: " + maxHealth + "/" + health + "\n";
+        statSheet += "Health: " + health + "/" + maxHealth + "\n";
         statSheet += "Range: " + range + "\n";
         statSheet += "Damage: " + damage + "\n";
         statSheet +=
@@ -128,8 +138,8 @@ export default class UI extends Phaser.Scene {
         this.board.selected[1].once("drawHealth", this.displayStats);
     }
     displayPicture() {
-        this.selectedUnitPicture.setVisible(false);
-        this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)].setVisible(true);
+        this.selectedUnitPicture?.setVisible(false);
+        this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)]?.setVisible(true);
         this.selectedUnitPicture = this.unitPictureMap[this.formatPicName(this.board.selected[1].gameUnit.name)];
     }
     formatPicName(unitName: string) {

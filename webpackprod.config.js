@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require("path");
 
@@ -27,7 +26,6 @@ module.exports = {
             },
         ],
     },
-    devtool: "eval-source-map",
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
@@ -38,7 +36,6 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/frontend/index.html",
-            favicon: "./src/client/resources/images/fighter.png",
             minify: {
                 removeAttributeQuotes: true,
                 collapseWhitespace: true,
@@ -50,7 +47,6 @@ module.exports = {
                 removeEmptyAttributes: true,
             },
         }),
-        new BundleAnalyzerPlugin(),
         new CleanWebpackPlugin(),
     ],
     optimization: {

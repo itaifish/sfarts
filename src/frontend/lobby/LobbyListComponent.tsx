@@ -5,14 +5,17 @@ import LobbyComponent from "./LobbyComponent";
 import { ClientLobby } from "../../shared/communication/messageInterfaces/lobbyMessage";
 import LobbyCreatorComponent from "./LobbyCreatorComponent";
 import LobbySettings from "../../server/room/lobby/lobbySettings";
+import ServerStatsMessage from "../../shared/communication/messageInterfaces/serverStatsMessage";
 
 export interface LobbyListComponentProps {
     client: Client;
     gameHasLoadedCallback: () => void;
+    username: string;
 }
 
 export interface LobbyListComponentState {
     lobbyList: ClientLobby[];
+    stats: ServerStatsMessage;
 }
 
 class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyListComponentState> {
@@ -21,16 +24,20 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
         super(props);
         this.state = {
             lobbyList: [],
+            stats: null,
         };
-        this.reloadLobbyList = this.reloadLobbyList.bind(this);
+        this.reloadLobbyListAndStats = this.reloadLobbyListAndStats.bind(this);
         this.lobbyButton = this.lobbyButton.bind(this);
         this.reloadState = this.reloadState.bind(this);
         this.createLobby = this.createLobby.bind(this);
-        this.interval = setInterval(this.reloadLobbyList, 2_000);
+        this.interval = setInterval(this.reloadLobbyListAndStats, 4_000);
     }
 
-    reloadLobbyList() {
+    reloadLobbyListAndStats() {
         this.props.client.loadLobbyList(this.reloadState);
+        this.props.client.getServerStats(() => {
+            this.setState({ stats: this.props.client.stats });
+        });
     }
 
     reloadState() {
@@ -43,7 +50,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
     }
 
     componentDidMount() {
-        this.reloadLobbyList();
+        this.reloadLobbyListAndStats();
         this.props.client.addOnServerMessageCallback(MessageEnum.START_GAME, () => {
             this.props.gameHasLoadedCallback();
         });
@@ -115,8 +122,19 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                 />,
             );
         });
+        const statsJsx = this.state.stats ? (
+            <div className="col">
+                <div className="alert alert-success" role="alert" style={{ backgroundColor: "white" }}>
+                    Welcome, {this.state.stats.username}! There are currently {this.state.stats.numberOfLobbies} lobbies
+                    available and {this.state.stats.numberOfGames} games being played
+                </div>
+            </div>
+        ) : (
+            <></>
+        );
         return (
             <>
+                {statsJsx}
                 {buttonJSX}
                 {startGameJsx}
                 <table className="table table-bordered table-hover">
@@ -133,7 +151,7 @@ class LobbyListComponent extends React.Component<LobbyListComponentProps, LobbyL
                     <tbody>{lobbiesJSX}</tbody>
                 </table>
                 <div className="fixed-bottom">
-                    <LobbyCreatorComponent username={this.props.client.userId + ""} createLobby={this.createLobby} />
+                    <LobbyCreatorComponent username={this.props.username} createLobby={this.createLobby} />
                 </div>
             </>
         );

@@ -21,6 +21,7 @@ import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messag
 import SpecialAction from "../shared/game/move/specialAction";
 import { EndTurnRequest, GameStateResponse } from "../shared/communication/messageInterfaces/endTurnMessage";
 import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
+import ServerStatsMessage from "../shared/communication/messageInterfaces/serverStatsMessage";
 
 class Server {
     // Server Variables
@@ -70,6 +71,18 @@ class Server {
     listen(): void {
         this.io.on("connection", (socket: socketio.Socket) => {
             log("Client connected", this.constructor.name, LOG_LEVEL.INFO);
+            socket.on(MessageEnum.CREATE_ACCOUNT, (msg: LoginMessageRequest) => {
+                const result = this.userManager.createUser(msg.username, msg.password);
+                const status: LoginMessageResponseType = result
+                    ? LoginMessageResponseType.SUCCESS
+                    : LoginMessageResponseType.USER_NOT_EXIST;
+                log(
+                    `User attempting to create account: ${result ? " Success " : " Failed "}`,
+                    this.constructor.name,
+                    LOG_LEVEL.DEBUG,
+                );
+                socket.emit(MessageEnum.CREATE_ACCOUNT, { status: status });
+            });
             socket.on(MessageEnum.LOGIN, (msg: LoginMessageRequest) => {
                 const userResult = this.userManager.loginUser(msg.username, msg.password, socket);
                 const status: LoginMessageResponseType = userResult
@@ -265,6 +278,19 @@ class Server {
                                 );
                             });
                     }
+                }
+            });
+            socket.on(MessageEnum.GET_SERVER_STATS, () => {
+                const user = this.userManager.getUserFromSocketId(socket.id);
+                if (!user) {
+                    socket.emit(MessageEnum.LOGIN, { status: LoginMessageResponseType.USER_NOT_EXIST });
+                } else {
+                    const serverStats: ServerStatsMessage = {
+                        numberOfGames: Object.keys(this.gamesManager.lobbyToGameManagerMap).length,
+                        numberOfLobbies: Object.keys(this.lobbyManager.lobbyMap).length,
+                        username: user.username,
+                    };
+                    socket.emit(MessageEnum.GET_SERVER_STATS, serverStats);
                 }
             });
             // Default behaviors
