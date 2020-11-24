@@ -61,12 +61,16 @@ export default class GamesManager extends LobbyManger {
         }
     }
 
-    addPlayerSpecial(playerId: number, special: SpecialAction) {
+    addPlayerSpecial(playerId: number, special: SpecialAction): void {
         this.playerToGameManager(playerId).addSpecialsForPlayer(playerId, [special]);
     }
 
     playerSendsEndTurnSignal(playerId: number, endTurn: boolean): void {
         this.playerToGameManager(playerId)?.playerSendsEndTurnSignal(playerId, endTurn);
+    }
+
+    resetPlayerMoves(playerId: number): GameUnit[][] {
+        return this.playerToGameManager(playerId)?.resetPlayerMoves(playerId);
     }
 
     allPlayersHaveEndedTurn(gameId: string): boolean {
@@ -83,5 +87,16 @@ export default class GamesManager extends LobbyManger {
     playerToGameManager(userId: number): GameManager {
         const lobbyFromPlayer = this.usersToLobbyMap[userId];
         return this.lobbyToGameManagerMap[lobbyFromPlayer.id];
+    }
+
+    gameOver(userIdOfLoser: number): { winnerId: number; roomName: string } {
+        const lobbyFromPlayer = this.usersToLobbyMap[userIdOfLoser];
+        if (lobbyFromPlayer) {
+            const anyOtherPlayer = lobbyFromPlayer.players.find((playerId) => playerId != userIdOfLoser);
+            delete this.lobbyToGameManagerMap[lobbyFromPlayer.id];
+            this.deleteLobby(lobbyFromPlayer.id);
+            return { winnerId: anyOtherPlayer, roomName: lobbyFromPlayer.getRoomName() };
+        }
+        return null;
     }
 }

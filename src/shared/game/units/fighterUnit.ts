@@ -5,6 +5,6 @@ import Location from "../location";
 
 export default class FighterUnit extends GameUnit {
     constructor(controller: number, team: string, location: Location) {
-        super(controller, team, unitStats.fighter, [SpecialActionName.ATTACK], location);
+        super(controller, team, unitStats.fighter, [SpecialActionName.ATTACK], location, "FighterUnit");
     }
 }

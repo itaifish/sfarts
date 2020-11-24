@@ -4,6 +4,7 @@ import './myStyle.css';
 
 export interface LoginFormProps {
     sendLoginRequestFunc: (username: string, password: string) => void;
+    sendCreateAccountRequestFunc: (username: string, password: string) => void;
 }
 
 export interface LoginFormState {
@@ -19,11 +20,22 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
             password: "",
         };
         this.handleLoginButton = this.handleLoginButton.bind(this);
+        this.createAccountButton = this.createAccountButton.bind(this);
     }
 
     handleLoginButton(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        event.preventDefault();
-        this.props.sendLoginRequestFunc(this.state.username, this.state.password);
+        if (this.state.username.length > 0 && this.state.password.length > 0) {
+            event.preventDefault();
+            this.props.sendLoginRequestFunc(this.state.username, this.state.password);
+            this.setState((prevState, _props) => ({ username: prevState.username, password: "" }));
+        }
+    }
+    createAccountButton(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+        if (this.state.username.length > 0 && this.state.password.length > 0) {
+            event.preventDefault();
+            this.props.sendCreateAccountRequestFunc(this.state.username, this.state.password);
+            this.setState((prevState, _props) => ({ username: prevState.username, password: "" }));
+        }
     }
 
     render() {
@@ -60,6 +72,9 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
                 </div>
                 <button type="submit" className="btn btn-primary" onClick={this.handleLoginButton}>
                     Login
+                </button>
+                <button type="submit" className="btn btn-success" onClick={this.createAccountButton}>
+                    Create Account
                 </button>
             </form>
         );

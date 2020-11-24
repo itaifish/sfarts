@@ -20,10 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/client.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/client.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/client/game/scene/gameScene.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/manager/lobbyManager.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +40,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../comp426-cli/a09" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -57,15 +55,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\manager" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\frontend" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
     </key>
   </component>
   <component name="RunManager">
@@ -123,7 +124,11 @@
       <workItem from="1605642239129" duration="8018000" />
       <workItem from="1605708274694" duration="18074000" />
       <workItem from="1605798838195" duration="18721000" />
-      <workItem from="1605878910799" duration="26659000" />
+      <workItem from="1605878910799" duration="33302000" />
+      <workItem from="1605993560775" duration="6551000" />
+      <workItem from="1606059670490" duration="34689000" />
+      <workItem from="1606116543559" duration="1240000" />
+      <workItem from="1606148997149" duration="9427000" />
     </task>
     <servers />
   </component>
@@ -147,6 +152,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="677" y="257" key="#ESLint/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605631169594" />
+    <state x="552" y="178" width="816" height="730" key="#Intentions" timestamp="1605931999347">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" width="816" height="730" key="#Intentions/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605931999347" />
     <state x="709" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1605799134582">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -184,10 +193,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605544985533" />
-    <state x="667" y="119" width="585" height="801" key="find.popup" timestamp="1605902846089">
+    <state x="667" y="119" width="585" height="801" key="find.popup" timestamp="1606097138292">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="119" width="585" height="801" key="find.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1605902846089" />
+    <state x="667" y="119" width="585" height="801" key="find.popup/1920.65.1280.984/0.0.1920.1040@0.0.1920.1040" timestamp="1606097138292" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1605840800941">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -34,6 +34,7 @@ export default class LobbyManger {
     }
 
     userJoinTeamInLobby(user: User, lobbyId: string, teamId: number): Lobby {
+        // disconnect user from any previous lobby they are in
         const lobby = this.lobbyMap[lobbyId];
         if (lobby) {
             const success = lobby.playerJoinTeam(user, teamId);

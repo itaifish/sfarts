@@ -1,6 +1,5 @@
 import socketio from "socket.io-client";
 import MessageEnum from "../shared/communication/messageEnum";
-import Constants from "../shared/config/constants";
 import {
     LoginMessageRequest,
     LoginMessageResponse,
@@ -19,6 +18,12 @@ import { EndTurnRequest, GameStateResponse } from "../shared/communication/messa
 import GameUnit from "../shared/game/units/gameUnit";
 import InputMessageRequest, { ACTION_TYPE } from "../shared/communication/messageInterfaces/inputMessage";
 import MoveAction from "../shared/game/move/moveAction";
+import SpecialAction from "../shared/game/move/specialAction";
+import GameOverMessage from "../shared/communication/messageInterfaces/gameOverMessage";
+import Process from "../../process.json";
+import Constants from "../shared/config/constants";
+import MapManager from "../shared/game/manager/mapManager";
+import ServerStatsMessage from "../shared/communication/messageInterfaces/serverStatsMessage";
 
 type callbackFunction = (...args: any[]) => void;
 
@@ -26,6 +31,8 @@ export default class Client {
     loginStatus: LoginMessageResponseType | null;
 
     userId: number;
+
+    gameOverWinner: string;
 
     lobbyList: ClientLobby[];
 
@@ -37,14 +44,19 @@ export default class Client {
 
     gameManager: GameManager;
 
+    stats: ServerStatsMessage;
+
     updateBoardStateCallback: (boardState: GameUnit[][]) => void;
 
     constructor() {
         this.gameManager = null;
         this.loginStatus = null;
         this.userId = null;
+        this.gameOverWinner = null;
+        this.stats = null;
         this.lobbyList = [];
-        this.socket = socketio(Constants.URL);
+        const url = Process?.PROD ? Constants.HOSTED_URL : Constants.URL;
+        this.socket = socketio(url);
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         this.messageCallbacks = {};
@@ -76,7 +88,15 @@ export default class Client {
             );
             this.loginStatus = msg.status;
             this.userId = msg.id;
+            if (msg.gameStateToRejoin) {
+                this.gameManager = new GameManager(msg.gameStateToRejoin.gameId, this.userId, []);
+                this.gameManager.copyBoardState(msg.gameStateToRejoin.gameState);
+            }
             this.runAndRemoveCallbacks(MessageEnum.LOGIN);
+        });
+        this.socket.on(MessageEnum.CREATE_ACCOUNT, (msg: LoginMessageResponse) => {
+            this.loginStatus = msg.status;
+            this.runAndRemoveCallbacks(MessageEnum.CREATE_ACCOUNT);
         });
         this.socket.on(MessageEnum.GET_LOBBIES, (response: GetLobbiesResponse) => {
             log(`Got this response: ${JSON.stringify(response)}`, this.constructor.name, LOG_LEVEL.DEBUG);
@@ -87,6 +107,7 @@ export default class Client {
         this.socket.on(MessageEnum.END_TURN_SIGNAL, (response: GameStateResponse) => {
             this.gameManager.endTurn();
             this.gameManager.copyBoardState(response.gameState);
+            log(MapManager.mapToMapString(this.gameManager.boardState), this.constructor.name, LOG_LEVEL.TRACE);
             this.updateBoardStateCallback(this.gameManager.boardState);
             this.runAndRemoveCallbacks(MessageEnum.END_TURN_SIGNAL);
         });
@@ -96,9 +117,34 @@ export default class Client {
             this.gameManager.copyBoardState(response.gameState);
             this.runAndRemoveCallbacks(MessageEnum.START_GAME);
         });
+        this.socket.on(MessageEnum.RESET_PLAYER_MOVES, (response: GameStateResponse) => {
+            this.gameManager.copyBoardState(response.gameState);
+            this.updateBoardStateCallback(this.gameManager.boardState);
+            this.runAndRemoveCallbacks(MessageEnum.RESET_PLAYER_MOVES);
+        });
+        this.socket.on(MessageEnum.GAME_HAS_ENDED, (response: GameOverMessage) => {
+            this.gameOverWinner = response.winner;
+            this.gameManager = null;
+            this.runAndRemoveCallbacks(MessageEnum.GAME_HAS_ENDED);
+        });
+        this.socket.on(MessageEnum.GET_SERVER_STATS, (response: ServerStatsMessage) => {
+            this.stats = response;
+            this.runAndRemoveCallbacks(MessageEnum.GET_SERVER_STATS);
+        });
     }
 
     /** Server Communication **/
+
+    createAccount(username: string, password: string, callbackFunc?: callbackFunction): void {
+        const loginData: LoginMessageRequest = {
+            username: username,
+            password: password,
+        };
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.CREATE_ACCOUNT, callbackFunc);
+        }
+        this.socket.emit(MessageEnum.CREATE_ACCOUNT, loginData);
+    }
 
     sendLoginAttempt(username: string, password: string): void {
         const loginData: LoginMessageRequest = {
@@ -160,11 +206,34 @@ export default class Client {
         this.socket.emit(MessageEnum.PLAYER_INPUT, request);
     }
 
+    sendSpecial(special: SpecialAction): void {
+        const request: InputMessageRequest = {
+            actionType: ACTION_TYPE.SPECIAL,
+            action: special,
+        };
+        this.socket.emit(MessageEnum.PLAYER_INPUT, request);
+    }
+
     setEndTurn(endTurn: boolean): void {
         const request: EndTurnRequest = {
             playerHasEndedTurn: endTurn,
         };
         this.socket.emit(MessageEnum.END_TURN_SIGNAL, request);
+    }
+
+    resetMoves(): void {
+        this.socket.emit(MessageEnum.RESET_PLAYER_MOVES);
+    }
+
+    concede(): void {
+        this.socket.emit(MessageEnum.CONCEDE);
+    }
+
+    getServerStats(callbackFunc?: callbackFunction): void {
+        if (callbackFunc) {
+            this.addOnServerMessageCallback(MessageEnum.GET_SERVER_STATS, callbackFunc);
+        }
+        this.socket.emit(MessageEnum.GET_SERVER_STATS);
     }
 
     getTimeRemaining(processRemainingTimeFunction: (remainingTime: number) => void) {

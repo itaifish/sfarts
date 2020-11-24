@@ -1,11 +1,26 @@
 import Phaser from "phaser";
-import GameBoard from "../gameBoard";
+import GameBoard, { ActionState } from "../gameBoard";
 import MathUtility from "../../../shared/utility/math";
 import Fighter from "../../resources/images/fighter.png";
+import EnemyFighter from "../../resources/images/enemyfighter.png";
+import Speeder from "../../resources/images/speeder.png";
+import EnemySpeeder from "../../resources/images/enemyspeeder.png";
+import Destroyer from "../../resources/images/destroyer.png";
+import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
+import MainBase from "../../resources/images/mainbase.png";
+import EnemyMainBase from "../../resources/images/mainbaseenemy.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
+import HealthBar from "../gui/healthBar";
 import PhaserGameUnit from "../units/phaserGameUnit";
+import PhaserSpeederUnit from "../units/phaserSpeederUnit";
+import SpeederUnit from "../../../shared/game/units/speederUnit";
+import FighterUnit from "../../../shared/game/units/fighterUnit";
+import DestroyerUnit from "../../../shared/game/units/destoyerUnit";
+import PhaserDestroyerUnit from "../units/phaserDestroyerUnit";
+import MainBaseUnit from "../../../shared/game/units/mainBaseUnit";
+import PhaserMainBaseUnit from "../units/phaserMainBaseUnit";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -15,7 +30,7 @@ export default class GameScene extends Phaser.Scene {
     height: number;
     client: Client;
     gameManager: GameManager;
-    phaserGameUnitPool: PhaserGameUnit[];
+    phaserGameUnitPool: Phaser.GameObjects.GameObject[];
 
     constructor(width: number, height: number, client: Client, gameManager: GameManager) {
         const config: Phaser.Types.Scenes.SettingsConfig = {
@@ -40,6 +55,13 @@ export default class GameScene extends Phaser.Scene {
             sceneKey: "rexBoard",
         });
         this.load.image("fighter", Fighter);
+        this.load.image("enemyFighter", EnemyFighter);
+        this.load.image("speeder", Speeder);
+        this.load.image("enemySpeeder", EnemySpeeder);
+        this.load.image("destroyer", Destroyer);
+        this.load.image("enemyDestroyer", EnemyDestroyer);
+        this.load.image("mainbase", MainBase);
+        this.load.image("enemyMainbase", EnemyMainBase);
     }
 
     create() {
@@ -47,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
             grid: this.getHexagonGrid(this),
             width: this.width,
             height: this.height,
-            wrap: true,
+            wrap: false,
         };
         this.board = new GameBoard(this, config);
         this.loadBoardState();
@@ -69,7 +91,7 @@ export default class GameScene extends Phaser.Scene {
         });
         const maxSize = this.board.getWorldSize();
         const minXY = this.board.getWorldCameraOrigin();
-        this.cameraController.camera.setBounds(minXY.x, minXY.y, maxSize.x, maxSize.y);
+        this.cameraController.camera.setBounds(minXY.x, minXY.y, maxSize.x, maxSize.y + 300);
     }
 
     update(time: number, delta: number) {
@@ -80,6 +102,7 @@ export default class GameScene extends Phaser.Scene {
 
     loadBoardState() {
         this.board.removeAllChess(true);
+        this.board.unSelect();
         this.phaserGameUnitPool.forEach((phaserGameUnit) => {
             phaserGameUnit.destroy();
         });
@@ -88,8 +111,20 @@ export default class GameScene extends Phaser.Scene {
             const location = { x: tileXY.x, y: tileXY.y };
             const unit = this.gameManager.getUnitAt(location);
             if (unit) {
-                const phaserUnit: PhaserFighterUnit = new PhaserFighterUnit(this, location, unit);
+                const unitType = unit.name;
+                const phaserUnit: PhaserGameUnit =
+                    unitType == FighterUnit.prototype.constructor.name
+                        ? new PhaserFighterUnit(this, location, unit)
+                        : unitType == SpeederUnit.prototype.constructor.name
+                        ? new PhaserSpeederUnit(this, location, unit)
+                        : unitType == DestroyerUnit.prototype.constructor.name
+                        ? new PhaserDestroyerUnit(this, location, unit)
+                        : unitType == MainBaseUnit.prototype.constructor.name
+                        ? new PhaserMainBaseUnit(this, location, unit)
+                        : null;
+                const unitHealthBar: HealthBar = new HealthBar(this, phaserUnit);
                 this.phaserGameUnitPool.push(phaserUnit);
+                this.phaserGameUnitPool.push(unitHealthBar.bar);
             }
         }, this);
     }
@@ -109,5 +144,9 @@ export default class GameScene extends Phaser.Scene {
 
     static getSceneName(): string {
         return "GameScene";
+    }
+
+    getBoard() {
+        return this.board;
     }
 }

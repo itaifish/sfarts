@@ -1,4 +1,5 @@
 enum MessageEnum {
+    CREATE_ACCOUNT = "create",
     LOGIN = "login",
     DISCONNECT = "disconnect", // Reserved namespace
     ERROR = "error", // Reserved namespace
@@ -10,6 +11,10 @@ enum MessageEnum {
     PLAYER_INPUT = "player input",
     END_TURN_SIGNAL = "end turn? maybe idk dude",
     GET_TIME_REMAINING = "how much time is remaining bro",
+    RESET_PLAYER_MOVES = "undo that shit bro i fucked up",
+    CONCEDE = "i give in!!!!",
+    GAME_HAS_ENDED = "game over gg wp no re",
+    GET_SERVER_STATS = "server stats",
 }
 
 export default MessageEnum;

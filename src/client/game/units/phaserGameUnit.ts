@@ -1,6 +1,7 @@
 import Phaser from "phaser";
 import GameScene from "../scene/gameScene";
 import GameUnit from "../../../shared/game/units/gameUnit";
+import log, { LOG_LEVEL } from "../../../shared/utility/logger";
 
 export default class PhaserGameUnit extends Phaser.GameObjects.Image {
     moveTo: any;
