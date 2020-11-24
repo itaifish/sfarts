@@ -21,8 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/game/manager/gameManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/game/GameComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/game/GameComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/game/GameComponent.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/game/GameComponent.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

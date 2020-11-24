@@ -32,6 +32,11 @@ class GameComponent extends React.Component {
         this.updateEndTurn = this.updateEndTurn.bind(this);
         this.updateEndTurn();
     }
+    componentDidMount() {
+        setTimeout(() => {
+            window.dispatchEvent(new Event("resize"));
+        }, 3000);
+    }
     updateEndTurn() {
         this.props.client.addOnServerMessageCallback(messageEnum_1.default.END_TURN_SIGNAL, () => {
             this.setState({ hasEndedTurn: false });
