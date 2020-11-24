@@ -45,7 +45,9 @@ class LoginForm extends React.Component {
         }
     }
     render() {
-        return (React.createElement("form", null,
+        return (React.createElement("form", { onSubmit: (event) => {
+                event.preventDefault();
+            } },
             React.createElement("div", { className: "form-group" },
                 React.createElement("label", { htmlFor: "usernameInput" }, "Username"),
                 React.createElement("input", { type: "text", className: "form-control", id: "usernameInput", "aria-describedby": "usernameHelp", placeholder: "Enter username", value: this.state.username, onChange: (event) => {

@@ -21,7 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server/server.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/server/server.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/1.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/bundle/1.bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/bundle/bundle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/serverDist/src/frontend/index.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/serverDist/src/frontend/index.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/login/LoginForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/login/LoginForm.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
