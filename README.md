@@ -28,22 +28,35 @@ Welcome to team Kia's final project for COMP 426 in the Fall of 2020. Head to ht
   5. Ammo Remaining: The amount of attacks this unit can make before it must reload (units reload at the start of every turn). Currently, all units have 1 ammo.
   
   ## Selecting Units
-    Left-click a unit to select it and right-click to deselect.
+    
+   Left-click a unit to select it and right-click to deselect.
   
   ## Combat
-    Units may attack and then move but they may not move before attacking. To attack, select the unit you wish to attack with and press "A." If there are any enemy units in range, they will be highlighted in red. Simply click the target to inflict damage. It is important to remember that this is just a preview of the actions that take place when the turn ends, combat and movement do not actually resolve until both players end their turn.
+    
+  Units may attack and then move but they may not move before attacking. To attack, select the unit you wish to attack with and press "A." If there are any enemy units in
+  range, they will be highlighted in red. Simply click the target to inflict damage. It is important to remember that this is just a preview of the actions that take place
+  when the turn ends, combat and movement do not actually resolve until both players end their turn.
     
   ## Movement
-    To move a unit, select it, and move your mouse to its desired destination. If your unit has enough energy remaining to reach it, the projected route will appear, and you just need to click the destination to move. Again, it is important to remember that this is just a preview of the actions that take place when the turn ends, combat and movement do not actually resolve until both players end their turn.
+  
+   To move a unit, select it, and move your mouse to its desired destination. If your unit has enough energy remaining to reach it, the projected route will appear, and you
+   just need to click the destination to move. Again, it is important to remember that this is just a preview of the actions that take place when the turn ends, combat and
+   movement do not actually resolve until both players end their turn.
     
   ## Reset Moves
-    If you change your mind, or make a move by mistake, you may click "Reset Moves" at the top of the screen. This returns the game to how it appeared at the beggining of the turn and you may issue your orders again.
+  
+   If you change your mind, or make a move by mistake, you may click "Reset Moves" at the top of the screen. This returns the game to how it appeared at the beggining of the
+   turn and you may issue your orders again.
     
   ## End Turn
-    When you are finished, select "End Turn" at the top of the screen, next to "Reset Moves." When both players have ended their turns, all combat and movement is resolved. If a Main Base is destroyed, the game ends.
+  
+   When you are finished, select "End Turn" at the top of the screen, next to "Reset Moves." When both players have ended their turns, all combat and movement is resolved.
+   If a Main Base is destroyed, the game ends.
     
   ## Winning The Game
-    The game is won, when a player reduces the health of the opponent's main base to zero or when one player concedes. To concede, press the red buttom at the top of the screen next to "Reset Moves," labeled "Concede."
+    
+   The game is won, when a player reduces the health of the opponent's main base to zero or when one player concedes. To concede, press the red buttom at the top of the
+   screen next to "Reset Moves," labeled "Concede."
 
 We hope you enjoy TBSFARTS!
 
