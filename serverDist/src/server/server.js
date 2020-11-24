@@ -280,6 +280,9 @@ class Server {
     }
 }
 const runServer = () => {
+    process.on("uncaughtException", function (err) {
+        logger_1.default(`Caught exception: ${err.message}`);
+    });
     const server = new Server();
     server.listen();
 };
