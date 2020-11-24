@@ -1,7 +1,0 @@
-{
-    "fighter": {
-        "moveSpeed": 3,
-        "health": 50,
-        "damage": 5
-    }
-}

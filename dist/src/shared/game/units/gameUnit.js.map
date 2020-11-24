@@ -1,1 +1,0 @@
-{"version":3,"file":"gameUnit.js","sourceRoot":"","sources":["../../../../../src/shared/game/units/gameUnit.ts"],"names":[],"mappings":";;AAKA,MAAqB,QAAQ;IAMzB,YAAY,UAAkB,EAAE,SAAoB,EAAE,YAAiC,EAAE,QAAkB;QACvG,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC;QAC3B,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;QAC7B,IAAI,CAAC,YAAY,GAAG,YAAY,CAAC;QACjC,IAAI,CAAC,QAAQ,GAAG,QAAQ,CAAC;IAC7B,CAAC;CACJ;AAZD,2BAYC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"phaserGameUnit.js","sourceRoot":"","sources":["../../../../../src/client/game/units/phaserGameUnit.ts"],"names":[],"mappings":";;;;;AAAA,oDAA4B;AAE5B,MAAqB,cAAe,SAAQ,gBAAM,CAAC,WAAW,CAAC,MAAM;IACjE,YAAY,KAAmB,EAAE,CAAS,EAAE,CAAS,EAAE,OAAyC;QAC5F,KAAK,CAAC,KAAK,EAAE,CAAC,EAAE,CAAC,EAAE,OAAO,CAAC,CAAC;IAChC,CAAC;CACJ;AAJD,iCAIC"}

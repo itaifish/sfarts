@@ -1,1 +1,0 @@
-{"version":3,"file":"figherUnit.js","sourceRoot":"","sources":["../../../../../src/shared/game/units/figherUnit.ts"],"names":[],"mappings":";;;;;AAAA,0DAAkC;AAClC,sEAAyC;AACzC,yDAA0D;AAG1D,MAAqB,WAAY,SAAQ,kBAAQ;IAC7C,YAAY,UAAkB,EAAE,QAAkB;QAC9C,KAAK,CAAC,UAAU,EAAE,wBAAS,CAAC,OAAO,EAAE,CAAC,iCAAiB,CAAC,MAAM,CAAC,EAAE,QAAQ,CAAC,CAAC;IAC/E,CAAC;CACJ;AAJD,8BAIC"}
