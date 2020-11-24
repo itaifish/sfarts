@@ -1,0 +1,45 @@
+body {
+    color: white;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 24px;
+    /* text-shadow: 4px 4px 4px #aaa; */
+    background-image: url("stars3.gif");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+}
+
+h1 {
+    color: white;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 24px;
+    text-shadow: 4px 4px 4px #aaa;
+    text-align: center;
+}
+
+p {
+    color: black;
+}
+
+tr {
+    color: black;
+    font-family: "Lucida Console", Monaco, monospace;
+}
+
+tr:hover {
+    color: rgb(179, 179, 179);
+}
+
+form {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    color: black;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+}
