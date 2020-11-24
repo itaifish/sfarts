@@ -23,7 +23,13 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
     componentDidMount() {
         setTimeout(() => {
             window.dispatchEvent(new Event("resize"));
+        }, 1_000);
+        setTimeout(() => {
+            window.dispatchEvent(new Event("resize"));
         }, 3_000);
+        setTimeout(() => {
+            window.dispatchEvent(new Event("resize"));
+        }, 10_000);
     }
 
     updateEndTurn() {
