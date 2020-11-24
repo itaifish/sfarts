@@ -13,6 +13,7 @@ export interface GameComponentState {
 }
 
 class GameComponent extends React.Component<GameComponentProps, GameComponentState> {
+    private fullscreenModal: React.RefObject<any>;
     constructor(props: GameComponentProps) {
         super(props);
         this.state = { hasEndedTurn: false };
@@ -23,13 +24,8 @@ class GameComponent extends React.Component<GameComponentProps, GameComponentSta
     componentDidMount() {
         setTimeout(() => {
             window.dispatchEvent(new Event("resize"));
-        }, 1_000);
-        setTimeout(() => {
-            window.dispatchEvent(new Event("resize"));
-        }, 3_000);
-        setTimeout(() => {
-            window.dispatchEvent(new Event("resize"));
-        }, 10_000);
+            document.body.requestFullscreen();
+        }, 2_000);
     }
 
     updateEndTurn() {

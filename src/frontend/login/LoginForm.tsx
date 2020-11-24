@@ -38,7 +38,11 @@ class LoginForm extends React.Component<LoginFormProps, LoginFormState> {
 
     render() {
         return (
-            <form>
+            <form
+                onSubmit={(event) => {
+                    event.preventDefault();
+                }}
+            >
                 <div className="form-group">
                     <label htmlFor="usernameInput">Username</label>
                     <input

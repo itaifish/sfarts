@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="" />
+    <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/process.json" beforeDir="false" afterPath="$PROJECT_DIR$/process.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,18 +56,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
+      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\manager" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\frontend" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\move" />
       <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts" />
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\units" />
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\shared\game\units" />
-      <recent name="C:\Users\Itai\Desktop\Programming\Comp426RTS\sfarts\src\client\game\scene" />
     </key>
   </component>
   <component name="RunManager">
