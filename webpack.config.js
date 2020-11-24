@@ -38,6 +38,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/frontend/index.html",
+            favicon: "./src/client/resources/images/fighter.png",
             minify: {
                 removeAttributeQuotes: true,
                 collapseWhitespace: true,
