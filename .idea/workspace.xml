@@ -20,8 +20,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f372433-b9f7-4b47-85c0-9aff2df25de9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/1.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/destroyer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemydestroyer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemyfighter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/enemyspeeder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/fighter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/mainbase.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/mainbaseenemy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/speeder.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/assets/uiselector.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/fighter.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/bundle/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontend/game/GameComponent.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

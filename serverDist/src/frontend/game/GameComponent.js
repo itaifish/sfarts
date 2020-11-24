@@ -35,13 +35,8 @@ class GameComponent extends React.Component {
     componentDidMount() {
         setTimeout(() => {
             window.dispatchEvent(new Event("resize"));
-        }, 1000);
-        setTimeout(() => {
-            window.dispatchEvent(new Event("resize"));
-        }, 3000);
-        setTimeout(() => {
-            window.dispatchEvent(new Event("resize"));
-        }, 10000);
+            document.body.requestFullscreen();
+        }, 2000);
     }
     updateEndTurn() {
         this.props.client.addOnServerMessageCallback(messageEnum_1.default.END_TURN_SIGNAL, () => {
