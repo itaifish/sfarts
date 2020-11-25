@@ -7,18 +7,20 @@ Welcome to team Kia's final project for COMP 426 in the Fall of 2020. Head to ht
   Enter a username and password, click create account, and log in. Simple stuff!
 
 ## Joining or Creating a Lobby
-  Create a lobby by using the interface in the bottom left of the screen; name your lobby and select the map you wish to play on. Created lobbies will appear in a list in the center of the screen. After your opponent has joined the lobby, "Players" will be 2/2 and you can start get started. Only the lobby manager, usually the one who originially created the lobby, may start the game. 
+  Create a lobby by using the interface in the bottom left of the screen; name your lobby and select the map you wish to play on. Created lobbies will appear in a list in the center of the screen. After your opponent has joined the lobby, "Players" will be 2/2 and you can get started. Only the lobby manager, usually the one who originally created the lobby, may start the game. 
   
  # How To Play
  
+ Note: Due to a small bug in the game engine, you must resize the window in ANY way before clicks will register. It is recommended to press f11 to go to full-screen.
+ 
  ## Turns
-  In TBSFARTS turns are taken simultaneously. When both players have commited their orders to their units, the orders of both sides are executed at the same time, and if neither player wins, the next turn begins.
+  In TBSFARTS turns are taken simultaneously. When both players have committed their orders to their units, the orders of both sides are executed at the same time, and if neither player wins, the next turn begins.
   
  ## Units
   Currently, TBSFARTS features three kinds of units: 
   1. Destroyer - A mighty, but slow-moving capital ship.
   2. Fighter - A mid-range unit that strikes the balance between firepower and speed.
-  3. Speeder - A fragile, but fast-moving unit, capable of outmanuvering the enemy.
+  3. Speeder - A fragile, but fast-moving unit, capable of outmaneuvering the enemy.
   
   Stats - every unit has 5 stats. Select a Unit to see it's stats
   1. Energy: The amount of tiles a unit can move before it has to recharge (units recharge at the start of every turn). This is also displayed in a yellow bar above the unit.
@@ -41,11 +43,11 @@ Welcome to team Kia's final project for COMP 426 in the Fall of 2020. Head to ht
   
    To move a unit, select it, and move your mouse to its desired destination. If your unit has enough energy remaining to reach it, the projected route will appear, and you
    just need to click the destination to move. Again, it is important to remember that this is just a preview of the actions that take place when the turn ends, combat and
-   movement do not actually resolve until both players end their turn.
+   movement does not actually resolve until both players end their turn.
     
   ## Reset Moves
   
-   If you change your mind, or make a move by mistake, you may click "Reset Moves" at the top of the screen. This returns the game to how it appeared at the beggining of the
+   If you change your mind, or make a move by mistake, you may click "Reset Moves" at the top of the screen. This returns the game to how it appeared at the beginning of the
    turn and you may issue your orders again.
     
   ## End Turn
@@ -55,11 +57,12 @@ Welcome to team Kia's final project for COMP 426 in the Fall of 2020. Head to ht
     
   ## Winning The Game
     
-   The game is won, when a player reduces the health of the opponent's main base to zero or when one player concedes. To concede, press the red buttom at the top of the
+   The game is won, when a player reduces the health of the opponent's main base to zero or when one player concedes. To concede, press the red button at the top of the
    screen next to "Reset Moves," labeled "Concede."
 
 We hope you enjoy TBSFARTS!
 
 images from https://millionthvector.blogspot.com/p/free-sprites.html
+
 
 
