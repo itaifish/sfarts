@@ -5,7 +5,6 @@ import SpeederUnit from "../../../shared/game/units/speederUnit";
 
 export default class PhaserSpeederUnit extends PhaserGameUnit {
     constructor(scene: GameScene, location: Location, speederUnit: SpeederUnit) {
-        const isMine = speederUnit.controller == scene.client.userId;
-        super(scene, location.x, location.y, isMine ? "speeder" : "enemySpeeder", speederUnit);
+        super(scene, location.x, location.y, speederUnit);
     }
 }

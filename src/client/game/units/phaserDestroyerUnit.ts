@@ -5,7 +5,6 @@ import DestroyerUnit from "../../../shared/game/units/destoyerUnit";
 
 export default class PhaserDestroyerUnit extends PhaserGameUnit {
     constructor(scene: GameScene, location: Location, destroyerUnit: DestroyerUnit) {
-        const isMine = destroyerUnit.controller == scene.client.userId;
-        super(scene, location.x, location.y, isMine ? "destroyer" : "enemyDestroyer", destroyerUnit);
+        super(scene, location.x, location.y, destroyerUnit);
     }
 }

@@ -1,14 +1,6 @@
 import Phaser from "phaser";
 import GameBoard, { ActionState } from "../gameBoard";
 import MathUtility from "../../../shared/utility/math";
-import Fighter from "../../resources/images/fighter.png";
-import EnemyFighter from "../../resources/images/enemyfighter.png";
-import Speeder from "../../resources/images/speeder.png";
-import EnemySpeeder from "../../resources/images/enemyspeeder.png";
-import Destroyer from "../../resources/images/destroyer.png";
-import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
-import MainBase from "../../resources/images/mainbase.png";
-import EnemyMainBase from "../../resources/images/mainbaseenemy.png";
 import PhaserFighterUnit from "../units/phaserFighterUnit";
 import Client from "../../client";
 import GameManager from "../../../shared/game/manager/gameManager";
@@ -21,6 +13,7 @@ import DestroyerUnit from "../../../shared/game/units/destoyerUnit";
 import PhaserDestroyerUnit from "../units/phaserDestroyerUnit";
 import MainBaseUnit from "../../../shared/game/units/mainBaseUnit";
 import PhaserMainBaseUnit from "../units/phaserMainBaseUnit";
+import { unitNameToTextureMap } from "../../../shared/game/units/unitStats";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -54,14 +47,13 @@ export default class GameScene extends Phaser.Scene {
             url: "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexboardplugin.min.js",
             sceneKey: "rexBoard",
         });
-        this.load.image("fighter", Fighter);
-        this.load.image("enemyFighter", EnemyFighter);
-        this.load.image("speeder", Speeder);
-        this.load.image("enemySpeeder", EnemySpeeder);
-        this.load.image("destroyer", Destroyer);
-        this.load.image("enemyDestroyer", EnemyDestroyer);
-        this.load.image("mainbase", MainBase);
-        this.load.image("enemyMainbase", EnemyMainBase);
+        Object.keys(unitNameToTextureMap).forEach((unit: string) => {
+            const textures = unitNameToTextureMap[unit];
+            Object.keys(textures).forEach((textureName: "ally" | "enemy") => {
+                const texture = textures[textureName];
+                this.load.image(texture.name, texture.image);
+            });
+        });
     }
 
     create() {

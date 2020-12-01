@@ -2,15 +2,8 @@ import gameBoard from "../gameBoard";
 import PhaserGameUnit from "../units/phaserGameUnit";
 import gameScene from "./gameScene";
 import log from "../../../shared/utility/logger";
-import Fighter from "../../resources/images/fighter.png";
-import EnemyFighter from "../../resources/images/enemyfighter.png";
-import Speeder from "../../resources/images/speeder.png";
-import EnemySpeeder from "../../resources/images/enemyspeeder.png";
-import Destroyer from "../../resources/images/destroyer.png";
-import EnemyDestroyer from "../../resources/images/enemydestroyer.png";
-import MainBase from "../../resources/images/mainbase.png";
-import EnemyMainBase from "../../resources/images/mainbaseenemy.png";
 import uiselector from "../../resources/images/uiselector.png";
+import { unitNameToTextureMap } from "../../../shared/game/units/unitStats";
 export default class UI extends Phaser.Scene {
     width: number;
     height: number;
@@ -41,14 +34,14 @@ export default class UI extends Phaser.Scene {
         this.displayStats = this.displayStats.bind(this);
     }
     preload() {
-        this.load.image("fighter1", Fighter);
-        this.load.image("enemyFighter1", EnemyFighter);
-        this.load.image("speeder1", Speeder);
-        this.load.image("enemySpeeder1", EnemySpeeder);
-        this.load.image("destroyer1", Destroyer);
-        this.load.image("enemyDestroyer1", EnemyDestroyer);
-        this.load.image("mainbase1", MainBase);
-        this.load.image("enemyMainbase1", EnemyMainBase);
+        Object.keys(unitNameToTextureMap).forEach((unit: string) => {
+            const textures = unitNameToTextureMap[unit];
+            Object.keys(textures).forEach((textureName: "ally" | "enemy") => {
+                const texture = textures[textureName];
+                this.load.image(`${texture.name}1`, texture.image);
+            });
+        });
+
         this.load.image("UIbackground", uiselector);
     }
 

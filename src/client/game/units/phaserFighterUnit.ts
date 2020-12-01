@@ -5,7 +5,6 @@ import FighterUnit from "../../../shared/game/units/fighterUnit";
 
 export default class PhaserFighterUnit extends PhaserGameUnit {
     constructor(scene: GameScene, location: Location, fighterUnit: FighterUnit) {
-        const isMine = fighterUnit.controller == scene.client.userId;
-        super(scene, location.x, location.y, isMine ? "fighter" : "enemyFighter", fighterUnit);
+        super(scene, location.x, location.y, fighterUnit);
     }
 }
