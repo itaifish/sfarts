@@ -3,7 +3,7 @@ import PhaserGameUnit from "../units/phaserGameUnit";
 import gameScene from "./gameScene";
 import log from "../../../shared/utility/logger";
 import uiselector from "../../resources/images/uiselector.png";
-import { unitNameToTextureMap } from "../../../shared/game/units/unitStats";
+import { unitNameToTextureMap } from "../units/unitImageMap";
 export default class UI extends Phaser.Scene {
     width: number;
     height: number;

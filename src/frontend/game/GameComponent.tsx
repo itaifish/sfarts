@@ -13,7 +13,6 @@ export interface GameComponentState {
 }
 
 class GameComponent extends React.Component<GameComponentProps, GameComponentState> {
-    private fullscreenModal: React.RefObject<any>;
     constructor(props: GameComponentProps) {
         super(props);
         this.state = { hasEndedTurn: false };

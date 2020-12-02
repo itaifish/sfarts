@@ -5,6 +5,7 @@ import log, { LOG_LEVEL } from "../../utility/logger";
 import SpeederUnit from "../units/speederUnit";
 import DestroyerUnit from "../units/destoyerUnit";
 import MainBaseUnit from "../units/mainBaseUnit";
+import MedfighterUnit from "../units/medfighterUnit";
 
 export default class MapManager {
     private static unitToString = {
@@ -12,6 +13,7 @@ export default class MapManager {
         [SpeederUnit.prototype.constructor.name]: "s",
         [DestroyerUnit.prototype.constructor.name]: "d",
         [MainBaseUnit.prototype.constructor.name]: "b",
+        [MedfighterUnit.prototype.constructor.name]: "m",
         null: "n",
     };
     // eslint-disable-next-line @typescript-eslint/ban-types
@@ -22,6 +24,7 @@ export default class MapManager {
         s: (controller: number, team: string, location: Location) => new SpeederUnit(controller, team, location),
         d: (controller: number, team: string, location: Location) => new DestroyerUnit(controller, team, location),
         b: (controller: number, team: string, location: Location) => new MainBaseUnit(controller, team, location),
+        m: (controller: number, team: string, location: Location) => new MedfighterUnit(controller, team, location),
         n: null,
     };
 
@@ -31,7 +34,7 @@ export default class MapManager {
             "n n n n n n n n n n n n n n n " +
             "f0 s0 f0 n n n n n n n n n n n n " +
             "n n n n n n n n n f1 s1 f1 n n n " +
-            "b0 n n d0 n n n n n n d1 n n n b1 " +
+            "b0 m0 n d0 n n n n n n d1 n n m1 b1 " +
             "n n n n n n n n n n n n n n n " +
             "f0 s0 f0 n n n n n n n n n n n n " +
             "n n n n n n n n n f1 s1 f1 n n n " +

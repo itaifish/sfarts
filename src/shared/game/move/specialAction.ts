@@ -1,9 +1,9 @@
 import GameUnit from "../units/gameUnit";
-import Location from "../location";
 import MoveAction from "./moveAction";
 
 export enum SpecialActionName {
     ATTACK,
+    HEAL,
 }
 
 export default interface SpecialAction extends MoveAction {

@@ -13,7 +13,7 @@ import DestroyerUnit from "../../../shared/game/units/destoyerUnit";
 import PhaserDestroyerUnit from "../units/phaserDestroyerUnit";
 import MainBaseUnit from "../../../shared/game/units/mainBaseUnit";
 import PhaserMainBaseUnit from "../units/phaserMainBaseUnit";
-import { unitNameToTextureMap } from "../../../shared/game/units/unitStats";
+import { unitNameToTextureMap } from "../units/unitImageMap";
 
 export default class GameScene extends Phaser.Scene {
     board: any;
@@ -104,16 +104,7 @@ export default class GameScene extends Phaser.Scene {
             const unit = this.gameManager.getUnitAt(location);
             if (unit) {
                 const unitType = unit.name;
-                const phaserUnit: PhaserGameUnit =
-                    unitType == FighterUnit.prototype.constructor.name
-                        ? new PhaserFighterUnit(this, location, unit)
-                        : unitType == SpeederUnit.prototype.constructor.name
-                        ? new PhaserSpeederUnit(this, location, unit)
-                        : unitType == DestroyerUnit.prototype.constructor.name
-                        ? new PhaserDestroyerUnit(this, location, unit)
-                        : unitType == MainBaseUnit.prototype.constructor.name
-                        ? new PhaserMainBaseUnit(this, location, unit)
-                        : null;
+                const phaserUnit: PhaserGameUnit = new PhaserGameUnit(this, location.x, location.y, unit);
                 const unitHealthBar: HealthBar = new HealthBar(this, phaserUnit);
                 this.phaserGameUnitPool.push(phaserUnit);
                 this.phaserGameUnitPool.push(unitHealthBar.bar);
